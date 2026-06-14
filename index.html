@@ -20,12 +20,13 @@ body{background:var(--paper-deep);font-family:var(--font-sans);color:var(--ink);
 label{display:block;font-size:11.5px;font-weight:500;letter-spacing:.02em;color:var(--ink-500);margin:12px 0 5px}
 input,select,textarea{width:100%;font-size:16px;font-family:inherit;color:var(--ink);padding:11px 12px;border:1px solid var(--ink-200);border-radius:7px;background:var(--ink-50);transition:border-color .12s var(--ease),background .12s var(--ease)}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);background:#fff;box-shadow:0 0 0 3px var(--red-50)}
-input[type=date]{max-width:260px}
+input[type=date]{max-width:260px}.short{max-width:220px}
 textarea{min-height:80px;resize:vertical}textarea.long{min-height:200px}
 select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23807C73' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
-.item{border:1px solid var(--ink-100);border-radius:8px;padding:13px;margin-bottom:10px;background:var(--ink-50);position:relative}
-.item .rm{position:absolute;top:8px;right:8px;width:26px;height:26px;border:0;border-radius:6px;background:transparent;color:var(--ink-400);font-size:18px;line-height:1;cursor:pointer}
-.item .rm:hover{background:var(--red-50);color:var(--red)}
+.item{border:1px solid var(--ink-100);border-radius:8px;padding:30px 14px 14px;margin-bottom:10px;background:var(--ink-50);position:relative}
+.item .rm{position:absolute;top:7px;right:8px;width:28px;height:28px;border:0;border-radius:7px;background:#fff;border:1px solid var(--ink-200);color:var(--ink-400);font-size:17px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.item .rm:hover{background:var(--red-50);color:var(--red);border-color:var(--red-50)}
+.item label:first-of-type{margin-top:0}
 .duo{display:flex;gap:12px}.duo>*{flex:1}
 .add{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px dashed var(--ink-300);color:var(--red);font-weight:600;font-size:13px;font-family:inherit;padding:9px 14px;border-radius:7px;cursor:pointer;transition:.12s var(--ease)}
 .add:hover{border-color:var(--red);background:var(--red-50)}
@@ -35,33 +36,53 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
 .btn{flex:1;border:0;border-radius:8px;padding:15px;font-family:var(--font-sans);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.12s var(--ease)}
 .btn.prim{background:var(--red);color:#fff}.btn.prim:hover{background:var(--red-700)}.btn.prim:disabled{opacity:.55;cursor:default}
 .btn.ghost{flex:0 0 auto;background:#fff;color:var(--ink-500);border:1px solid var(--ink-200)}.btn.ghost:hover{border-color:var(--ink-400)}
+.intro{background:#fff;border:1px solid var(--ink-200);border-radius:8px;padding:24px;margin-bottom:14px;box-shadow:0 1px 2px rgba(28,28,27,.04)}
+.intro p{font-size:14px;color:var(--ink-500);line-height:1.6;margin:0 0 14px}.intro ul{margin:0 0 16px;padding-left:18px;color:var(--ink-500);font-size:13.5px;line-height:1.7}
 .foot{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink-200);text-align:center}
-.foot .etude-eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-400)}
-.foot .etude{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:.04em;color:var(--red);margin:6px 0 2px}
+.foot .etude{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:.04em;color:var(--red);margin:0 0 2px}
 .foot .etude-sub{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-400)}
 .foot .conf{font-size:11px;color:var(--ink-400);margin-top:12px;line-height:1.5}
-.done{text-align:center;background:#fff;border:1px solid var(--ink-200);border-radius:12px;padding:48px 24px;margin-top:40px;box-shadow:0 1px 2px rgba(28,28,27,.04)}
-.done .ico{width:64px;height:64px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 18px}
-.done h2{font-family:var(--font-serif);font-size:26px;font-weight:600;margin:0 0 8px}.done p{color:var(--ink-500);font-size:14px;margin:0}.done.bad .ico{background:var(--red)}
-@media(max-width:480px){.duo{flex-direction:column;gap:0}}
+.done{text-align:center;background:#fff;border:1px solid var(--ink-200);border-radius:12px;padding:40px 24px 30px;margin-top:30px;box-shadow:0 1px 2px rgba(28,28,27,.04)}
+.done .ico{width:66px;height:66px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 16px}
+.done h2{font-family:var(--font-serif);font-size:28px;font-weight:600;margin:0 0 6px}.done .sub{color:var(--ink-500);font-size:14px;margin:0 0 6px;line-height:1.5}.done.bad .ico{background:var(--red)}
+.pay{margin-top:24px;border:1px solid var(--red);border-radius:10px;overflow:hidden;text-align:left}
+.pay .pt{background:var(--red-50);padding:13px 16px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red-700);display:flex;align-items:center;gap:8px}
+.pay .pr{display:flex;padding:11px 16px;border-top:1px solid var(--ink-100);gap:14px}
+.pay .pl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-400);width:130px;flex-shrink:0;padding-top:2px}
+.pay .pv{font-size:14px;font-weight:600;color:var(--ink)}.pay .pv.mono{font-family:'JetBrains Mono',monospace;font-weight:500}
+@media(max-width:480px){.duo{flex-direction:column;gap:0}.pay .pr{flex-direction:column;gap:2px}.pay .pl{width:auto}}
 </style></head>
 <body><div class="wrap" id="root"><div class="done"><div class="ico">…</div></div></div>
 <script>
 var FONC="https://mcoryyirdrtzpogiqkbm.supabase.co/functions/v1/d";
 var ETUDE="Charron Boissé Lévesque";
-var I={fr:{eyebrow:"Déclaration sous serment",titre:"Déclaration d'actifs",soustitre:"Conformément à l'article 684 C.P.C. Vos réponses sont transmises de façon sécurisée à l'étude.",identite:"Identité",nom:"Nom et prénom",naiss:"Date de naissance",adresse:"Adresse complète",coord:"Coordonnées",tels:"Téléphones",courriels:"Courriels",emploi:"Emploi",situation:"Situation d'emploi",employeurs:"Employeurs",logement:"Logement et comptes",residence:"Résidence principale",comptes:"Comptes bancaires",notes:"Notes",notesPh:"Ajoutez ici toute précision utile (biens, véhicules, autres revenus, remarques…).",ajTel:"Ajouter un téléphone",ajMail:"Ajouter un courriel",ajEmp:"Ajouter un employeur",ajCpt:"Ajouter un compte",numero:"Numéro",courriel:"Courriel",nomEmp:"Nom de l'employeur",adr:"Adresse",tel:"Téléphone",inst:"Institution",succ:"Adresse de la succursale",etape:"Étape",sur:"sur",prec:"Précédent",suiv:"Suivant",envoyer:"Envoyer ma déclaration",merci:"Merci ! Votre déclaration a été transmise à l'étude.",invalide:"Ce lien n'est plus valide (expiré ou déjà utilisé). Veuillez contacter l'étude.",conf:"Vos informations sont confidentielles et transmises uniquement à votre étude d'huissiers de justice.",salarie:"Salarié",autonome:"Travailleur autonome",autre:"Autre",proprio:"Propriétaire",locataire:"Locataire",cell:"Cellulaire",res:"Résidence",trav:"Travail",envoi:"Envoi en cours…",huissiers:"Huissiers de justice"},
-en:{eyebrow:"Sworn statement",titre:"Statement of assets",soustitre:"Pursuant to article 684 C.C.P. Your answers are sent securely to the office.",identite:"Identity",nom:"Full name",naiss:"Date of birth",adresse:"Full address",coord:"Contact",tels:"Phone numbers",courriels:"Emails",emploi:"Employment",situation:"Employment status",employeurs:"Employers",logement:"Housing & accounts",residence:"Primary residence",comptes:"Bank accounts",notes:"Notes",notesPh:"Add any useful details (assets, vehicles, other income, remarks…).",ajTel:"Add a phone",ajMail:"Add an email",ajEmp:"Add an employer",ajCpt:"Add an account",numero:"Number",courriel:"Email",nomEmp:"Employer name",adr:"Address",tel:"Phone",inst:"Institution",succ:"Branch address",etape:"Step",sur:"of",prec:"Back",suiv:"Next",envoyer:"Submit my statement",merci:"Thank you! Your statement has been sent to the office.",invalide:"This link is no longer valid (expired or already used). Please contact the office.",conf:"Your information is confidential and sent only to your bailiff office.",salarie:"Employee",autonome:"Self-employed",autre:"Other",proprio:"Owner",locataire:"Tenant",cell:"Mobile",res:"Home",trav:"Work",envoi:"Sending…",huissiers:"Bailiffs"},
-es:{eyebrow:"Declaración jurada",titre:"Declaración de activos",soustitre:"Conforme al artículo 684 C.P.C. Sus respuestas se envían de forma segura a la oficina.",identite:"Identidad",nom:"Nombre completo",naiss:"Fecha de nacimiento",adresse:"Dirección completa",coord:"Contacto",tels:"Teléfonos",courriels:"Correos",emploi:"Empleo",situation:"Situación laboral",employeurs:"Empleadores",logement:"Vivienda y cuentas",residence:"Residencia principal",comptes:"Cuentas bancarias",notes:"Notas",notesPh:"Agregue cualquier detalle útil (bienes, vehículos, otros ingresos, observaciones…).",ajTel:"Añadir teléfono",ajMail:"Añadir correo",ajEmp:"Añadir empleador",ajCpt:"Añadir cuenta",numero:"Número",courriel:"Correo",nomEmp:"Nombre del empleador",adr:"Dirección",tel:"Teléfono",inst:"Institución",succ:"Dirección de la sucursal",etape:"Paso",sur:"de",prec:"Atrás",suiv:"Siguiente",envoyer:"Enviar mi declaración",merci:"¡Gracias! Su declaración fue enviada a la oficina.",invalide:"Este enlace ya no es válido (caducado o utilizado). Contacte a la oficina.",conf:"Su información es confidencial y se envía únicamente a su oficina de alguaciles.",salarie:"Asalariado",autonome:"Autónomo",autre:"Otro",proprio:"Propietario",locataire:"Inquilino",cell:"Celular",res:"Residencia",trav:"Trabajo",envoi:"Enviando…",huissiers:"Alguaciles"}};
+var PAY_DEST="CBL Huissiers de justice (Charron Boissé Lévesque)";
+var PAY_MAIL="paiementcbl@huissier.qc.ca";
+var PAY_REP="interac";
+var I={fr:{eyebrow:"Déclaration sous serment",titre:"Déclaration d'actifs",soustitre:"Conformément à l'article 684 C.P.C.",introT:"Avant de commencer",intro1:"Vous avez conclu une entente de paiement avec notre étude. Cette déclaration d'actifs (art. 684 C.P.C.) permet de finaliser votre dossier.",introLi:["Prévoyez environ 5 minutes.","Remplissez en plusieurs étapes — vous pouvez ajouter plusieurs téléphones, courriels, employeurs et comptes.","Vos réponses sont confidentielles et transmises uniquement à l'étude."],commencer:"Commencer",identite:"Identité",nom:"Nom et prénom",naiss:"Date de naissance",adresse:"Adresse complète",coord:"Coordonnées",tels:"Téléphones",courriels:"Courriels",emploi:"Emploi",situation:"Situation d'emploi",employeurs:"Employeurs",logement:"Logement et comptes",residence:"Résidence principale",comptes:"Comptes bancaires",notes:"Notes",notesPh:"Ajoutez ici toute précision utile (biens, véhicules, autres revenus, remarques…).",ajTel:"Ajouter un téléphone",ajMail:"Ajouter un courriel",ajEmp:"Ajouter un employeur",ajCpt:"Ajouter un compte",numero:"Numéro",poste:"Poste (optionnel)",courriel:"Courriel",nomEmp:"Nom de l'employeur",adr:"Adresse",tel:"Téléphone",inst:"Institution",succ:"Adresse de la succursale",etape:"Étape",sur:"sur",prec:"Précédent",suiv:"Suivant",envoyer:"Envoyer ma déclaration",bravo:"Bravo, c'est fait !",merci:"Votre déclaration d'actifs a été complétée et transmise à l'étude.",paiementIntro:"Voici comment effectuer les paiements convenus avec votre huissier :",titrePaiement:"Comment payer — Virement Interac",payee:"Payable à",huissierDossier:"Huissier au dossier",courrielInterac:"Courriel Interac",message:"Message",reference:"Question / référence",reponse:"Réponse / mot de passe",enMinuscules:"en minuscules",invalide:"Ce lien n'est plus valide (expiré ou déjà utilisé). Veuillez contacter l'étude.",conf:"Vos informations sont confidentielles et transmises uniquement à votre étude d'huissiers de justice.",salarie:"Salarié",autonome:"Travailleur autonome",autre:"Autre",proprio:"Propriétaire",locataire:"Locataire",cell:"Cellulaire",res:"Résidence",trav:"Travail",envoi:"Envoi en cours…",huissiers:"Huissiers de justice"}};
+I.en=I.fr;I.es=I.fr;
 var token=location.hash.replace(/^#/,'').split('&')[0].replace(/^t=/,'');
-var root=document.getElementById('root');
-function invalide(L){root.innerHTML='<div class="done bad"><div class="ico">!</div><p>'+L.invalide+'</p></div>';}
+var root=document.getElementById('root');var DOSSIER={numero:"",huissier:""};
+function invalide(L){root.innerHTML='<div class="done bad"><div class="ico">!</div><p class="sub">'+L.invalide+'</p></div>';}
+function fmtTel(v){var d=(v||'').replace(/\D/g,'').slice(0,10);if(d.length>6)return d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6);if(d.length>3)return d.slice(0,3)+'-'+d.slice(3);return d;}
+document.addEventListener('input',function(e){if(e.target&&e.target.classList&&e.target.classList.contains('telfmt'))e.target.value=fmtTel(e.target.value);});
+function footHtml(L){return '<div class="foot"><div class="etude">'+ETUDE+'</div><div class="etude-sub">'+L.huissiers+'</div><div class="conf">🔒 '+L.conf+'</div></div>';}
 (async function(){
 var L=I.fr;
 try{var info=await (await fetch(FONC+'?t='+encodeURIComponent(token))).json();
-  L=I[info.langue===1?'en':info.langue===2?'es':'fr'];document.documentElement.lang=info.langue===1?'en':info.langue===2?'es':'fr';
-  if(!info.valide){invalide(L);return;}
+  L=I[info.langue===1?'en':info.langue===2?'es':'fr'];if(!info.valide){invalide(L);return;}
+  DOSSIER.numero=info.numero||"";DOSSIER.huissier=info.huissier||"";
 }catch(e){invalide(L);return;}
 document.title=L.titre;
+// ÉCRAN D'INTRODUCTION
+function ecranIntro(){
+ var li='';L.introLi.forEach(function(x){li+='<li>'+x+'</li>';});
+ root.innerHTML='<div class="head"><div class="eyebrow">'+L.eyebrow+'</div><h1>'+L.titre+'</h1><p>'+L.soustitre+'</p></div>'
+ +'<div class="intro"><h2 style="font-family:var(--font-display);font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 12px;color:var(--ink)">'+L.introT+'</h2><p>'+L.intro1+'</p><ul>'+li+'</ul>'
+ +'<button type="button" class="btn prim" id="go" style="width:100%">'+L.commencer+'</button></div>'+footHtml(L);
+ document.getElementById('go').onclick=ecranForm;
+}
+function ecranForm(){
 var steps=[
  {t:L.identite,h:'<div class="card"><h2>'+L.identite+'</h2><label>'+L.nom+'</label><input name="nom_prenom" required><label>'+L.naiss+'</label><input name="date_naissance" type="date"><label>'+L.adresse+'</label><textarea name="adresse_complete"></textarea></div>'},
  {t:L.coord,h:'<div class="card"><h2>'+L.tels+'</h2><div id="tels"></div><button type="button" class="add" id="aTel">＋ '+L.ajTel+'</button></div><div class="card"><h2>'+L.courriels+'</h2><div id="mails"></div><button type="button" class="add" id="aMail">＋ '+L.ajMail+'</button></div>'},
@@ -69,40 +90,52 @@ var steps=[
  {t:L.logement,h:'<div class="card"><h2>'+L.residence+'</h2><select name="residence_principale"><option>'+L.proprio+'</option><option>'+L.locataire+'</option></select></div><div class="card"><h2>'+L.comptes+'</h2><div id="cpts"></div><button type="button" class="add" id="aCpt">＋ '+L.ajCpt+'</button></div>'},
  {t:L.notes,h:'<div class="card"><h2>'+L.notes+'</h2><textarea name="notes" class="long" placeholder="'+L.notesPh+'"></textarea></div>'}
 ];
-var sectionsHtml='';for(var i=0;i<steps.length;i++)sectionsHtml+='<section class="step" data-i="'+i+'">'+steps[i].h+'</section>';
+var sh='';for(var i=0;i<steps.length;i++)sh+='<section class="step">'+steps[i].h+'</section>';
 root.innerHTML='<div class="head"><div class="eyebrow">'+L.eyebrow+'</div><h1>'+L.titre+'</h1><p>'+L.soustitre+'</p></div>'
 +'<div class="prog"><div class="barwrap"><div class="bar" id="bar"></div></div><div class="ptxt" id="ptxt"></div></div>'
-+'<form id="f" autocomplete="on">'+sectionsHtml
-+'<div class="nav"><button type="button" class="btn ghost" id="prev">'+L.prec+'</button><button type="button" class="btn prim" id="next">'+L.suiv+'</button><button type="submit" class="btn prim" id="sb" style="display:none">'+L.envoyer+'</button></div></form>'
-+'<div class="foot"><div class="etude-eyebrow">'+L.eyebrow+'</div><div class="etude">'+ETUDE+'</div><div class="etude-sub">'+L.huissiers+'</div><div class="conf">🔒 '+L.conf+'</div></div>';
++'<form id="f">'+sh+'<div class="nav"><button type="button" class="btn ghost" id="prev">'+L.prec+'</button><button type="button" class="btn prim" id="next">'+L.suiv+'</button><button type="submit" class="btn prim" id="sb" style="display:none">'+L.envoyer+'</button></div></form>'+footHtml(L);
 function rm(el){var b=document.createElement('button');b.type='button';b.className='rm';b.textContent='×';b.onclick=function(){el.remove();};return b;}
 function add(host,inner){var d=document.createElement('div');d.className='item';d.innerHTML=inner;d.appendChild(rm(d));document.getElementById(host).appendChild(d);}
-function telRow(){add('tels','<div class="duo"><select class="tt"><option>'+L.cell+'</option><option>'+L.res+'</option><option>'+L.trav+'</option></select><input class="tn" placeholder="'+L.numero+'"></div>');}
+function telRow(){add('tels','<div class="duo"><select class="tt"><option>'+L.cell+'</option><option>'+L.res+'</option><option>'+L.trav+'</option></select><input class="tn telfmt" inputmode="tel" placeholder="'+L.numero+'"></div><input class="tp short" inputmode="numeric" placeholder="'+L.poste+'" style="margin-top:8px">');}
 function mailRow(){add('mails','<input class="mm" type="email" placeholder="'+L.courriel+'">');}
-function empRow(){add('emps','<label>'+L.nomEmp+'</label><input class="en"><div class="duo"><div><label>'+L.adr+'</label><input class="ea"></div><div><label>'+L.tel+'</label><input class="et"></div></div>');}
-function cptRow(){add('cpts','<label>'+L.inst+'</label><input class="ci"><div class="duo"><div><label>'+L.succ+'</label><input class="cs"></div><div><label>'+L.tel+'</label><input class="ct"></div></div>');}
+function empRow(){add('emps','<label>'+L.nomEmp+'</label><input class="en"><label>'+L.adr+'</label><input class="ea"><div class="duo"><div><label>'+L.tel+'</label><input class="et telfmt" inputmode="tel"></div><div><label>'+L.poste+'</label><input class="ep" inputmode="numeric"></div></div>');}
+function cptRow(){add('cpts','<label>'+L.inst+'</label><input class="ci"><label>'+L.succ+'</label><input class="cs"><div class="duo"><div><label>'+L.tel+'</label><input class="ct telfmt" inputmode="tel"></div><div><label>'+L.poste+'</label><input class="cp" inputmode="numeric"></div></div>');}
 telRow();mailRow();empRow();cptRow();
 document.getElementById('aTel').onclick=telRow;document.getElementById('aMail').onclick=mailRow;
 document.getElementById('aEmp').onclick=empRow;document.getElementById('aCpt').onclick=cptRow;
 var secs=document.querySelectorAll('.step'),cur=0,N=secs.length;
 var bar=document.getElementById('bar'),ptxt=document.getElementById('ptxt'),prev=document.getElementById('prev'),next=document.getElementById('next'),sb=document.getElementById('sb');
-function maj(){for(var i=0;i<N;i++)secs[i].classList.toggle('on',i===cur);
- bar.style.width=((cur+1)/N*100)+'%';ptxt.textContent=L.etape+' '+(cur+1)+' '+L.sur+' '+N+' — '+steps[cur].t;
- prev.style.visibility=cur===0?'hidden':'visible';next.style.display=cur===N-1?'none':'';sb.style.display=cur===N-1?'':'none';
- window.scrollTo({top:0,behavior:'smooth'});}
+function maj(){for(var i=0;i<N;i++)secs[i].classList.toggle('on',i===cur);bar.style.width=((cur+1)/N*100)+'%';ptxt.textContent=L.etape+' '+(cur+1)+' '+L.sur+' '+N+' — '+steps[cur].t;prev.style.visibility=cur===0?'hidden':'visible';next.style.display=cur===N-1?'none':'';sb.style.display=cur===N-1?'':'none';window.scrollTo({top:0,behavior:'smooth'});}
 prev.onclick=function(){if(cur>0){cur--;maj();}};
 next.onclick=function(){if(cur===0){var nm=document.querySelector('[name=nom_prenom]');if(!nm.value.trim()){nm.focus();nm.style.borderColor='#B5232A';return;}}if(cur<N-1){cur++;maj();}};
 maj();
+function avecPoste(num,poste){num=(num||'').trim();poste=(poste||'').trim();return poste?(num+' poste '+poste):num;}
 document.getElementById('f').onsubmit=async function(e){e.preventDefault();sb.disabled=true;sb.textContent=L.envoi;
 var g=function(n){var el=document.querySelector('[name='+n+']');return el?el.value:'';};
-var tels=[];document.querySelectorAll('#tels .item').forEach(function(r){var n=r.querySelector('.tn').value;if(n)tels.push({type:r.querySelector('.tt').value,numero:n});});
+var tels=[];document.querySelectorAll('#tels .item').forEach(function(r){var n=r.querySelector('.tn').value;if(n)tels.push({type:r.querySelector('.tt').value,numero:avecPoste(n,r.querySelector('.tp').value)});});
 var mails=[];document.querySelectorAll('#mails .item .mm').forEach(function(m){if(m.value)mails.push(m.value);});
-var emps=[];document.querySelectorAll('#emps .item').forEach(function(r){var n=r.querySelector('.en').value,a=r.querySelector('.ea').value,t=r.querySelector('.et').value;if(n||a||t)emps.push({nom:n,adresse:a,telephone:t});});
-var cpts=[];document.querySelectorAll('#cpts .item').forEach(function(r){var i2=r.querySelector('.ci').value,s=r.querySelector('.cs').value,t=r.querySelector('.ct').value;if(i2||s||t)cpts.push({institution:i2,adresse_succursale:s,telephone:t});});
+var emps=[];document.querySelectorAll('#emps .item').forEach(function(r){var n=r.querySelector('.en').value,a=r.querySelector('.ea').value,t=r.querySelector('.et').value,p=r.querySelector('.ep').value;if(n||a||t)emps.push({nom:n,adresse:a,telephone:avecPoste(t,p)});});
+var cpts=[];document.querySelectorAll('#cpts .item').forEach(function(r){var i2=r.querySelector('.ci').value,s=r.querySelector('.cs').value,t=r.querySelector('.ct').value,p=r.querySelector('.cp').value;if(i2||s||t)cpts.push({institution:i2,adresse_succursale:s,telephone:avecPoste(t,p)});});
 var data={token:token,nom_prenom:g('nom_prenom'),date_naissance:g('date_naissance'),adresse_complete:g('adresse_complete'),situation_emploi:g('situation_emploi'),residence_principale:g('residence_principale'),notes:g('notes'),telephones:tels,courriels:mails,employeurs:emps,comptes:cpts};
 try{var rep=await fetch(FONC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-if(rep.ok){root.innerHTML='<div class="done"><div class="ico">✓</div><h2></h2><p>'+L.merci+'</p><div class="foot" style="border:0;margin-top:24px"><div class="etude">'+ETUDE+'</div><div class="etude-sub">'+L.huissiers+'</div></div></div>';window.scrollTo(0,0);}
-else{sb.disabled=false;sb.textContent=L.envoyer;invalide(L);}}
+if(rep.ok){ecranMerci();}else{sb.disabled=false;sb.textContent=L.envoyer;invalide(L);}}
 catch(x){sb.disabled=false;sb.textContent=L.envoyer;}};
+}
+function pr(l,v,mono){return '<div class="pr"><div class="pl">'+l+'</div><div class="pv'+(mono?' mono':'')+'">'+v+'</div></div>';}
+function ecranMerci(){
+var msg="ENTENTE DE PAIEMENT - "+DOSSIER.numero;
+var bloc='<div class="pay"><div class="pt">🏦 '+L.titrePaiement+'</div>'
++pr(L.payee,PAY_DEST)
++(DOSSIER.huissier?pr(L.huissierDossier,DOSSIER.huissier):'')
++pr(L.courrielInterac,PAY_MAIL,true)
++pr(L.message,msg)
++pr(L.reference,DOSSIER.numero,true)
++pr(L.reponse,PAY_REP+' <span style="color:var(--ink-400);font-weight:400">('+L.enMinuscules+')</span>')
++'</div>';
+root.innerHTML='<div class="done"><div class="ico">✓</div><h2>'+L.bravo+'</h2><p class="sub">'+L.merci+'</p><p class="sub">'+L.paiementIntro+'</p>'+bloc+'</div>'
++'<div class="foot"><div class="etude">'+ETUDE+'</div><div class="etude-sub">'+L.huissiers+'</div></div>';
+window.scrollTo(0,0);
+}
+ecranIntro();
 })();
 </script></body></html>
