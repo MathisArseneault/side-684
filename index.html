@@ -64,7 +64,7 @@ var root=document.getElementById('root');var DOSSIER={numero:"",huissier:""};
 function invalide(){var msg=L.invalideBase+' '+L.invalideTel;msg+=DOSSIER.numero?(' '+L.invalideDoss+' '+DOSSIER.numero+'.'):'.';root.innerHTML='<div class="done bad"><div class="ico">!</div><p class="sub">'+msg+'</p></div>';}
 function fmtTel(v){var d=(v||'').replace(/\D/g,'').slice(0,10);if(d.length>6)return d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6);if(d.length>3)return d.slice(0,3)+'-'+d.slice(3);return d;}
 document.addEventListener('input',function(e){if(e.target&&e.target.classList&&e.target.classList.contains('telfmt'))e.target.value=fmtTel(e.target.value);});
-function footHtml(){return '<div class="foot"><div class="etude">'+ETUDE+'</div><div class="etude-sub">'+L.huissiers+'</div><div class="conf">🔒 '+L.conf+'</div></div>';}
+function footHtml(){return '<div class="foot"><div class="etude">'+ETUDE+'</div><div class="etude-sub">'+L.huissiers+'</div><div class="conf">'+L.conf+'</div></div>';}
 function avecPoste(num,poste){num=(num||'').trim();poste=(poste||'').trim();return poste?(num+' poste '+poste):num;}
 (async function(){
 try{var info=await (await fetch(FONC+'?t='+encodeURIComponent(token))).json();
