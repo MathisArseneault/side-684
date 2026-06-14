@@ -6,43 +6,54 @@
 <style>
 :root{--red:#B5232A;--red-700:#7C141A;--red-50:#FBF1F1;--ink:#1C1C1B;--ink-500:#56544E;--ink-400:#807C73;--ink-300:#B7B3A9;--ink-200:#DAD7D0;--ink-100:#EFEDE8;--ink-50:#F9F8F6;--paper:#FAF8F4;--paper-deep:#EAE6DD;--green:#1F7A4D;--font-display:'Cinzel',Georgia,serif;--font-serif:'Cormorant Garamond',Georgia,serif;--font-sans:'Inter',-apple-system,Segoe UI,sans-serif;--ease:cubic-bezier(.22,1,.36,1)}
 *,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}
-body{background:var(--paper-deep);font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased;padding:0 16px 60px}
-.wrap{max-width:600px;margin:0 auto}
-.head{padding:30px 4px 16px;border-bottom:2px solid var(--red);margin-bottom:22px}
+body{background:var(--paper-deep);font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased;padding:0 16px 40px}
+.wrap{max-width:720px;margin:0 auto}
+.head{padding:30px 4px 16px;border-bottom:2px solid var(--red);margin-bottom:18px}
 .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
-.head h1{font-family:var(--font-serif);font-weight:600;font-size:30px;letter-spacing:-.02em;margin:6px 0 8px;line-height:1.05}
+.head h1{font-family:var(--font-serif);font-weight:600;font-size:32px;letter-spacing:-.02em;margin:6px 0 8px;line-height:1.05}
 .head p{font-size:13.5px;color:var(--ink-500);margin:0;line-height:1.5}
-.card{background:#fff;border:1px solid var(--ink-200);border-radius:8px;padding:20px;margin-bottom:14px;box-shadow:0 1px 2px rgba(28,28,27,.04)}
-.card>h2{font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--ink-100)}
+.prog{margin:0 4px 18px}.barwrap{height:5px;background:var(--ink-200);border-radius:3px;overflow:hidden}
+.bar{height:100%;width:20%;background:var(--red);border-radius:3px;transition:width .3s var(--ease)}
+.ptxt{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-400);margin-top:8px}
+.card{background:#fff;border:1px solid var(--ink-200);border-radius:8px;padding:22px;margin-bottom:14px;box-shadow:0 1px 2px rgba(28,28,27,.04)}
+.card>h2{font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin:0 0 16px;padding-bottom:11px;border-bottom:1px solid var(--ink-100)}
 label{display:block;font-size:11.5px;font-weight:500;letter-spacing:.02em;color:var(--ink-500);margin:12px 0 5px}
 input,select,textarea{width:100%;font-size:16px;font-family:inherit;color:var(--ink);padding:11px 12px;border:1px solid var(--ink-200);border-radius:7px;background:var(--ink-50);transition:border-color .12s var(--ease),background .12s var(--ease)}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);background:#fff;box-shadow:0 0 0 3px var(--red-50)}
-textarea{min-height:74px;resize:vertical}
+input[type=date]{max-width:260px}
+textarea{min-height:80px;resize:vertical}textarea.long{min-height:200px}
 select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23807C73' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px}
-.item{border:1px solid var(--ink-100);border-radius:8px;padding:12px;margin-bottom:10px;background:var(--ink-50);position:relative}
+.item{border:1px solid var(--ink-100);border-radius:8px;padding:13px;margin-bottom:10px;background:var(--ink-50);position:relative}
 .item .rm{position:absolute;top:8px;right:8px;width:26px;height:26px;border:0;border-radius:6px;background:transparent;color:var(--ink-400);font-size:18px;line-height:1;cursor:pointer}
 .item .rm:hover{background:var(--red-50);color:var(--red)}
-.duo{display:flex;gap:10px}.duo>*{flex:1}
+.duo{display:flex;gap:12px}.duo>*{flex:1}
 .add{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px dashed var(--ink-300);color:var(--red);font-weight:600;font-size:13px;font-family:inherit;padding:9px 14px;border-radius:7px;cursor:pointer;transition:.12s var(--ease)}
 .add:hover{border-color:var(--red);background:var(--red-50)}
-.send{width:100%;background:var(--red);color:#fff;border:0;border-radius:8px;padding:15px;font-family:var(--font-sans);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:.12s var(--ease)}
-.send:hover{background:var(--red-700)}.send:disabled{opacity:.55;cursor:default}
-.foot{text-align:center;font-size:11px;color:var(--ink-400);margin-top:18px;line-height:1.5}
+.step{display:none}.step.on{display:block;animation:fade .25s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.nav{display:flex;gap:12px;margin-top:8px}
+.btn{flex:1;border:0;border-radius:8px;padding:15px;font-family:var(--font-sans);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.12s var(--ease)}
+.btn.prim{background:var(--red);color:#fff}.btn.prim:hover{background:var(--red-700)}.btn.prim:disabled{opacity:.55;cursor:default}
+.btn.ghost{flex:0 0 auto;background:#fff;color:var(--ink-500);border:1px solid var(--ink-200)}.btn.ghost:hover{border-color:var(--ink-400)}
+.foot{margin-top:28px;padding-top:20px;border-top:1px solid var(--ink-200);text-align:center}
+.foot .etude-eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-400)}
+.foot .etude{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:.04em;color:var(--red);margin:6px 0 2px}
+.foot .etude-sub{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-400)}
+.foot .conf{font-size:11px;color:var(--ink-400);margin-top:12px;line-height:1.5}
 .done{text-align:center;background:#fff;border:1px solid var(--ink-200);border-radius:12px;padding:48px 24px;margin-top:40px;box-shadow:0 1px 2px rgba(28,28,27,.04)}
 .done .ico{width:64px;height:64px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 18px}
-.done h2{font-family:var(--font-serif);font-size:26px;font-weight:600;margin:0 0 8px}.done p{color:var(--ink-500);font-size:14px;margin:0}
-.bad .ico{background:var(--red)}
+.done h2{font-family:var(--font-serif);font-size:26px;font-weight:600;margin:0 0 8px}.done p{color:var(--ink-500);font-size:14px;margin:0}.done.bad .ico{background:var(--red)}
+@media(max-width:480px){.duo{flex-direction:column;gap:0}}
 </style></head>
 <body><div class="wrap" id="root"><div class="done"><div class="ico">…</div></div></div>
 <script>
 var FONC="https://mcoryyirdrtzpogiqkbm.supabase.co/functions/v1/d";
-var I={fr:{eyebrow:"Déclaration sous serment",titre:"Déclaration d'actifs",soustitre:"Conformément à l'article 684 C.P.C. Vos réponses sont transmises de façon sécurisée à l'étude.",identite:"Identité",nom:"Nom et prénom",naiss:"Date de naissance",adresse:"Adresse complète",tels:"Téléphones",courriels:"Courriels",emploi:"Situation d'emploi",employeurs:"Employeurs",residence:"Résidence principale",comptes:"Comptes bancaires",finsign:"Signature",ajTel:"Ajouter un téléphone",ajMail:"Ajouter un courriel",ajEmp:"Ajouter un employeur",ajCpt:"Ajouter un compte",numero:"Numéro",courriel:"Courriel",nomEmp:"Nom de l'employeur",adr:"Adresse",tel:"Téléphone",inst:"Institution",succ:"Adresse de la succursale",signature:"Date de signature",notes:"Notes (facultatif)",envoyer:"Envoyer ma déclaration",merci:"Merci ! Votre déclaration a été transmise à l'étude.",invalide:"Ce lien n'est plus valide (expiré ou déjà utilisé). Veuillez contacter l'étude.",confid:"Vos informations sont confidentielles et transmises uniquement à l'étude d'huissiers.",salarie:"Salarié",autonome:"Travailleur autonome",autre:"Autre",proprio:"Propriétaire",locataire:"Locataire",cell:"Cellulaire",res:"Résidence",trav:"Travail",envoi:"Envoi en cours…"},
-en:{eyebrow:"Sworn statement",titre:"Statement of assets",soustitre:"Pursuant to article 684 C.C.P. Your answers are sent securely to the office.",identite:"Identity",nom:"Full name",naiss:"Date of birth",adresse:"Full address",tels:"Phone numbers",courriels:"Emails",emploi:"Employment",employeurs:"Employers",residence:"Primary residence",comptes:"Bank accounts",finsign:"Signature",ajTel:"Add a phone",ajMail:"Add an email",ajEmp:"Add an employer",ajCpt:"Add an account",numero:"Number",courriel:"Email",nomEmp:"Employer name",adr:"Address",tel:"Phone",inst:"Institution",succ:"Branch address",signature:"Signature date",notes:"Notes (optional)",envoyer:"Submit my statement",merci:"Thank you! Your statement has been sent to the office.",invalide:"This link is no longer valid (expired or already used). Please contact the office.",confid:"Your information is confidential and sent only to the bailiff office.",salarie:"Employee",autonome:"Self-employed",autre:"Other",proprio:"Owner",locataire:"Tenant",cell:"Mobile",res:"Home",trav:"Work",envoi:"Sending…"},
-es:{eyebrow:"Declaración jurada",titre:"Declaración de activos",soustitre:"Conforme al artículo 684 C.P.C. Sus respuestas se envían de forma segura a la oficina.",identite:"Identidad",nom:"Nombre completo",naiss:"Fecha de nacimiento",adresse:"Dirección completa",tels:"Teléfonos",courriels:"Correos",emploi:"Situación laboral",employeurs:"Empleadores",residence:"Residencia principal",comptes:"Cuentas bancarias",finsign:"Firma",ajTel:"Añadir teléfono",ajMail:"Añadir correo",ajEmp:"Añadir empleador",ajCpt:"Añadir cuenta",numero:"Número",courriel:"Correo",nomEmp:"Nombre del empleador",adr:"Dirección",tel:"Teléfono",inst:"Institución",succ:"Dirección de la sucursal",signature:"Fecha de firma",notes:"Notas (opcional)",envoyer:"Enviar mi declaración",merci:"¡Gracias! Su declaración fue enviada a la oficina.",invalide:"Este enlace ya no es válido (caducado o utilizado). Contacte a la oficina.",confid:"Su información es confidencial y se envía únicamente a la oficina.",salarie:"Asalariado",autonome:"Autónomo",autre:"Otro",proprio:"Propietario",locataire:"Inquilino",cell:"Celular",res:"Residencia",trav:"Trabajo",envoi:"Enviando…"}};
+var ETUDE="Charron Boissé Lévesque";
+var I={fr:{eyebrow:"Déclaration sous serment",titre:"Déclaration d'actifs",soustitre:"Conformément à l'article 684 C.P.C. Vos réponses sont transmises de façon sécurisée à l'étude.",identite:"Identité",nom:"Nom et prénom",naiss:"Date de naissance",adresse:"Adresse complète",coord:"Coordonnées",tels:"Téléphones",courriels:"Courriels",emploi:"Emploi",situation:"Situation d'emploi",employeurs:"Employeurs",logement:"Logement et comptes",residence:"Résidence principale",comptes:"Comptes bancaires",notes:"Notes",notesPh:"Ajoutez ici toute précision utile (biens, véhicules, autres revenus, remarques…).",ajTel:"Ajouter un téléphone",ajMail:"Ajouter un courriel",ajEmp:"Ajouter un employeur",ajCpt:"Ajouter un compte",numero:"Numéro",courriel:"Courriel",nomEmp:"Nom de l'employeur",adr:"Adresse",tel:"Téléphone",inst:"Institution",succ:"Adresse de la succursale",etape:"Étape",sur:"sur",prec:"Précédent",suiv:"Suivant",envoyer:"Envoyer ma déclaration",merci:"Merci ! Votre déclaration a été transmise à l'étude.",invalide:"Ce lien n'est plus valide (expiré ou déjà utilisé). Veuillez contacter l'étude.",conf:"Vos informations sont confidentielles et transmises uniquement à votre étude d'huissiers de justice.",salarie:"Salarié",autonome:"Travailleur autonome",autre:"Autre",proprio:"Propriétaire",locataire:"Locataire",cell:"Cellulaire",res:"Résidence",trav:"Travail",envoi:"Envoi en cours…",huissiers:"Huissiers de justice"},
+en:{eyebrow:"Sworn statement",titre:"Statement of assets",soustitre:"Pursuant to article 684 C.C.P. Your answers are sent securely to the office.",identite:"Identity",nom:"Full name",naiss:"Date of birth",adresse:"Full address",coord:"Contact",tels:"Phone numbers",courriels:"Emails",emploi:"Employment",situation:"Employment status",employeurs:"Employers",logement:"Housing & accounts",residence:"Primary residence",comptes:"Bank accounts",notes:"Notes",notesPh:"Add any useful details (assets, vehicles, other income, remarks…).",ajTel:"Add a phone",ajMail:"Add an email",ajEmp:"Add an employer",ajCpt:"Add an account",numero:"Number",courriel:"Email",nomEmp:"Employer name",adr:"Address",tel:"Phone",inst:"Institution",succ:"Branch address",etape:"Step",sur:"of",prec:"Back",suiv:"Next",envoyer:"Submit my statement",merci:"Thank you! Your statement has been sent to the office.",invalide:"This link is no longer valid (expired or already used). Please contact the office.",conf:"Your information is confidential and sent only to your bailiff office.",salarie:"Employee",autonome:"Self-employed",autre:"Other",proprio:"Owner",locataire:"Tenant",cell:"Mobile",res:"Home",trav:"Work",envoi:"Sending…",huissiers:"Bailiffs"},
+es:{eyebrow:"Declaración jurada",titre:"Declaración de activos",soustitre:"Conforme al artículo 684 C.P.C. Sus respuestas se envían de forma segura a la oficina.",identite:"Identidad",nom:"Nombre completo",naiss:"Fecha de nacimiento",adresse:"Dirección completa",coord:"Contacto",tels:"Teléfonos",courriels:"Correos",emploi:"Empleo",situation:"Situación laboral",employeurs:"Empleadores",logement:"Vivienda y cuentas",residence:"Residencia principal",comptes:"Cuentas bancarias",notes:"Notas",notesPh:"Agregue cualquier detalle útil (bienes, vehículos, otros ingresos, observaciones…).",ajTel:"Añadir teléfono",ajMail:"Añadir correo",ajEmp:"Añadir empleador",ajCpt:"Añadir cuenta",numero:"Número",courriel:"Correo",nomEmp:"Nombre del empleador",adr:"Dirección",tel:"Teléfono",inst:"Institución",succ:"Dirección de la sucursal",etape:"Paso",sur:"de",prec:"Atrás",suiv:"Siguiente",envoyer:"Enviar mi declaración",merci:"¡Gracias! Su declaración fue enviada a la oficina.",invalide:"Este enlace ya no es válido (caducado o utilizado). Contacte a la oficina.",conf:"Su información es confidencial y se envía únicamente a su oficina de alguaciles.",salarie:"Asalariado",autonome:"Autónomo",autre:"Otro",proprio:"Propietario",locataire:"Inquilino",cell:"Celular",res:"Residencia",trav:"Trabajo",envoi:"Enviando…",huissiers:"Alguaciles"}};
 var token=location.hash.replace(/^#/,'').split('&')[0].replace(/^t=/,'');
 var root=document.getElementById('root');
-function fin(L,cls,ico,msg){root.innerHTML='<div class="done '+cls+'"><div class="ico">'+ico+'</div><h2>'+(cls==='bad'?'⚠':'')+'</h2><p>'+msg+'</p></div>';
- root.querySelector('h2').textContent=cls==='bad'?'':'';}
 function invalide(L){root.innerHTML='<div class="done bad"><div class="ico">!</div><p>'+L.invalide+'</p></div>';}
 (async function(){
 var L=I.fr;
@@ -51,18 +62,19 @@ try{var info=await (await fetch(FONC+'?t='+encodeURIComponent(token))).json();
   if(!info.valide){invalide(L);return;}
 }catch(e){invalide(L);return;}
 document.title=L.titre;
-root.innerHTML='<div class="head"><div class="eyebrow">'+L.eyebrow+'</div><h1>'+L.titre+'</h1><p>'+L.soustitre+'</p></div><form id="f">'
-+'<div class="card"><h2>'+L.identite+'</h2><label>'+L.nom+'</label><input name="nom_prenom" required>'
-+'<div class="duo"><div><label>'+L.naiss+'</label><input name="date_naissance" type="date"></div></div>'
-+'<label>'+L.adresse+'</label><textarea name="adresse_complete"></textarea></div>'
-+'<div class="card"><h2>'+L.tels+'</h2><div id="tels"></div><button type="button" class="add" id="aTel">＋ '+L.ajTel+'</button></div>'
-+'<div class="card"><h2>'+L.courriels+'</h2><div id="mails"></div><button type="button" class="add" id="aMail">＋ '+L.ajMail+'</button></div>'
-+'<div class="card"><h2>'+L.emploi+'</h2><select name="situation_emploi"><option>'+L.salarie+'</option><option>'+L.autonome+'</option><option>'+L.autre+'</option></select>'
-+'<div id="emps" style="margin-top:12px"></div><button type="button" class="add" id="aEmp">＋ '+L.ajEmp+'</button></div>'
-+'<div class="card"><h2>'+L.residence+'</h2><select name="residence_principale"><option>'+L.proprio+'</option><option>'+L.locataire+'</option></select></div>'
-+'<div class="card"><h2>'+L.comptes+'</h2><div id="cpts"></div><button type="button" class="add" id="aCpt">＋ '+L.ajCpt+'</button></div>'
-+'<div class="card"><h2>'+L.finsign+'</h2><label>'+L.signature+'</label><input name="date_signature" type="date"><label>'+L.notes+'</label><textarea name="notes"></textarea></div>'
-+'<button type="submit" class="send" id="sb">'+L.envoyer+'</button><div class="foot">🔒 '+L.confid+'</div></form>';
+var steps=[
+ {t:L.identite,h:'<div class="card"><h2>'+L.identite+'</h2><label>'+L.nom+'</label><input name="nom_prenom" required><label>'+L.naiss+'</label><input name="date_naissance" type="date"><label>'+L.adresse+'</label><textarea name="adresse_complete"></textarea></div>'},
+ {t:L.coord,h:'<div class="card"><h2>'+L.tels+'</h2><div id="tels"></div><button type="button" class="add" id="aTel">＋ '+L.ajTel+'</button></div><div class="card"><h2>'+L.courriels+'</h2><div id="mails"></div><button type="button" class="add" id="aMail">＋ '+L.ajMail+'</button></div>'},
+ {t:L.emploi,h:'<div class="card"><h2>'+L.situation+'</h2><select name="situation_emploi"><option>'+L.salarie+'</option><option>'+L.autonome+'</option><option>'+L.autre+'</option></select></div><div class="card"><h2>'+L.employeurs+'</h2><div id="emps"></div><button type="button" class="add" id="aEmp">＋ '+L.ajEmp+'</button></div>'},
+ {t:L.logement,h:'<div class="card"><h2>'+L.residence+'</h2><select name="residence_principale"><option>'+L.proprio+'</option><option>'+L.locataire+'</option></select></div><div class="card"><h2>'+L.comptes+'</h2><div id="cpts"></div><button type="button" class="add" id="aCpt">＋ '+L.ajCpt+'</button></div>'},
+ {t:L.notes,h:'<div class="card"><h2>'+L.notes+'</h2><textarea name="notes" class="long" placeholder="'+L.notesPh+'"></textarea></div>'}
+];
+var sectionsHtml='';for(var i=0;i<steps.length;i++)sectionsHtml+='<section class="step" data-i="'+i+'">'+steps[i].h+'</section>';
+root.innerHTML='<div class="head"><div class="eyebrow">'+L.eyebrow+'</div><h1>'+L.titre+'</h1><p>'+L.soustitre+'</p></div>'
++'<div class="prog"><div class="barwrap"><div class="bar" id="bar"></div></div><div class="ptxt" id="ptxt"></div></div>'
++'<form id="f" autocomplete="on">'+sectionsHtml
++'<div class="nav"><button type="button" class="btn ghost" id="prev">'+L.prec+'</button><button type="button" class="btn prim" id="next">'+L.suiv+'</button><button type="submit" class="btn prim" id="sb" style="display:none">'+L.envoyer+'</button></div></form>'
++'<div class="foot"><div class="etude-eyebrow">'+L.eyebrow+'</div><div class="etude">'+ETUDE+'</div><div class="etude-sub">'+L.huissiers+'</div><div class="conf">🔒 '+L.conf+'</div></div>';
 function rm(el){var b=document.createElement('button');b.type='button';b.className='rm';b.textContent='×';b.onclick=function(){el.remove();};return b;}
 function add(host,inner){var d=document.createElement('div');d.className='item';d.innerHTML=inner;d.appendChild(rm(d));document.getElementById(host).appendChild(d);}
 function telRow(){add('tels','<div class="duo"><select class="tt"><option>'+L.cell+'</option><option>'+L.res+'</option><option>'+L.trav+'</option></select><input class="tn" placeholder="'+L.numero+'"></div>');}
@@ -72,15 +84,25 @@ function cptRow(){add('cpts','<label>'+L.inst+'</label><input class="ci"><div cl
 telRow();mailRow();empRow();cptRow();
 document.getElementById('aTel').onclick=telRow;document.getElementById('aMail').onclick=mailRow;
 document.getElementById('aEmp').onclick=empRow;document.getElementById('aCpt').onclick=cptRow;
-document.getElementById('f').onsubmit=async function(e){e.preventDefault();var b=document.getElementById('sb');b.disabled=true;b.textContent=L.envoi;
+var secs=document.querySelectorAll('.step'),cur=0,N=secs.length;
+var bar=document.getElementById('bar'),ptxt=document.getElementById('ptxt'),prev=document.getElementById('prev'),next=document.getElementById('next'),sb=document.getElementById('sb');
+function maj(){for(var i=0;i<N;i++)secs[i].classList.toggle('on',i===cur);
+ bar.style.width=((cur+1)/N*100)+'%';ptxt.textContent=L.etape+' '+(cur+1)+' '+L.sur+' '+N+' — '+steps[cur].t;
+ prev.style.visibility=cur===0?'hidden':'visible';next.style.display=cur===N-1?'none':'';sb.style.display=cur===N-1?'':'none';
+ window.scrollTo({top:0,behavior:'smooth'});}
+prev.onclick=function(){if(cur>0){cur--;maj();}};
+next.onclick=function(){if(cur===0){var nm=document.querySelector('[name=nom_prenom]');if(!nm.value.trim()){nm.focus();nm.style.borderColor='#B5232A';return;}}if(cur<N-1){cur++;maj();}};
+maj();
+document.getElementById('f').onsubmit=async function(e){e.preventDefault();sb.disabled=true;sb.textContent=L.envoi;
 var g=function(n){var el=document.querySelector('[name='+n+']');return el?el.value:'';};
 var tels=[];document.querySelectorAll('#tels .item').forEach(function(r){var n=r.querySelector('.tn').value;if(n)tels.push({type:r.querySelector('.tt').value,numero:n});});
 var mails=[];document.querySelectorAll('#mails .item .mm').forEach(function(m){if(m.value)mails.push(m.value);});
 var emps=[];document.querySelectorAll('#emps .item').forEach(function(r){var n=r.querySelector('.en').value,a=r.querySelector('.ea').value,t=r.querySelector('.et').value;if(n||a||t)emps.push({nom:n,adresse:a,telephone:t});});
-var cpts=[];document.querySelectorAll('#cpts .item').forEach(function(r){var i=r.querySelector('.ci').value,s=r.querySelector('.cs').value,t=r.querySelector('.ct').value;if(i||s||t)cpts.push({institution:i,adresse_succursale:s,telephone:t});});
-var data={token:token,nom_prenom:g('nom_prenom'),date_naissance:g('date_naissance'),adresse_complete:g('adresse_complete'),situation_emploi:g('situation_emploi'),residence_principale:g('residence_principale'),date_signature:g('date_signature'),notes:g('notes'),telephones:tels,courriels:mails,employeurs:emps,comptes:cpts};
+var cpts=[];document.querySelectorAll('#cpts .item').forEach(function(r){var i2=r.querySelector('.ci').value,s=r.querySelector('.cs').value,t=r.querySelector('.ct').value;if(i2||s||t)cpts.push({institution:i2,adresse_succursale:s,telephone:t});});
+var data={token:token,nom_prenom:g('nom_prenom'),date_naissance:g('date_naissance'),adresse_complete:g('adresse_complete'),situation_emploi:g('situation_emploi'),residence_principale:g('residence_principale'),notes:g('notes'),telephones:tels,courriels:mails,employeurs:emps,comptes:cpts};
 try{var rep=await fetch(FONC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-if(rep.ok){root.innerHTML='<div class="done"><div class="ico">✓</div><p>'+L.merci+'</p></div>';window.scrollTo(0,0);}else{b.disabled=false;b.textContent=L.envoyer;invalide(L);}}
-catch(x){b.disabled=false;b.textContent=L.envoyer;}};
+if(rep.ok){root.innerHTML='<div class="done"><div class="ico">✓</div><h2></h2><p>'+L.merci+'</p><div class="foot" style="border:0;margin-top:24px"><div class="etude">'+ETUDE+'</div><div class="etude-sub">'+L.huissiers+'</div></div></div>';window.scrollTo(0,0);}
+else{sb.disabled=false;sb.textContent=L.envoyer;invalide(L);}}
+catch(x){sb.disabled=false;sb.textContent=L.envoyer;}};
 })();
 </script></body></html>
