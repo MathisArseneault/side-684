@@ -81,7 +81,7 @@ function ecranForm(){
 var steps=[
  {t:L.identite,h:'<div class="card"><h2>'+L.identite+'</h2><label>'+L.nom+' *</label><input id="nomp"><label>'+L.naiss+' *</label><input id="naissp" type="date"><label>'+L.adresse+' *</label><textarea id="adrp"></textarea></div>'},
  {t:L.coord,h:'<div class="card"><h2>'+L.tels+'</h2><div id="tels"></div><button type="button" class="add" id="aTel">＋ '+L.ajTel+'</button></div><div class="card"><h2>'+L.courriels+'</h2><div id="mails"></div><button type="button" class="add" id="aMail">＋ '+L.ajMail+'</button></div>'},
- {t:L.emploi,h:'<div class="card"><h2>'+L.situation+'</h2><select id="sit"><option>'+L.salarie+'</option><option>'+L.autonome+'</option><option>'+L.sansEmploi+'</option><option>'+L.autre+'</option></select></div><div class="card"><h2>'+L.emploiNotes+'</h2><textarea id="emploinotes" class="long" placeholder="'+L.emploiNotesPh+'"></textarea></div>'},
+ {t:L.emploi,h:'<div class="card"><h2>'+L.situation+'</h2><select id="sit"><option>'+L.salarie+'</option><option>'+L.autonome+'</option><option>'+L.sansEmploi+'</option><option>'+L.autre+'</option></select></div><div class="card" id="cardEmps"><h2>'+L.employeurs+'</h2><div id="emps"></div><button type="button" class="add" id="aEmp">＋ '+L.ajEmp+'</button></div><div class="card" id="cardNotes"><h2>'+L.emploiNotes+'</h2><textarea id="emploinotes" class="long" placeholder="'+L.emploiNotesPh+'"></textarea></div>'},
  {t:L.logement,h:'<div class="card"><h2>'+L.residence+'</h2><select id="resd"><option>'+L.proprio+'</option><option>'+L.locataire+'</option></select></div><div class="card"><h2>'+L.comptes+'</h2><div id="cpts"></div><button type="button" class="add" id="aCpt">＋ '+L.ajCpt+'</button></div>'},
  {t:L.notes,h:'<div class="card"><h2>'+L.notes+'</h2><textarea id="notesp" class="long" placeholder="'+L.notesPh+'"></textarea></div>'}
 ];
@@ -93,10 +93,12 @@ function rm(el){var b=document.createElement('button');b.type='button';b.classNa
 function add(host,inner){var d=document.createElement('div');d.className='item';d.innerHTML=inner;d.appendChild(rm(d));document.getElementById(host).appendChild(d);}
 function telRow(){add('tels','<div class="duo"><select class="tt"><option>'+L.cell+'</option><option>'+L.res+'</option><option>'+L.trav+'</option></select><input class="tn telfmt" inputmode="tel" placeholder="'+L.numero+'"></div>');}
 function mailRow(){add('mails','<input class="mm" type="email" placeholder="'+L.courriel+'">');}
+function empRow(){add('emps','<label>'+L.nomEmp+'</label><input class="en"><label>'+L.adr+'</label><input class="ea"><div class="duo"><div><label>'+L.tel+'</label><input class="et telfmt" inputmode="tel"></div><div><label>'+L.poste+'</label><input class="ep" inputmode="numeric"></div></div>');}
 function cptRow(){add('cpts','<label>'+L.inst+'</label><input class="ci"><label>'+L.succ+'</label><input class="cs"><div class="duo"><div><label>'+L.tel+'</label><input class="ct telfmt" inputmode="tel"></div><div><label>'+L.poste+'</label><input class="cp" inputmode="numeric"></div></div>');}
-telRow();mailRow();cptRow();
+telRow();mailRow();empRow();cptRow();
 document.getElementById('aTel').onclick=telRow;document.getElementById('aMail').onclick=mailRow;
-document.getElementById('aCpt').onclick=cptRow;
+document.getElementById('aEmp').onclick=empRow;document.getElementById('aCpt').onclick=cptRow;
+function majEmploi(){var vv=document.getElementById('sit').value;var st=(vv===L.salarie||vv===L.autonome);document.getElementById('cardEmps').style.display=st?'':'none';document.getElementById('cardNotes').style.display=st?'none':'';}document.getElementById('sit').onchange=majEmploi;majEmploi();
 var secs=document.querySelectorAll('.step'),cur=0,N=secs.length;
 var bar=document.getElementById('bar'),ptxt=document.getElementById('ptxt'),prev=document.getElementById('prev'),next=document.getElementById('next'),sb=document.getElementById('sb');
 function maj(){for(var i=0;i<N;i++)secs[i].classList.toggle('on',i===cur);bar.style.width=((cur+1)/N*100)+'%';ptxt.textContent=L.etape+' '+(cur+1)+' '+L.sur+' '+N+' — '+steps[cur].t;prev.style.visibility=cur===0?'hidden':'visible';next.style.display=cur===N-1?'none':'';sb.style.display=cur===N-1?'':'none';window.scrollTo({top:0,behavior:'smooth'});}
@@ -110,7 +112,8 @@ var v=function(id){var el=document.getElementById(id);return el?el.value:'';};
 var tels=[];document.querySelectorAll('#tels .item').forEach(function(r){var n=r.querySelector('.tn').value;if(n)tels.push({type:r.querySelector('.tt').value,numero:n});});
 var mails=[];document.querySelectorAll('#mails .item .mm').forEach(function(m){if(m.value)mails.push(m.value);});
 var cpts=[];document.querySelectorAll('#cpts .item').forEach(function(r){var i2=r.querySelector('.ci').value,s=r.querySelector('.cs').value,t=r.querySelector('.ct').value,p=r.querySelector('.cp').value;if(i2||s||t)cpts.push({institution:i2,adresse_succursale:s,telephone:avecPoste(t,p)});});
-var data={token:token,nom_prenom:v('nomp'),date_naissance:v('naissp'),adresse_complete:v('adrp'),situation_emploi:v('sit'),emploi_notes:v('emploinotes'),residence_principale:v('resd'),notes:v('notesp'),telephones:tels,courriels:mails,comptes:cpts};
+var sit=v('sit');var st=(sit===L.salarie||sit===L.autonome);var emps=[];if(st)document.querySelectorAll('#emps .item').forEach(function(r){var n=r.querySelector('.en').value,a=r.querySelector('.ea').value,t=r.querySelector('.et').value,p=r.querySelector('.ep').value;if(n||a||t)emps.push({nom:n,adresse:a,telephone:avecPoste(t,p)});});
+var data={token:token,nom_prenom:v('nomp'),date_naissance:v('naissp'),adresse_complete:v('adrp'),situation_emploi:sit,employeurs:emps,emploi_notes:(st?'':v('emploinotes')),residence_principale:v('resd'),notes:v('notesp'),telephones:tels,courriels:mails,comptes:cpts};
 try{var rep=await fetch(FONC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
 if(rep.ok){ecranMerci();}else{sb.disabled=false;sb.textContent=L.envoyer;invalide();}}
 catch(x){sb.disabled=false;sb.textContent=L.envoyer;alert('Connexion impossible. Réessayez.');}};
