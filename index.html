@@ -72,7 +72,10 @@ body{background:var(--page);font-family:var(--font);color:var(--ink);
 .seg{flex:1;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
 .seg i{display:block;height:100%;width:0;background:var(--accent);border-radius:2px;
   transition:width .35s var(--ease)}
-.seg.done i,.seg.now i{width:100%}
+/* « fait » et non « done » : la classe .done est celle de la carte de fin, et un segment
+   qui l'aurait portée héritait de son fond, sa bordure et son padding de 32 px, ce qui le
+   transformait en gros carré vide. Une classe distincte évite toute collision. */
+.seg.fait i,.seg.now i{width:100%}
 .ptxt{font-size:12px;font-weight:500;color:var(--ink-500);margin-top:9px}
 .ptxt b{color:var(--ink);font-weight:600}
 
@@ -142,6 +145,22 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 .mod .md{font-size:13.5px;color:var(--ink-500);line-height:1.55}
 .mod .md code{font-family:var(--mono);font-size:12.5px;color:var(--ink);
   background:var(--field);padding:1px 5px;border-radius:4px}
+/* ---- Échéancier : dates et montants des versements prévus --------------- */
+.ech{border:1px solid var(--line-soft);border-radius:var(--r-sm);overflow:hidden}
+.ech .er{display:flex;align-items:baseline;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line-soft)}
+.ech .er:last-child{border-bottom:0}
+.ech .er.tete{background:var(--field);padding-top:7px;padding-bottom:7px}
+.ech .er.tete span{font-size:10.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-400)}
+.ech .en{width:26px;flex-shrink:0;font-family:var(--mono);font-size:12px;color:var(--ink-400)}
+.ech .ed{flex:1;min-width:0;font-size:13.5px;color:var(--ink)}
+.ech .em{font-family:var(--mono);font-size:13.5px;font-weight:600;color:var(--ink);
+  text-align:right;white-space:nowrap}
+.ech .er.total{background:var(--field)}
+.ech .er.total .ed{font-weight:650}
+.ech .er.total .em{color:var(--accent-ink);font-weight:700}
+.echvide{font-size:13.5px;color:var(--ink-500);line-height:1.55;margin:0}
+
 .warn{display:flex;gap:12px;background:var(--warn-bg);border:1px solid var(--warn-line);
   border-radius:var(--r);padding:15px 16px;margin-bottom:12px}
 .warn svg{flex-shrink:0;color:var(--warn-icon);margin-top:1px}
@@ -283,16 +302,20 @@ fr:{
  /* Étape des modalités */
  engagement:"Modalités et engagement",
  modT:"Modalités de l'entente de paiement",
- modIntro:"Votre entente de paiement est assortie des modalités suivantes.",
+ modIntro:"L'entente conclue avec l'étude est une mesure exceptionnelle de règlement. Son maintien dépend du respect intégral des modalités suivantes.",
  mod:[
-  ["Respecter les dates et les montants","Chaque versement doit être payé à la date et pour le montant convenus à votre feuille d'entente."],
-  ["Indiquer votre numéro de dossier","Chaque paiement doit porter le numéro de dossier {NO}, sans quoi il ne peut pas être appliqué à votre dossier."],
-  ["Prévoir le délai de traitement","Un paiement en ligne ou par transfert de fonds prend de 48 à 72 heures avant d'être reçu par l'étude. Payez assez tôt pour que le versement entre à la date prévue."],
-  ["Nous joindre en cas de difficulté","Si vous prévoyez ne pas pouvoir effectuer un versement, communiquez avec l'étude au "+TEL_ETUDE+" avant la date d'échéance."]
+  ["Acquitter chaque versement à échéance","Chaque versement doit être acquitté au plus tard à la date prévue à l'échéancier, pour le montant exact convenu. Un versement partiel ou en retard ne libère pas de l'obligation et constitue un défaut."],
+  ["Indiquer le numéro de dossier à chaque paiement","Tout paiement doit porter le numéro de dossier {NO}. Sans cette référence, le paiement ne peut être appliqué à votre dossier et sera considéré comme non reçu."],
+  ["Tenir compte du délai de traitement","Un paiement en ligne ou par transfert de fonds prend de 48 à 72 heures avant d'être porté à votre dossier. C'est la date de réception par l'étude, et non la date de votre transaction, qui détermine si le versement est fait à temps."],
+  ["Joindre l'étude AVANT l'échéance","Si vous prévoyez ne pas pouvoir acquitter un versement, vous devez communiquer avec l'étude au "+TEL_ETUDE+" avant la date prévue. Aucun report n'est accordé après coup."]
  ],
- avertT:"Important",
- avertD:"Si l'entente n'est pas respectée, l'étude peut y mettre fin. La reprise ou le commencement des mesures d'exécution pourrait alors être entrepris contre vous.",
- accepte:"J'ai lu et j'accepte les modalités de l'entente de paiement.",
+ avertT:"Conséquences en cas de non-respect",
+ avertD:"En cas de défaut de paiement ou de non-respect des modalités convenues, l'entente sera suspendue et la totalité du solde deviendra immédiatement exigible. Des mesures d'exécution pourront alors être entreprises sans autre préavis, notamment la saisie sur salaire, la saisie de biens meubles, de comptes bancaires, ou encore la saisie et l'immobilisation de votre véhicule. Aucune nouvelle entente ne sera alors possible.",
+ accepte:"J'ai lu les modalités ci-dessus, je les accepte et je m'engage à respecter l'échéancier convenu.",
+ echT:"Vos versements",
+ echSous:"Échéancier convenu à votre entente",
+ echNum:"Versement",echDate:"Date prévue",echMontant:"Montant",echTotal:"Total de l'entente",
+ echVide:"L'échéancier n'est pas disponible pour l'instant. Reportez-vous à votre feuille d'entente.",
  /* Écran final */
  bravo:"Déclaration transmise",
  merci:"Votre déclaration d'actifs a été complétée et transmise à l'étude.",
@@ -336,16 +359,20 @@ en:{
  etape:"Step",sur:"of",prec:"Back",suiv:"Next",envoyer:"Submit my declaration",envoi:"Submitting…",
  engagement:"Terms and undertaking",
  modT:"Terms of your payment agreement",
- modIntro:"Your payment agreement is subject to the following terms.",
+ modIntro:"The agreement reached with our office is an exceptional settlement measure. It remains in force only if the following terms are fully respected.",
  mod:[
-  ["Pay on the agreed dates and amounts","Each payment must be made on the date and for the amount set out in your agreement."],
-  ["Include your file number","Every payment must show file number {NO}, otherwise it cannot be applied to your file."],
-  ["Allow for processing time","An online payment or funds transfer takes 48 to 72 hours to reach our office. Pay early enough for the payment to arrive on the due date."],
-  ["Contact us if you run into trouble","If you expect to miss a payment, contact our office at "+TEL_ETUDE+" before the due date."]
+  ["Pay each instalment by its due date","Each instalment must be paid no later than the date set out in the schedule, for the exact amount agreed. A partial or late payment does not discharge the obligation and constitutes a default."],
+  ["Include the file number with every payment","Every payment must show file number {NO}. Without this reference, the payment cannot be applied to your file and will be treated as not received."],
+  ["Account for processing time","An online payment or funds transfer takes 48 to 72 hours to be credited to your file. What determines whether an instalment is on time is the date our office receives it, not the date of your transaction."],
+  ["Contact our office BEFORE the due date","If you expect to be unable to pay an instalment, you must contact our office at "+TEL_ETUDE+" before the scheduled date. No deferral is granted after the fact."]
  ],
- avertT:"Important",
- avertD:"If the agreement is not respected, our office may terminate it. Enforcement measures could then be resumed or started against you.",
- accepte:"I have read and accept the terms of the payment agreement.",
+ avertT:"Consequences of non-compliance",
+ avertD:"In the event of payment default or failure to respect the agreed terms, the agreement will be suspended and the entire balance will become immediately due and payable. Enforcement measures may then be undertaken without further notice, including garnishment of wages, seizure of movable property, seizure of bank accounts, or the seizure and immobilization of your vehicle. No new agreement will be possible.",
+ accepte:"I have read the terms above, I accept them, and I undertake to respect the agreed schedule.",
+ echT:"Your instalments",
+ echSous:"Schedule agreed in your payment agreement",
+ echNum:"Instalment",echDate:"Due date",echMontant:"Amount",echTotal:"Agreement total",
+ echVide:"The schedule is not available at the moment. Please refer to your agreement.",
  bravo:"Declaration submitted",
  merci:"Your declaration of assets has been completed and sent to our office.",
  payT:"How to make your payments",
@@ -387,16 +414,20 @@ es:{
  etape:"Paso",sur:"de",prec:"Atrás",suiv:"Siguiente",envoyer:"Enviar mi declaración",envoi:"Enviando…",
  engagement:"Condiciones y compromiso",
  modT:"Condiciones del acuerdo de pago",
- modIntro:"Su acuerdo de pago está sujeto a las siguientes condiciones.",
+ modIntro:"El acuerdo celebrado con la oficina es una medida excepcional de arreglo. Su mantenimiento depende del cumplimiento íntegro de las siguientes condiciones.",
  mod:[
-  ["Respetar las fechas y los importes","Cada pago debe efectuarse en la fecha y por el importe acordados en su hoja de acuerdo."],
-  ["Indicar su número de expediente","Cada pago debe indicar el número de expediente {NO}; de lo contrario no puede aplicarse a su expediente."],
-  ["Prever el plazo de procesamiento","Un pago en línea o una transferencia de fondos tarda de 48 a 72 horas en llegar a nuestra oficina. Pague con suficiente antelación para que el pago entre en la fecha prevista."],
-  ["Comuníquese con nosotros si tiene dificultades","Si prevé que no podrá efectuar un pago, comuníquese con la oficina al "+TEL_ETUDE+" antes de la fecha de vencimiento."]
+  ["Abonar cada cuota en la fecha prevista","Cada cuota debe abonarse a más tardar en la fecha prevista en el calendario, por el importe exacto acordado. Un pago parcial o tardío no libera de la obligación y constituye un incumplimiento."],
+  ["Indicar el número de expediente en cada pago","Todo pago debe indicar el número de expediente {NO}. Sin esta referencia, el pago no puede aplicarse a su expediente y se considerará no recibido."],
+  ["Tener en cuenta el plazo de procesamiento","Un pago en línea o una transferencia de fondos tarda de 48 a 72 horas en acreditarse en su expediente. Lo que determina si una cuota se pagó a tiempo es la fecha de recepción por la oficina, no la fecha de su transacción."],
+  ["Comunicarse con la oficina ANTES del vencimiento","Si prevé que no podrá abonar una cuota, debe comunicarse con la oficina al "+TEL_ETUDE+" antes de la fecha prevista. No se concede ningún aplazamiento posterior."]
  ],
- avertT:"Importante",
- avertD:"Si no se respeta el acuerdo, la oficina puede darlo por terminado. Podrían entonces reanudarse o iniciarse medidas de ejecución en su contra.",
- accepte:"He leído y acepto las condiciones del acuerdo de pago.",
+ avertT:"Consecuencias en caso de incumplimiento",
+ avertD:"En caso de impago o de incumplimiento de las condiciones acordadas, el acuerdo será suspendido y la totalidad del saldo será inmediatamente exigible. Podrán entonces emprenderse medidas de ejecución sin previo aviso, en particular el embargo de salario, el embargo de bienes muebles, de cuentas bancarias, o el embargo e inmovilización de su vehículo. No será posible ningún nuevo acuerdo.",
+ accepte:"He leído las condiciones anteriores, las acepto y me comprometo a respetar el calendario acordado.",
+ echT:"Sus cuotas",
+ echSous:"Calendario acordado en su acuerdo de pago",
+ echNum:"Cuota",echDate:"Fecha prevista",echMontant:"Importe",echTotal:"Total del acuerdo",
+ echVide:"El calendario no está disponible por el momento. Consulte su hoja de acuerdo.",
  bravo:"Declaración enviada",
  merci:"Su declaración de bienes ha sido completada y enviada a nuestra oficina.",
  payT:"Cómo efectuar sus pagos",
@@ -423,7 +454,7 @@ es:{
 
 var token=location.hash.replace(/^#/,'').split('&')[0].replace(/^t=/,'');
 var root=document.getElementById('root');
-var DOSSIER={numero:"",huissier:"",bureaux:""};
+var DOSSIER={numero:"",huissier:"",bureaux:"",echeancier:[]};
 var langue="fr";var L=DICTS.fr;var ecranActuel="";
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
@@ -461,11 +492,57 @@ try{var rep0=await fetch(FONC+'?t='+encodeURIComponent(token));
   // Adresse de paiement propre au dossier (règle du client, comme sur la feuille d'entente).
   // Absente si la fonction n'a pas encore été redéployée : on retombe sur les deux bureaux.
   DOSSIER.bureaux=info.adresse_paiement||BUREAUX_DEFAUT;
+  // Versements prévus (date + montant), tels qu'inscrits à l'échéancier du dossier.
+  DOSSIER.echeancier=Array.isArray(info.echeancier)?info.echeancier:[];
   if(!info.valide){majLangbar();invalide();return;}
 }catch(e){majLangbar();invalide();return;}
 document.title=L.titre;majLangbar();
 
 function enteteHtml(){return '<div class="head"><div class="rule"></div><h1>'+L.titre+'</h1><p>'+L.soustitre+'</p></div>';}
+
+/* ---------------------- Échéancier : dates et montants ----------------------
+   La date arrive en « AAAA-MM-JJ » (déjà ramenée au fuseau de Montréal par la
+   fonction serveur). On la reconstruit champ par champ plutôt qu'avec
+   new Date("...") : une chaîne ISO est interprétée en UTC et afficherait la
+   veille pour un lecteur au Québec. */
+function localeDe(){return langue==='en'?'en-CA':langue==='es'?'es-ES':'fr-CA';}
+function dateLisible(iso){
+  var p=String(iso||'').slice(0,10).split('-');
+  if(p.length!==3) return esc(iso||'');
+  var d=new Date(+p[0], +p[1]-1, +p[2]);
+  if(isNaN(d)) return esc(iso||'');
+  try{ return d.toLocaleDateString(localeDe(),{day:'numeric',month:'long',year:'numeric'}); }
+  catch(e){ return p[2]+'/'+p[1]+'/'+p[0]; }
+}
+function argent(v){
+  var n=Number(v)||0;
+  try{
+    if(langue==='en') return n.toLocaleString('en-CA',{style:'currency',currency:'CAD'});
+    // fr et es : chiffres à la française puis le symbole, comme sur la feuille d'entente.
+    return n.toLocaleString(langue==='es'?'es-ES':'fr-CA',
+      {minimumFractionDigits:2,maximumFractionDigits:2})+' $';
+  }catch(e){ return n.toFixed(2)+' $'; }
+}
+
+/** Bloc « Vos versements » : une ligne par versement prévu, plus le total. */
+function echeancierHtml(){
+  var v=DOSSIER.echeancier||[];
+  if(!v.length) return '<p class="echvide">'+L.echVide+'</p>';
+  var total=0, lignes='';
+  v.forEach(function(x,i){
+    total+=Number(x.montant)||0;
+    lignes+='<div class="er"><div class="en">'+(i+1)+'</div>'
+      +'<div class="ed">'+dateLisible(x.date)+'</div>'
+      +'<div class="em">'+argent(x.montant)+'</div></div>';
+  });
+  return '<div class="ech">'
+    +'<div class="er tete"><span class="en">N<sup>o</sup></span>'
+      +'<span class="ed">'+L.echDate+'</span><span class="em">'+L.echMontant+'</span></div>'
+    +lignes
+    +'<div class="er total"><div class="en"></div><div class="ed">'+L.echTotal+'</div>'
+      +'<div class="em">'+argent(total)+'</div></div>'
+    +'</div>';
+}
 
 /* ============================ ACCUEIL ==================================== */
 function ecranIntro(){ecranActuel='intro';
@@ -505,7 +582,12 @@ var steps=[
  {t:L.notes,h:'<div class="card"><h2>'+L.notes+'</h2>'
    +'<textarea id="notesp" class="long" placeholder="'+L.notesPh+'"></textarea></div>'},
  /* Dernière étape : modalités, mise en garde, puis engagement explicite. */
- {t:L.engagement,h:'<div class="card"><h2>'+L.modT+'</h2>'
+ /* L'échéancier ouvre l'étape : on voit ce à quoi on s'engage AVANT de lire les
+    modalités et de cocher. */
+ {t:L.engagement,h:'<div class="card"><h2>'+L.echT+'</h2>'
+   +'<p style="font-size:13px;color:var(--ink-500);margin:0 0 12px;line-height:1.5">'+L.echSous+'</p>'
+   +echeancierHtml()+'</div>'
+   +'<div class="card"><h2>'+L.modT+'</h2>'
    +'<p style="font-size:13.5px;color:var(--ink-500);margin:0 0 4px;line-height:1.55">'+L.modIntro+'</p>'
    +'<ul class="mod">'+modLi+'</ul></div>'
    +'<div class="warn">'+ICO.alert+'<div><div class="wt">'+L.avertT+'</div><div class="wd">'+L.avertD+'</div></div></div>'
@@ -579,11 +661,13 @@ var ptxt=document.getElementById('ptxt'),prev=document.getElementById('prev'),ne
 function maj(){
   for(var i=0;i<N;i++){
     secs[i].classList.toggle('on',i===cur);
-    segEls[i].classList.toggle('done',i<cur);
+    segEls[i].classList.toggle('fait',i<cur);
     segEls[i].classList.toggle('now',i===cur);
   }
   ptxt.innerHTML=L.etape+' '+(cur+1)+' '+L.sur+' '+N+' &nbsp;·&nbsp; <b>'+steps[cur].t+'</b>';
-  prev.style.visibility=cur===0?'hidden':'visible';
+  // display:none et non visibility:hidden : « caché mais réservé » laissait un vide à gauche,
+  // le bouton « Suivant » se retrouvait décalé au lieu d'occuper toute la largeur à l'étape 1.
+  prev.style.display=cur===0?'none':'';
   next.style.display=cur===N-1?'none':'';
   sb.style.display=cur===N-1?'':'none';
   window.scrollTo({top:0,behavior:'smooth'});}
@@ -689,6 +773,9 @@ function optionsPaiement(){
 function ecranMerci(){ecranActuel='merci';
   root.innerHTML='<div class="done"><div class="ico">'+ICO.check+'</div>'
     +'<h2>'+L.bravo+'</h2><p class="sub">'+L.merci+'</p></div>'
+    // Rappel de l'échéancier : le lien est à usage unique, l'usager ne pourra pas y revenir.
+    +'<div class="payhead"><h3>'+L.echT+'</h3><p>'+L.echSous+'</p></div>'
+    +'<div class="opt">'+echeancierHtml()+'</div>'
     +optionsPaiement()
     +'<div class="foot"><div class="etude">'+esc(ETUDE)+'</div><div class="sub">'+L.huissiers+'</div></div>';
   window.scrollTo(0,0);}
