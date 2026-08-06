@@ -676,7 +676,7 @@ es:{
 
 var token=location.hash.replace(/^#/,'').split('&')[0].replace(/^t=/,'');
 var root=document.getElementById('root');
-var DOSSIER={numero:"",huissier:"",bureaux:"",echeancier:[]};
+var DOSSIER={numero:"",huissier:"",bureaux:"",echeancier:[],modalites:null};
 var langue="fr";var L=DICTS.fr;var ecranActuel="";
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
@@ -718,6 +718,10 @@ try{var rep0=await fetch(FONC+'?t='+encodeURIComponent(token));
   DOSSIER.bureaux=info.adresse_paiement||BUREAUX_DEFAUT;
   // Versements prévus (date + montant), tels qu'inscrits à l'échéancier du dossier.
   DOSSIER.echeancier=Array.isArray(info.echeancier)?info.echeancier:[];
+  // Encadre des modalites : redige dans les parametres de l'etude et cible par client,
+  // juridiction et departement. Null si la fonction n'a pas encore ete redeployee, ou si
+  // aucun bloc ne vise ce dossier : le formulaire garde alors ses textes integres.
+  DOSSIER.modalites=(info.modalites && typeof info.modalites==="object")?info.modalites:null;
   if(!info.valide){majLangbar();invalide();return;}
 }catch(e){majLangbar();invalide();return;}
 document.title=L.titre;majLangbar();
@@ -822,9 +826,31 @@ function ecranForm(etat){ecranActuel='form';
 // Rien en mémoire vive ? On regarde si cet appareil garde un brouillon de ce dossier.
 var repris=false;
 if(!etat){ var b=lireBrouillon(); if(b){ etat=b; repris=true; } }
-var modLi='';L.mod.forEach(function(m){
-  modLi+='<li><div class="mt">'+m[0]+'</div><div class="md">'
-       +m[1].replace('{NO}','<code>'+esc(DOSSIER.numero||'...')+'</code>')+'</div></li>';});
+/* Un texte de parametre arrive en clair : on l'echappe, PUIS on rend les deux variables que
+   le formulaire detient — le numero dans sa pastille, et le telephone de l'etude. */
+function texteBloc(t){
+  return esc(String(t||''))
+    .replace(/\{(NO|numero)\}/gi,'<code>'+esc(DOSSIER.numero||'...')+'</code>')
+    .replace(/\{tel_etude\}/gi, esc(TEL_ETUDE));
+}
+function nonVide(x){ return x && String(x).trim(); }
+var M=DOSSIER.modalites||{};
+var mIntro=(Array.isArray(M.intro)&&M.intro.filter(nonVide).length)
+  ? M.intro.filter(nonVide).map(texteBloc).join(' ')
+  : texteBloc(L.modIntro);
+var mItems=(Array.isArray(M.modalites)&&M.modalites.length)
+  ? M.modalites
+  : L.mod.map(function(m){ return {titre:m[0], corps:m[1]}; });
+var mAvert=(Array.isArray(M.consequences)&&M.consequences.length)
+  ? M.consequences
+  : [{titre:L.avertT, corps:L.avertD}];
+var modLi='';mItems.forEach(function(m){
+  var t=nonVide(m.titre)?'<div class="mt">'+texteBloc(m.titre)+'</div>':'';
+  modLi+='<li>'+t+'<div class="md">'+texteBloc(m.corps)+'</div></li>';});
+var avertHtml='';mAvert.forEach(function(a){
+  avertHtml+='<div class="warn">'+ICO.alert+'<div>'
+    +(nonVide(a.titre)?'<div class="wt">'+texteBloc(a.titre)+'</div>':'')
+    +'<div class="wd">'+texteBloc(a.corps)+'</div></div></div>';});
 
 var steps=[
  {t:L.identite,h:'<div class="card"><h2>'+L.identite+'</h2>'
@@ -862,9 +888,9 @@ var steps=[
    +'<p style="font-size:13px;color:var(--ink-500);margin:0 0 12px;line-height:1.5">'+L.echSous+'</p>'
    +echeancierHtml()+'</div>'
    +'<div class="card"><h2>'+L.modT+'</h2>'
-   +'<p style="font-size:13.5px;color:var(--ink-500);margin:0 0 4px;line-height:1.55">'+L.modIntro+'</p>'
+   +'<p style="font-size:13.5px;color:var(--ink-500);margin:0 0 4px;line-height:1.55">'+mIntro+'</p>'
    +'<ul class="mod">'+modLi+'</ul></div>'
-   +'<div class="warn">'+ICO.alert+'<div><div class="wt">'+L.avertT+'</div><div class="wd">'+L.avertD+'</div></div></div>'
+   +avertHtml
    +'<div class="note"><div class="nt">'+L.avertRassure+'</div>'
    +'<div class="nd" style="margin-top:7px"><b>'+L.difficulteT+'</b><br>'+L.difficulteD+' '+telLien()+'</div></div>'
    +'<label class="accept" id="acceptBox" for="accepte">'
