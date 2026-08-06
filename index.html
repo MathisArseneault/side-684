@@ -28,6 +28,7 @@
   --ok:#0F6B45; --ok-soft:#EAF5EF;
   --warn-bg:#FFF8EA; --warn-line:#EBD5A6; --warn-ink:#7A5200; --warn-icon:#A87A08;
   --r:12px; --r-sm:8px; --r-xs:6px;
+  --esp-serre:10px; --esp-bloc:14px; --esp-groupe:26px;
   --shadow:0 1px 2px rgba(16,24,40,.05), 0 1px 3px rgba(16,24,40,.04);
   --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
@@ -85,7 +86,7 @@ body{background:var(--page);font-family:var(--font);color:var(--ink);
 
 /* ---- Cartes et champs --------------------------------------------------- */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:20px;margin-bottom:12px;box-shadow:var(--shadow)}
+  padding:20px;margin-bottom:var(--esp-bloc);box-shadow:var(--shadow)}
 .card>h2{font-size:16px;font-weight:650;letter-spacing:-.011em;color:var(--ink);
   margin:0 0 15px;padding-bottom:12px;border-bottom:1px solid var(--line-soft)}
 label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-600);margin:16px 0 6px}
@@ -204,18 +205,19 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 
 /* ---- Écran final -------------------------------------------------------- */
 .done{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:32px 22px 26px;text-align:center;box-shadow:var(--shadow);margin-top:8px}
+  padding:32px 22px 26px;text-align:center;box-shadow:var(--shadow);
+  margin:8px 0 var(--esp-groupe)}
 .done .ico{width:56px;height:56px;border-radius:50%;background:var(--ok-soft);color:var(--ok);
   display:flex;align-items:center;justify-content:center;margin:0 auto 15px}
 .done h2{font-size:22px;font-weight:650;letter-spacing:-.015em;margin:0 0 7px}
 .done .sub{color:var(--ink-500);font-size:14px;margin:0;line-height:1.55}
 .done.bad .ico{background:var(--accent-soft);color:var(--accent-ink)}
 
-.payhead{margin:26px 2px 12px}
+.payhead{margin:var(--esp-groupe) 2px 12px}
 .payhead h3{font-size:16px;font-weight:650;letter-spacing:-.012em;margin:0 0 4px}
 .payhead p{font-size:13.5px;color:var(--ink-500);margin:0;line-height:1.5}
 .opt{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:17px 18px;margin-bottom:10px;box-shadow:var(--shadow);text-align:left}
+  padding:17px 18px;margin-bottom:var(--esp-serre);box-shadow:var(--shadow);text-align:left}
 .opt .oh{display:flex;gap:11px;align-items:center;margin-bottom:11px}
 .opt .oi{flex-shrink:0;width:34px;height:34px;border-radius:var(--r-sm);background:var(--accent-soft);
   color:var(--accent-ink);display:flex;align-items:center;justify-content:center}
@@ -284,7 +286,7 @@ a[href^="tel:"]:focus-visible{outline:2px solid var(--accent);outline-offset:2px
 
 /* ---- Prochain versement : le seul fait qui compte cette semaine ---- */
 .prochain{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow)}
+  padding:16px 18px;margin-bottom:var(--esp-serre);box-shadow:var(--shadow)}
 .prochain .k{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
   color:var(--ink-400);margin-bottom:5px}
 .prochain .v{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
@@ -1257,7 +1259,7 @@ function ecranMerci(){ecranActuel='merci';
     +'<div class="payhead"><h3>'+L.echT+'</h3><p>'+L.echSous+'</p></div>'
     +'<div class="opt">'+echeancierHtml()+'</div>'
     +optionsPaiement()
-    +'<button type="button" class="btn-sec" id="imprimer">'+ICO.imprimante+'<span>'+L.imprimer+'</span></button>'
+    +'<button type="button" class="btn-sec" id="imprimer" style="margin-top:var(--esp-groupe)">'+ICO.imprimante+'<span>'+L.imprimer+'</span></button>'
     +'<p class="repris" style="text-align:center;margin-top:10px">'+L.imprimerNote+'</p>'
     +'<p class="fielderr" id="avisImpr" hidden style="justify-content:center"></p>'
     +'<div class="foot"><div class="etude">'+esc(ETUDE)+'</div><div class="sub">'+L.huissiers+'</div>'
