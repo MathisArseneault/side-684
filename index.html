@@ -676,7 +676,7 @@ es:{
 
 var token=location.hash.replace(/^#/,'').split('&')[0].replace(/^t=/,'');
 var root=document.getElementById('root');
-var DOSSIER={numero:"",huissier:"",bureaux:"",echeancier:[],modalites:null};
+var DOSSIER={numero:"",huissier:"",debiteur:"",bureaux:"",echeancier:[],modalites:null};
 var langue="fr";var L=DICTS.fr;var ecranActuel="";
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
@@ -713,6 +713,7 @@ try{var rep0=await fetch(FONC+'?t='+encodeURIComponent(token));
   var info=await rep0.json();
   langue=info.langue===1?'en':info.langue===2?'es':'fr';L=DICTS[langue];document.documentElement.lang=langue;
   DOSSIER.numero=info.numero||"";DOSSIER.huissier=info.huissier||"";
+  DOSSIER.debiteur=info.debiteur||"";
   // Adresse de paiement propre au dossier (règle du client, comme sur la feuille d'entente).
   // Absente si la fonction n'a pas encore été redéployée : on retombe sur les deux bureaux.
   DOSSIER.bureaux=info.adresse_paiement||BUREAUX_DEFAUT;
@@ -727,12 +728,13 @@ try{var rep0=await fetch(FONC+'?t='+encodeURIComponent(token));
 document.title=L.titre;majLangbar();
 
 function enteteHtml(){
-  // Le n° de dossier et la raison sociale rendent le lien vérifiable sans exposer
-  // le nom du destinataire : ce lien peut être transféré.
+  // Le n° de dossier est accompagné du nom du défendeur, pour qu'il reconnaisse
+  // immédiatement que le lien est bien le sien. Repli sur la raison sociale tant que
+  // la fonction ne renvoie pas encore le nom.
   var d = DOSSIER.numero
     ? '<div class="dossier"><span class="k">'+L.dossierEtiq+'</span>'
       +'<span class="n">'+esc(DOSSIER.numero)+'</span>'
-      +'<span class="e">'+esc(ETUDE)+'</span></div>'
+      +'<span class="e">'+esc(DOSSIER.debiteur||ETUDE)+'</span></div>'
     : '';
   return '<div class="head"><div class="rule"></div><h1>'+L.titre+'</h1><p>'+L.soustitre+'</p>'+d+'</div>';
 }
