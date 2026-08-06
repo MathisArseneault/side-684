@@ -1,7 +1,10 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#EFF1F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1114" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex,nofollow">
+<meta name="format-detection" content="telephone=no">
 <title>Déclaration d'actifs (art. 684 C.P.C.)</title>
 <style>
 /* ============================================================================
@@ -24,7 +27,7 @@
   --page:#EFF1F4; --surface:#FFFFFF;
   --ok:#0F6B45; --ok-soft:#EAF5EF;
   --warn-bg:#FFF8EA; --warn-line:#EBD5A6; --warn-ink:#7A5200; --warn-icon:#A87A08;
-  --r:10px; --r-sm:7px;
+  --r:12px; --r-sm:8px; --r-xs:6px;
   --shadow:0 1px 2px rgba(16,24,40,.05), 0 1px 3px rgba(16,24,40,.04);
   --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
@@ -54,10 +57,11 @@ body{background:var(--page);font-family:var(--font);color:var(--ink);
 .langbar{display:flex;justify-content:flex-end;padding:12px 0 0;margin:0 0 -6px}
 .langbar .grp{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);
   border-radius:var(--r-sm);padding:2px;box-shadow:var(--shadow)}
-.langbar button{border:0;background:transparent;font-family:inherit;font-size:12px;font-weight:600;
-  color:var(--ink-500);padding:5px 10px;border-radius:5px;cursor:pointer;transition:.15s var(--ease)}
+.langbar button{border:0;background:transparent;font-family:inherit;font-size:13px;font-weight:600;
+  color:var(--ink-500);min-width:46px;min-height:44px;padding:6px 12px;border-radius:var(--r-xs);
+  cursor:pointer;transition:.15s var(--ease)}
 .langbar button:hover{color:var(--ink)}
-.langbar button.on{background:var(--accent);color:#fff}
+.langbar button.on{background:var(--accent-soft);color:var(--accent-ink)}
 .langbar button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 
 /* ---- En-tête ------------------------------------------------------------ */
@@ -82,16 +86,27 @@ body{background:var(--page);font-family:var(--font);color:var(--ink);
 /* ---- Cartes et champs --------------------------------------------------- */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
   padding:20px;margin-bottom:12px;box-shadow:var(--shadow)}
-.card>h2{font-size:13px;font-weight:650;letter-spacing:-.005em;color:var(--ink);
-  margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line-soft)}
-label{display:block;font-size:12.5px;font-weight:500;color:var(--ink-600);margin:13px 0 5px}
+.card>h2{font-size:16px;font-weight:650;letter-spacing:-.011em;color:var(--ink);
+  margin:0 0 15px;padding-bottom:12px;border-bottom:1px solid var(--line-soft)}
+label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-600);margin:16px 0 6px}
+label .req{color:var(--accent-ink);font-weight:700}
 input,select,textarea{width:100%;font-size:16px;font-family:inherit;color:var(--ink);
-  padding:11px 12px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--field);
+  padding:12px;min-height:46px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--field);
   transition:border-color .14s var(--ease),box-shadow .14s var(--ease),background .14s var(--ease)}
 input::placeholder,textarea::placeholder{color:var(--ink-400)}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);background:var(--surface);
   box-shadow:0 0 0 3px var(--accent-soft)}
-input.err,textarea.err{border-color:var(--accent);background:var(--accent-soft)}
+input.err,textarea.err,select.err{border-color:var(--accent);background:var(--accent-soft)}
+/* Le rose ne dit rien à qui ne le voit pas : chaque champ fautif reçoit AUSSI un texte,
+   relié par aria-describedby, et la bordure passe à 2 px pour ne pas dépendre de la teinte. */
+input.err,textarea.err,select.err{border-width:2px}
+.fielderr[hidden]{display:none}
+.fielderr{display:flex;gap:6px;align-items:flex-start;font-size:12.5px;line-height:1.45;
+  color:var(--accent-ink);margin:6px 0 0;font-weight:500}
+.fielderr svg{flex-shrink:0;width:14px;height:14px;margin-top:1px}
+/* Annonces destinées aux lecteurs d'écran : présentes dans l'arbre, hors de l'écran. */
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.legende{font-size:12px;color:var(--ink-500);margin:0 0 2px}
 input[type=date]{max-width:260px}
 textarea{min-height:80px;resize:vertical}textarea.long{min-height:170px}
 select{appearance:none;-webkit-appearance:none;padding-right:34px;
@@ -100,10 +115,10 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 @media (prefers-color-scheme:dark){select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23838A93' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>")}}
 
 /* ---- Blocs répétables (téléphones, employeurs, comptes) ----------------- */
-.item{border:1px solid var(--line-soft);border-radius:var(--r-sm);padding:13px 46px 13px 13px;
-  margin-bottom:9px;background:var(--field);position:relative}
+.item{border:1px solid var(--line-soft);border-radius:var(--r-sm);padding:13px 56px 13px 13px;
+  margin-bottom:10px;background:var(--field);position:relative}
 .item label:first-of-type{margin-top:0}
-.item .rm{position:absolute;top:9px;right:9px;width:29px;height:29px;border:1px solid var(--line);
+.item .rm{position:absolute;top:6px;right:6px;width:44px;height:44px;border:1px solid var(--line);
   border-radius:var(--r-sm);background:var(--surface);color:var(--ink-400);cursor:pointer;
   display:flex;align-items:center;justify-content:center;transition:.14s var(--ease)}
 .item .rm:hover{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent-soft)}
@@ -111,7 +126,8 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 .duo{display:flex;gap:10px}.duo>*{flex:1;min-width:0}
 .add{display:inline-flex;align-items:center;gap:7px;background:transparent;
   border:1px dashed var(--line);color:var(--accent-ink);font-weight:600;font-size:13px;
-  font-family:inherit;padding:9px 13px;border-radius:var(--r-sm);cursor:pointer;transition:.14s var(--ease)}
+  font-family:inherit;padding:11px 14px;min-height:44px;border-radius:var(--r-sm);cursor:pointer;
+  transition:.14s var(--ease)}
 .add:hover{border-color:var(--accent);background:var(--accent-soft)}
 .add:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 
@@ -119,7 +135,10 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 .step{display:none}
 .step.on{display:block;animation:enter .3s var(--ease)}
 @keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.nav{display:flex;gap:10px;margin-top:14px}
+/* Collante : à la dernière étape le bouton d'envoi se trouvait deux écrans plus bas
+   que le regard. Le fond est opaque pour que le contenu passe dessous sans transparaître. */
+.nav{display:flex;gap:10px;margin-top:16px;position:sticky;bottom:0;z-index:20;
+  background:var(--page);padding:10px 0 12px;border-top:1px solid var(--line)}
 .btn{border:0;border-radius:var(--r);padding:14px 18px;font-family:inherit;font-size:14px;
   font-weight:650;cursor:pointer;transition:.14s var(--ease)}
 .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -134,7 +153,7 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 .intro p{font-size:14.5px;color:var(--ink-600);line-height:1.6;margin:0 0 16px}
 .pts{list-style:none;margin:0 0 18px;padding:0}
 .pts li{display:flex;gap:11px;font-size:13.5px;color:var(--ink-600);line-height:1.5;padding:7px 0}
-.pts svg{flex-shrink:0;margin-top:2px;color:var(--accent-ink)}
+.pts svg{flex-shrink:0;margin-top:2px;color:var(--ok)}
 
 /* ---- Modalités et mise en garde ---------------------------------------- */
 .mod{list-style:none;margin:0;padding:0}
@@ -144,7 +163,7 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 .mod .mt{font-size:13.5px;font-weight:650;color:var(--ink);margin-bottom:3px}
 .mod .md{font-size:13.5px;color:var(--ink-500);line-height:1.55}
 .mod .md code{font-family:var(--mono);font-size:12.5px;color:var(--ink);
-  background:var(--field);padding:1px 5px;border-radius:4px}
+  background:var(--field);padding:1px 3px;border-radius:4px}
 /* ---- Échéancier : dates et montants des versements prévus --------------- */
 .ech{border:1px solid var(--line-soft);border-radius:var(--r-sm);overflow:hidden}
 .ech .er{display:flex;align-items:baseline;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line-soft)}
@@ -158,7 +177,7 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
   text-align:right;white-space:nowrap}
 .ech .er.total{background:var(--field)}
 .ech .er.total .ed{font-weight:650}
-.ech .er.total .em{color:var(--accent-ink);font-weight:700}
+.ech .er.total .em{color:var(--ink);font-weight:700}
 .echvide{font-size:13.5px;color:var(--ink-500);line-height:1.55;margin:0}
 
 .warn{display:flex;gap:12px;background:var(--warn-bg);border:1px solid var(--warn-line);
@@ -196,8 +215,7 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 .payhead h3{font-size:16px;font-weight:650;letter-spacing:-.012em;margin:0 0 4px}
 .payhead p{font-size:13.5px;color:var(--ink-500);margin:0;line-height:1.5}
 .opt{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:17px 18px;margin-bottom:10px;box-shadow:var(--shadow);text-align:left;
-  animation:enter .35s var(--ease) both}
+  padding:17px 18px;margin-bottom:10px;box-shadow:var(--shadow);text-align:left}
 .opt .oh{display:flex;gap:11px;align-items:center;margin-bottom:11px}
 .opt .oi{flex-shrink:0;width:34px;height:34px;border-radius:var(--r-sm);background:var(--accent-soft);
   color:var(--accent-ink);display:flex;align-items:center;justify-content:center}
@@ -229,13 +247,98 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 .foot .sub{font-size:11.5px;color:var(--ink-400);margin-top:2px}
 .foot .conf{font-size:11.5px;color:var(--ink-400);margin-top:11px;line-height:1.5}
 
+
+/* ---- Bandeau de dossier : la page dit qu'elle connaît déjà le destinataire ----
+   Sans nom de personne : le lien peut être transféré, un numéro et une raison
+   sociale suffisent à établir la légitimité sans exposer qui que ce soit. */
+.dossier{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;
+  margin:12px 0 0;padding:10px 12px;background:var(--field);
+  border:1px solid var(--line-soft);border-radius:var(--r-sm)}
+.dossier .k{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-400)}
+.dossier .n{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink)}
+.dossier .e{font-size:12.5px;color:var(--ink-500);margin-left:auto}
+
+/* ---- Encadré d'explication : pourquoi cette demande, ce qui arrive ensuite ---- */
+.note{border:1px solid var(--line);border-radius:var(--r-sm);padding:13px 15px;
+  background:var(--surface);margin:0 0 12px}
+.note .nt{font-size:13.5px;font-weight:650;color:var(--ink);margin-bottom:4px}
+.note .nd{font-size:13.5px;line-height:1.6;color:var(--ink-600)}
+
+/* ---- Bandeau d'échec d'envoi : remplace la fenêtre système et la fausse page « lien expiré » ---- */
+.envoierr{display:flex;gap:11px;background:var(--accent-soft);border:1px solid var(--accent);
+  border-radius:var(--r-sm);padding:13px 15px;margin:0 0 12px}
+.envoierr svg{flex-shrink:0;color:var(--accent-ink);margin-top:1px}
+.envoierr .t{font-size:13.5px;font-weight:700;color:var(--accent-ink);margin-bottom:3px}
+.envoierr .d{font-size:13px;line-height:1.55;color:var(--ink-600)}
+.envoierr a{color:var(--accent-ink);font-weight:600}
+/* Les liens téléphone se lisent dans la couleur du texte qui les porte : le bleu
+   du navigateur jurait avec la charte. Le soulignement discret dit qu'ils sont actifs. */
+a[href^="tel:"]{color:inherit;text-decoration:underline;text-decoration-thickness:1px;
+  text-underline-offset:2px;text-decoration-color:color-mix(in srgb,currentColor 42%,transparent)}
+a[href^="tel:"]:hover{text-decoration-color:currentColor}
+a[href^="tel:"]:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+
+/* ---- Reprise d'un brouillon ---- */
+.repris{font-size:12.5px;color:var(--ink-500);background:var(--field);
+  border:1px solid var(--line-soft);border-radius:var(--r-xs);padding:8px 11px;margin:0 0 12px}
+
+/* ---- Prochain versement : le seul fait qui compte cette semaine ---- */
+.prochain{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow)}
+.prochain .k{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-400);margin-bottom:5px}
+.prochain .v{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.prochain .d{font-size:19px;font-weight:650;color:var(--ink);letter-spacing:-.015em}
+.prochain .m{font-size:19px;font-weight:700;color:var(--ink);
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* ---- Bouton copier dans les lignes Interac ---- */
+.row{align-items:center}
+.row .cp{flex-shrink:0;margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+  min-height:44px;padding:8px 12px;font-family:inherit;font-size:12px;font-weight:600;
+  color:var(--ink-500);background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-xs);cursor:pointer;transition:.14s var(--ease)}
+.row .cp:hover{border-color:var(--ink-400);color:var(--ink)}
+.row .cp:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.row .cp.ok{color:var(--ok);border-color:var(--ok)}
+
+/* ---- Conseil sur l'option la plus simple ---- */
+.opt .reco{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ok);background:var(--ok-soft);
+  border-radius:999px;padding:3px 9px;margin-left:auto}
+
+/* ---- Bouton secondaire pleine largeur (imprimer) ---- */
+.btn-sec{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  min-height:48px;font-family:inherit;font-size:14px;font-weight:650;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  cursor:pointer;transition:.14s var(--ease)}
+.btn-sec:hover{border-color:var(--ink-400)}
+.btn-sec:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---- Impression : le seul exemplaire que la personne pourra garder ---- */
+@media print{
+  .langbar,.nav,.btn,.btn-sec,.paybtn,.row .cp,.prog{display:none !important}
+  body{background:#fff;padding:0;font-size:11pt}
+  .wrap{max-width:none}
+  .opt,.card,.prochain,.note{box-shadow:none;border:1px solid #999;break-inside:avoid}
+  .done{border:0;padding:0 0 12pt}
+  a[href^="tel:"]::after{content:""}
+}
+
 @media(max-width:470px){
   body{font-size:14.5px}
   .head h1{font-size:23px}
-  .duo{flex-direction:column;gap:0}
-  .row{flex-direction:column;gap:1px}
+  /* gap:0 collait les champs l'un contre l'autre une fois empilés. */
+  .duo{flex-direction:column;gap:10px}
+  .row{flex-direction:column;align-items:stretch;gap:3px}
   .row .k{width:auto}
+  .row .cp{margin-left:0;align-self:flex-start;margin-top:4px}
   .card,.opt{padding:16px}
+  /* Le bouton de suppression descend sous le bloc : en absolu il volait 56 px
+     de largeur à des champs qui n'en avaient déjà plus. */
+  .item{padding:13px}
+  .item .rm{position:static;width:100%;height:40px;margin-top:10px}
+  .dossier .e{margin-left:0;width:100%}
 }
 /* Mouvement réduit : tout devient instantané, rien ne disparaît. */
 @media (prefers-reduced-motion:reduce){
@@ -245,8 +348,8 @@ select{appearance:none;-webkit-appearance:none;padding-right:34px;
 </style></head>
 <body>
 <div class="wrap">
-  <div class="langbar" id="langbar"></div>
-  <div id="root"><div class="done"><div class="ico">…</div></div></div>
+  <nav class="langbar" id="langbar" aria-label="Langue / Language / Idioma"></nav>
+  <main id="root"><div class="done"><div class="ico">…</div></div></main>
 </div>
 <script>
 var FONC="https://mcoryyirdrtzpogiqkbm.supabase.co/functions/v1/d";
@@ -264,22 +367,33 @@ var BUREAUX_DEFAUT="407, boulevard Saint-Laurent, bureau 700, Montréal (Québec
   +"  ou  249, boulevard Sainte-Rose, bureau 102, Laval (Québec) H7L 1L8";
 
 // Valeurs canoniques (français) envoyées à la base, indépendantes de la langue d'affichage.
-var CANON_SIT=["Salarié","Travailleur autonome","Sans emploi","Autre"];
-var CANON_RES=["Propriétaire","Locataire"];
+// Les statuts couvrent le Québec réel : ce sont eux qui déterminent si un revenu est
+// saisissable, et une liste trop courte pousse le défendeur vers « Autre » ou le faux.
+var SIT_CLES=["Salarié","Travailleur autonome","Retraité","Prestataire d'aide de dernier recours",
+              "Étudiant","Invalidité / CNESST","Sans emploi","Autre"];
+var SIT_L10N=["salarie","autonome","retraite","aideDerniere","etudiant","invalidite","sansEmploi","autre"];
+var RES_CLES=["Propriétaire","Locataire","Hébergé ou chambreur"];
+var RES_L10N=["proprio","locataire","heberge"];
+var SIT_EMPLOYEUR=["Salarié","Travailleur autonome"];   // seuls ces deux-là ont un employeur
 var CANON_TEL=["Cellulaire","Résidence","Travail"];
 var CANON_MAIL=["Personnel","Travail","Autre"];
 
 /* -- Icônes : tracés géométriques simples, en ligne (page statique sans build) -- */
 var ICO={
- check:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
- checkSm:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
- dot:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
- alert:'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
- clock:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
- office:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M16 9h3a2 2 0 0 1 2 2v10"/><path d="M9 7h3M9 11h3M9 15h3"/></svg>',
- send:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>',
- card:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>',
- ext:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>'
+ check:'<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+ checkSm:'<svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+ dot:'<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+ alert:'<svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
+ clock:'<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+ office:'<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M16 9h3a2 2 0 0 1 2 2v10"/><path d="M9 7h3M9 11h3M9 15h3"/></svg>',
+ send:'<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>',
+ card:'<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>',
+ plus:'<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+ copie:'<svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
+ ok:'<svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+ imprimante:'<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg>',
+ tel:'<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
+ ext:'<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>'
 };
 
 var DICTS={
@@ -339,6 +453,46 @@ fr:{
  conf:"Vos informations sont confidentielles et transmises uniquement à votre étude d'huissiers de justice.",
  salarie:"Salarié",autonome:"Travailleur autonome",autre:"Autre",perso:"Personnel",
  proprio:"Propriétaire",locataire:"Locataire",cell:"Cellulaire",res:"Résidence",trav:"Travail",
+ /* --- Repères de dossier et confiance --- */
+ retirer:"Retirer",
+ dossierEtiq:"Dossier",
+ pourquoi684T:"Pourquoi cette demande",
+ pourquoi684D:"L'article 684 du Code de procédure civile permet à l'huissier de vous demander l'état de vos biens et revenus. Vos réponses servent à votre dossier : tant que l'entente est respectée, elles ne sont pas utilisées autrement.",
+ /* --- Erreurs et champs requis --- */
+ legendeRequis:"Les champs suivis d'un astérisque sont obligatoires.",
+ champRequis:"Ce renseignement est requis.",
+ erreursUne:"1 champ reste à remplir.",
+ erreursN:"{N} champs restent à remplir.",
+ choisir:"Choisir…",
+ /* --- Statuts d'emploi et de logement --- */
+ retraite:"Retraité",aideDerniere:"Prestataire d'aide de dernier recours",
+ etudiant:"Étudiant",invalidite:"Invalidité / CNESST",heberge:"Hébergé ou chambreur",
+ revenuT:"Sources de revenu",
+ revenuPh:"Assurance-emploi, aide sociale, pension, travail occasionnel, soutien d'un proche…",
+ revenuRetraiteT:"Sources de revenu de retraite",
+ revenuRetraitePh:"RRQ, pension de la Sécurité de la vieillesse, régime d'employeur, REER…",
+ precisezT:"Précisez votre situation",
+ precisezPh:"Décrivez d'où proviennent vos revenus.",
+ /* --- Engagement, réassurance --- */
+ avertRassure:"Tant que vous respectez l'échéancier ci-dessus, aucune de ces mesures ne s'applique.",
+ difficulteT:"Vous croyez ne pas pouvoir payer un versement ?",
+ difficulteD:"Appelez l'étude avant la date prévue. Un arrangement se discute toujours mieux avant un défaut qu'après.",
+ /* --- Envoi : échec --- */
+ envoiEchecT:"L'envoi n'a pas abouti",
+ envoiEchecD:"Vos réponses sont conservées sur cet appareil. Réessayez dans un moment, ou appelez-nous au "+TEL_ETUDE+".",
+ reessayer:"Réessayer",
+ brouillonRepris:"Nous avons retrouvé vos réponses commencées sur cet appareil.",
+ /* --- Écran final --- */
+ apresT:"Ce qui arrive ensuite",
+ apresD:"Votre déclaration est transmise à l'étude. Aucune démarche supplémentaire ne vous est demandée : il vous reste à effectuer vos versements aux dates prévues.",
+ prochainT:"Prochain versement",
+ imprimer:"Enregistrer ou imprimer cette page",
+ imprimerNote:"Ce lien ne se rouvrira pas. Conservez cette page.",
+ imprimerCadre:"Ouvrez cette page dans son propre onglet, puis utilisez Fichier \u203a Imprimer.",
+ copier:"Copier",copie:"Copié",
+ payeeRassure:"Le virement se fait au nom de l'huissier responsable de votre dossier ; c'est la façon normale de payer une étude d'huissiers.",
+ conseilInterac:"Le plus simple",
+ questions:"Une question ? Appelez-nous au ",
  huissiers:"Huissiers de justice"
 },
 en:{
@@ -394,6 +548,40 @@ en:{
  conf:"Your information is confidential and sent only to your bailiff's office.",
  salarie:"Employee",autonome:"Self-employed",autre:"Other",perso:"Personal",
  proprio:"Owner",locataire:"Tenant",cell:"Mobile",res:"Home",trav:"Work",
+ retirer:"Remove",
+ dossierEtiq:"File",
+ pourquoi684T:"Why we are asking",
+ pourquoi684D:"Article 684 of the Code of Civil Procedure allows the bailiff to ask you for a statement of your property and income. Your answers go to your file: as long as the agreement is respected, they are not used for anything else.",
+ legendeRequis:"Fields followed by an asterisk are required.",
+ champRequis:"This information is required.",
+ erreursUne:"1 field still needs to be filled in.",
+ erreursN:"{N} fields still need to be filled in.",
+ choisir:"Choose…",
+ retraite:"Retired",aideDerniere:"Last-resort financial assistance",
+ etudiant:"Student",invalidite:"Disability / CNESST",heberge:"Housed or renting a room",
+ revenuT:"Sources of income",
+ revenuPh:"Employment insurance, social assistance, pension, occasional work, support from a relative…",
+ revenuRetraiteT:"Sources of retirement income",
+ revenuRetraitePh:"QPP, Old Age Security, employer plan, RRSP…",
+ precisezT:"Describe your situation",
+ precisezPh:"Tell us where your income comes from.",
+ avertRassure:"As long as you keep to the schedule above, none of these measures applies.",
+ difficulteT:"Think you may not be able to make a payment?",
+ difficulteD:"Call our office before the scheduled date. An arrangement is always easier to discuss before a default than after one.",
+ envoiEchecT:"Your declaration was not sent",
+ envoiEchecD:"Your answers are saved on this device. Try again in a moment, or call us at "+TEL_ETUDE+".",
+ reessayer:"Try again",
+ brouillonRepris:"We found the answers you had started on this device.",
+ apresT:"What happens next",
+ apresD:"Your declaration has been sent to our office. Nothing further is required from you: all that remains is to make your payments on the scheduled dates.",
+ prochainT:"Next payment",
+ imprimer:"Save or print this page",
+ imprimerNote:"This link will not open again. Keep this page.",
+ imprimerCadre:"Open this page in its own tab, then use File \u203a Print.",
+ copier:"Copy",copie:"Copied",
+ payeeRassure:"The transfer is made in the name of the bailiff responsible for your file; this is the normal way to pay a bailiff's office.",
+ conseilInterac:"Simplest option",
+ questions:"Questions? Call us at ",
  huissiers:"Judicial bailiffs"
 },
 es:{
@@ -449,6 +637,40 @@ es:{
  conf:"Su información es confidencial y se envía únicamente a su oficina de agentes judiciales.",
  salarie:"Asalariado",autonome:"Trabajador autónomo",autre:"Otro",perso:"Personal",
  proprio:"Propietario",locataire:"Inquilino",cell:"Celular",res:"Domicilio",trav:"Trabajo",
+ retirer:"Quitar",
+ dossierEtiq:"Expediente",
+ pourquoi684T:"Por qué se lo pedimos",
+ pourquoi684D:"El artículo 684 del Código de Procedimiento Civil permite al agente judicial solicitarle el estado de sus bienes e ingresos. Sus respuestas se incorporan a su expediente: mientras se respete el acuerdo, no se utilizan para nada más.",
+ legendeRequis:"Los campos seguidos de un asterisco son obligatorios.",
+ champRequis:"Este dato es obligatorio.",
+ erreursUne:"Queda 1 campo por completar.",
+ erreursN:"Quedan {N} campos por completar.",
+ choisir:"Elegir…",
+ retraite:"Jubilado",aideDerniere:"Beneficiario de asistencia de último recurso",
+ etudiant:"Estudiante",invalidite:"Invalidez / CNESST",heberge:"Alojado o habitación alquilada",
+ revenuT:"Fuentes de ingresos",
+ revenuPh:"Seguro de empleo, asistencia social, pensión, trabajo ocasional, apoyo de un familiar…",
+ revenuRetraiteT:"Fuentes de ingresos de jubilación",
+ revenuRetraitePh:"RRQ, Seguridad de la Vejez, plan del empleador, REER…",
+ precisezT:"Describa su situación",
+ precisezPh:"Indique de dónde provienen sus ingresos.",
+ avertRassure:"Mientras respete el calendario anterior, ninguna de estas medidas se aplica.",
+ difficulteT:"¿Cree que no podrá efectuar un pago?",
+ difficulteD:"Llame a la oficina antes de la fecha prevista. Un arreglo siempre se negocia mejor antes de un incumplimiento que después.",
+ envoiEchecT:"El envío no se completó",
+ envoiEchecD:"Sus respuestas se han guardado en este dispositivo. Inténtelo de nuevo dentro de un momento o llámenos al "+TEL_ETUDE+".",
+ reessayer:"Intentar de nuevo",
+ brouillonRepris:"Hemos recuperado las respuestas que había comenzado en este dispositivo.",
+ apresT:"Qué ocurre después",
+ apresD:"Su declaración ha sido enviada a la oficina. No se le pide ningún trámite adicional: solo queda efectuar sus pagos en las fechas previstas.",
+ prochainT:"Próximo pago",
+ imprimer:"Guardar o imprimir esta página",
+ imprimerNote:"Este enlace no volverá a abrirse. Conserve esta página.",
+ imprimerCadre:"Abra esta página en su propia pestaña y luego use Archivo \u203a Imprimir.",
+ copier:"Copiar",copie:"Copiado",
+ payeeRassure:"La transferencia se hace a nombre del agente judicial responsable de su expediente; es la forma habitual de pagar a una oficina de agentes judiciales.",
+ conseilInterac:"La opción más sencilla",
+ questions:"¿Preguntas? Llámenos al ",
  huissiers:"Agentes judiciales"
 }};
 
@@ -466,6 +688,8 @@ document.addEventListener('input',function(e){
   if(e.target&&e.target.classList&&e.target.classList.contains('telfmt'))e.target.value=fmtTel(e.target.value);});
 function avecPoste(num,poste){num=(num||'').trim();poste=(poste||'').trim();
   return poste?(num+' poste '+poste):num;}
+/* Le numéro doit être appelable d'un doigt : c'est la seule issue quand la page ne suffit pas. */
+function telLien(){return '<a href="tel:+1'+TEL_ETUDE.replace(/\D/g,'')+'">'+TEL_ETUDE+'</a>';}
 function footHtml(){return '<div class="foot"><div class="etude">'+esc(ETUDE)+'</div>'
   +'<div class="sub">'+L.huissiers+'</div><div class="conf">'+L.conf+'</div></div>';}
 function messageSimple(txt){root.innerHTML='<div class="done bad"><div class="ico">'+ICO.alert+'</div><p class="sub">'+txt+'</p></div>';}
@@ -498,20 +722,40 @@ try{var rep0=await fetch(FONC+'?t='+encodeURIComponent(token));
 }catch(e){majLangbar();invalide();return;}
 document.title=L.titre;majLangbar();
 
-function enteteHtml(){return '<div class="head"><div class="rule"></div><h1>'+L.titre+'</h1><p>'+L.soustitre+'</p></div>';}
+function enteteHtml(){
+  // Le n° de dossier et la raison sociale rendent le lien vérifiable sans exposer
+  // le nom du destinataire : ce lien peut être transféré.
+  var d = DOSSIER.numero
+    ? '<div class="dossier"><span class="k">'+L.dossierEtiq+'</span>'
+      +'<span class="n">'+esc(DOSSIER.numero)+'</span>'
+      +'<span class="e">'+esc(ETUDE)+'</span></div>'
+    : '';
+  return '<div class="head"><div class="rule"></div><h1>'+L.titre+'</h1><p>'+L.soustitre+'</p>'+d+'</div>';
+}
 
 /* ---------------------- Échéancier : dates et montants ----------------------
    La date arrive en « AAAA-MM-JJ » (déjà ramenée au fuseau de Montréal par la
    fonction serveur). On la reconstruit champ par champ plutôt qu'avec
    new Date("...") : une chaîne ISO est interprétée en UTC et afficherait la
    veille pour un lecteur au Québec. */
+/* scrollTo({behavior:'smooth'}) n'est pas couvert par la règle CSS de mouvement réduit :
+   c'est une API, il faut la tester nous-mêmes. */
+function hautDePage(){
+  var doux=!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try{ window.scrollTo({top:0,behavior:doux?'smooth':'auto'}); }catch(e){ window.scrollTo(0,0); }
+}
 function localeDe(){return langue==='en'?'en-CA':langue==='es'?'es-ES':'fr-CA';}
 function dateLisible(iso){
   var p=String(iso||'').slice(0,10).split('-');
   if(p.length!==3) return esc(iso||'');
   var d=new Date(+p[0], +p[1]-1, +p[2]);
   if(isNaN(d)) return esc(iso||'');
-  try{ return d.toLocaleDateString(localeDe(),{day:'numeric',month:'long',year:'numeric'}); }
+  try{
+    var t=d.toLocaleDateString(localeDe(),{day:'numeric',month:'long',year:'numeric'});
+    // En français, le premier jour du mois s'écrit « 1er ».
+    if(langue==='fr' && d.getDate()===1) t=t.replace(/^1(?!\d)/,'1<sup>er</sup>');
+    return t;
+  }
   catch(e){ return p[2]+'/'+p[1]+'/'+p[0]; }
 }
 function argent(v){
@@ -549,38 +793,68 @@ function ecranIntro(){ecranActuel='intro';
  var li='';L.introLi.forEach(function(x){li+='<li>'+ICO.dot+'<span>'+x+'</span></li>';});
  root.innerHTML=enteteHtml()
   +'<div class="card intro"><h2>'+L.introT+'</h2><p>'+L.intro1+'</p><ul class="pts">'+li+'</ul>'
+  +'<div class="note"><div class="nt">'+L.pourquoi684T+'</div><div class="nd">'+L.pourquoi684D+'</div></div>'
   +'<button type="button" class="btn prim" id="go" style="width:100%">'+L.commencer+'</button></div>'
+  +'<p class="repris" style="text-align:center">'+L.questions+telLien()+'</p>'
   +footHtml();
  document.getElementById('go').onclick=function(){ecranForm(null);};}
 window.ecranIntro=ecranIntro;
 
+/* Un champ requis porte TOUJOURS trois choses : un libellé relié, un astérisque
+   expliqué par la légende, et un message d'erreur prêt à être révélé et annoncé. */
+function champ(id,libelle,controle){
+  return '<label for="'+id+'">'+libelle+' <span class="req" aria-hidden="true">*</span></label>'
+    +controle
+    +'<p class="fielderr" id="err-'+id+'" hidden>'+ICO.alert+'<span>'+L.champRequis+'</span></p>';
+}
+/* Marque ou démarque un champ fautif, et tient à jour ce qu'un lecteur d'écran annoncera. */
+function marquerErreur(el,fautif){
+  if(!el) return;
+  var msg=document.getElementById('err-'+el.id);
+  el.classList.toggle('err',fautif);
+  if(fautif){ el.setAttribute('aria-invalid','true'); if(msg){ msg.hidden=false; el.setAttribute('aria-describedby','err-'+el.id); } }
+  else { el.removeAttribute('aria-invalid'); if(msg){ msg.hidden=true; el.removeAttribute('aria-describedby'); } }
+}
+function annoncer(txt){var a=document.getElementById('annonce'); if(a) a.textContent=txt;}
+
 /* ============================ FORMULAIRE ================================= */
 function ecranForm(etat){ecranActuel='form';
+// Rien en mémoire vive ? On regarde si cet appareil garde un brouillon de ce dossier.
+var repris=false;
+if(!etat){ var b=lireBrouillon(); if(b){ etat=b; repris=true; } }
 var modLi='';L.mod.forEach(function(m){
   modLi+='<li><div class="mt">'+m[0]+'</div><div class="md">'
        +m[1].replace('{NO}','<code>'+esc(DOSSIER.numero||'...')+'</code>')+'</div></li>';});
 
 var steps=[
  {t:L.identite,h:'<div class="card"><h2>'+L.identite+'</h2>'
-   +'<label for="nomp">'+L.nom+' *</label><input id="nomp" autocomplete="name">'
-   +'<label for="naissp">'+L.naiss+' *</label><input id="naissp" type="date" autocomplete="bday">'
-   +'<label for="adrp">'+L.adresse+' *</label><textarea id="adrp" autocomplete="street-address"></textarea></div>'},
+   +'<p class="legende">'+L.legendeRequis+'</p>'
+   +champ('nomp',L.nom,'<input id="nomp" autocomplete="name" required aria-required="true">')
+   +champ('naissp',L.naiss,'<input id="naissp" type="date" autocomplete="bday" required aria-required="true">')
+   +champ('adrp',L.adresse,'<textarea id="adrp" autocomplete="street-address" required aria-required="true"></textarea>')
+   +'</div>'},
  {t:L.coord,h:'<div class="card"><h2>'+L.tels+'</h2><div id="tels"></div>'
-   +'<button type="button" class="add" id="aTel">＋ '+L.ajTel+'</button></div>'
+   +'<button type="button" class="add" id="aTel">'+ICO.plus+'<span>'+L.ajTel+'</span></button></div>'
    +'<div class="card"><h2>'+L.courriels+'</h2><div id="mails"></div>'
-   +'<button type="button" class="add" id="aMail">＋ '+L.ajMail+'</button></div>'},
+   +'<button type="button" class="add" id="aMail">'+ICO.plus+'<span>'+L.ajMail+'</span></button></div>'},
  {t:L.emploi,h:'<div class="card"><h2>'+L.situation+'</h2>'
-   +'<select id="sit"><option>'+L.salarie+'</option><option>'+L.autonome+'</option><option>'+L.sansEmploi+'</option><option>'+L.autre+'</option></select></div>'
+   +'<select id="sit" required aria-required="true" aria-label="'+esc(L.situation)+'">'
+   +'<option value="" disabled selected>'+L.choisir+'</option>'
+   +SIT_CLES.map(function(c,i){return '<option value="'+c+'">'+L[SIT_L10N[i]]+'</option>';}).join('')
+   +'</select></div>'
    +'<div class="card" id="cardEmps"><h2>'+L.employeurs+'</h2><div id="emps"></div>'
-   +'<button type="button" class="add" id="aEmp">＋ '+L.ajEmp+'</button></div>'
-   +'<div class="card" id="cardNotes"><h2>'+L.emploiNotes+'</h2>'
-   +'<textarea id="emploinotes" class="long" placeholder="'+L.emploiNotesPh+'"></textarea></div>'},
+   +'<button type="button" class="add" id="aEmp">'+ICO.plus+'<span>'+L.ajEmp+'</span></button></div>'
+   +'<div class="card" id="cardNotes"><h2 id="titreNotes">'+L.emploiNotes+'</h2>'
+   +'<textarea id="emploinotes" class="long" aria-label="'+esc(L.emploiNotes)+'" placeholder="'+esc(L.emploiNotesPh)+'"></textarea></div>'},
  {t:L.logement,h:'<div class="card"><h2>'+L.residence+'</h2>'
-   +'<select id="resd"><option>'+L.proprio+'</option><option>'+L.locataire+'</option></select></div>'
+   +'<select id="resd" required aria-required="true" aria-label="'+esc(L.residence)+'">'
+   +'<option value="" disabled selected>'+L.choisir+'</option>'
+   +RES_CLES.map(function(c,i){return '<option value="'+c+'">'+L[RES_L10N[i]]+'</option>';}).join('')
+   +'</select></div>'
    +'<div class="card"><h2>'+L.comptes+'</h2><div id="cpts"></div>'
-   +'<button type="button" class="add" id="aCpt">＋ '+L.ajCpt+'</button></div>'},
+   +'<button type="button" class="add" id="aCpt">'+ICO.plus+'<span>'+L.ajCpt+'</span></button></div>'},
  {t:L.notes,h:'<div class="card"><h2>'+L.notes+'</h2>'
-   +'<textarea id="notesp" class="long" placeholder="'+L.notesPh+'"></textarea></div>'},
+   +'<textarea id="notesp" class="long" aria-label="'+esc(L.notes)+'" placeholder="'+L.notesPh+'"></textarea></div>'},
  /* Dernière étape : modalités, mise en garde, puis engagement explicite. */
  /* L'échéancier ouvre l'étape : on voit ce à quoi on s'engage AVANT de lire les
     modalités et de cocher. */
@@ -591,6 +865,8 @@ var steps=[
    +'<p style="font-size:13.5px;color:var(--ink-500);margin:0 0 4px;line-height:1.55">'+L.modIntro+'</p>'
    +'<ul class="mod">'+modLi+'</ul></div>'
    +'<div class="warn">'+ICO.alert+'<div><div class="wt">'+L.avertT+'</div><div class="wd">'+L.avertD+'</div></div></div>'
+   +'<div class="note"><div class="nt">'+L.avertRassure+'</div>'
+   +'<div class="nd" style="margin-top:7px"><b>'+L.difficulteT+'</b><br>'+L.difficulteD+' '+telLien()+'</div></div>'
    +'<label class="accept" id="acceptBox" for="accepte">'
    +'<input type="checkbox" id="accepte"><span class="box">'+ICO.checkSm+'</span>'
    +'<span class="at">'+L.accepte+'</span></label>'}
@@ -601,26 +877,45 @@ var segs='';for(var s=0;s<steps.length;s++)segs+='<div class="seg"><i></i></div>
 
 root.innerHTML=enteteHtml()
  +'<div class="prog"><div class="segs" id="segs">'+segs+'</div><div class="ptxt" id="ptxt"></div></div>'
+ +'<div id="annonce" class="sr" role="status" aria-live="polite"></div>'
+ +(repris?'<p class="repris">'+L.brouillonRepris+'</p>':'')
+ +'<div id="zoneErr"></div>'
  +'<div>'+sh
  +'<div class="nav"><button type="button" class="btn ghost" id="prev">'+L.prec+'</button>'
  +'<button type="button" class="btn prim" id="next">'+L.suiv+'</button>'
  +'<button type="button" class="btn prim" id="sb" style="display:none" disabled>'+L.envoyer+'</button></div></div>'
  +footHtml();
 
-function rm(el){var b=document.createElement('button');b.type='button';b.className='rm';
-  b.setAttribute('aria-label','×');
-  b.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+var _uid=0;   // identifiants uniques pour relier étiquette et champ dans les blocs répétés
+function rm(el,quoi){var b=document.createElement('button');b.type='button';b.className='rm';
+  // « × » comme nom accessible donnait quatre boutons identiques : on dit ce qu'on retire.
+  b.setAttribute('aria-label',(L.retirer||'Retirer')+' — '+quoi);
+  b.innerHTML='<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
   b.onclick=function(){el.remove();};return b;}
-function add(host,inner){var d=document.createElement('div');d.className='item';d.innerHTML=inner;
-  d.appendChild(rm(d));document.getElementById(host).appendChild(d);return d;}
-function telRow(data){var it=add('tels','<div class="duo"><select class="tt"><option>'+L.cell+'</option><option>'+L.res+'</option><option>'+L.trav+'</option></select><input class="tn telfmt" inputmode="tel" autocomplete="tel" placeholder="'+L.numero+'"></div>');
+function add(host,inner,quoi){var d=document.createElement('div');d.className='item';d.innerHTML=inner;
+  d.appendChild(rm(d,quoi));document.getElementById(host).appendChild(d);return d;}
+function telRow(data){var u=++_uid;
+  var it=add('tels','<div class="duo">'
+    +'<select class="tt" aria-label="'+esc(L.tels)+'"><option>'+L.cell+'</option><option>'+L.res+'</option><option>'+L.trav+'</option></select>'
+    +'<input class="tn telfmt" inputmode="tel" autocomplete="tel" aria-label="'+esc(L.numero)+'" placeholder="'+esc(L.numero)+'"></div>', L.tels);
   if(data){it.querySelector('.tt').selectedIndex=data.ti||0;it.querySelector('.tn').value=data.n||'';}}
-function mailRow(data){var it=add('mails','<div class="duo"><select class="mt"><option>'+L.perso+'</option><option>'+L.trav+'</option><option>'+L.autre+'</option></select><input class="mm" type="email" autocomplete="email" placeholder="'+L.courriel+'"></div>');
+function mailRow(data){var u=++_uid;
+  var it=add('mails','<div class="duo">'
+    +'<select class="mt" aria-label="'+esc(L.courriels)+'"><option>'+L.perso+'</option><option>'+L.trav+'</option><option>'+L.autre+'</option></select>'
+    +'<input class="mm" type="email" autocomplete="email" aria-label="'+esc(L.courriel)+'" placeholder="'+esc(L.courriel)+'"></div>', L.courriels);
   if(data){it.querySelector('.mt').selectedIndex=data.mi||0;it.querySelector('.mm').value=data.v||'';}}
-function empRow(data){var it=add('emps','<label>'+L.nomEmp+'</label><input class="en"><label>'+L.adr+'</label><input class="ea"><div class="duo"><div><label>'+L.tel+'</label><input class="et telfmt" inputmode="tel"></div><div><label>'+L.poste+'</label><input class="ep" inputmode="numeric"></div></div>');
+function empRow(data){var u=++_uid;
+  var it=add('emps','<label for="en'+u+'">'+L.nomEmp+'</label><input id="en'+u+'" class="en">'
+    +'<label for="ea'+u+'">'+L.adr+'</label><input id="ea'+u+'" class="ea">'
+    +'<div class="duo"><div><label for="et'+u+'">'+L.tel+'</label><input id="et'+u+'" class="et telfmt" inputmode="tel"></div>'
+    +'<div><label for="ep'+u+'">'+L.poste+'</label><input id="ep'+u+'" class="ep" inputmode="numeric"></div></div>', L.employeurs);
   if(data){it.querySelector('.en').value=data.n||'';it.querySelector('.ea').value=data.a||'';
     it.querySelector('.et').value=data.t||'';it.querySelector('.ep').value=data.p||'';}}
-function cptRow(data){var it=add('cpts','<label>'+L.inst+'</label><input class="ci"><label>'+L.succ+'</label><input class="cs"><div class="duo"><div><label>'+L.tel+'</label><input class="ct telfmt" inputmode="tel"></div><div><label>'+L.poste+'</label><input class="cp" inputmode="numeric"></div></div>');
+function cptRow(data){var u=++_uid;
+  var it=add('cpts','<label for="ci'+u+'">'+L.inst+'</label><input id="ci'+u+'" class="ci">'
+    +'<label for="cs'+u+'">'+L.succ+'</label><input id="cs'+u+'" class="cs">'
+    +'<div class="duo"><div><label for="ct'+u+'">'+L.tel+'</label><input id="ct'+u+'" class="ct telfmt" inputmode="tel"></div>'
+    +'<div><label for="cp'+u+'">'+L.poste+'</label><input id="cp'+u+'" class="cp" inputmode="numeric"></div></div>', L.comptes);
   if(data){it.querySelector('.ci').value=data.i||'';it.querySelector('.cs').value=data.s||'';
     it.querySelector('.ct').value=data.t||'';it.querySelector('.cp').value=data.p||'';}}
 
@@ -629,10 +924,26 @@ document.getElementById('aMail').onclick=function(){mailRow();};
 document.getElementById('aEmp').onclick=function(){empRow();};
 document.getElementById('aCpt').onclick=function(){cptRow();};
 
-function majEmploi(){var st=document.getElementById('sit').selectedIndex<=1;
-  document.getElementById('cardEmps').style.display=st?'':'none';
-  document.getElementById('cardNotes').style.display=st?'none':'';}
-document.getElementById('sit').onchange=majEmploi;
+function majEmploi(){
+  var v=document.getElementById('sit').value;
+  var employeur=SIT_EMPLOYEUR.indexOf(v)>=0;
+  var choisi=!!v;
+  document.getElementById('cardEmps').style.display=(choisi&&employeur)?'':'none';
+  document.getElementById('cardNotes').style.display=(choisi&&!employeur)?'':'none';
+  // Le titre et l'invite suivent le statut : demander « votre employeur » à quelqu'un
+  // qui vient de déclarer être sans emploi se lit comme un piège.
+  if(choisi&&!employeur){
+    var t,ph;
+    if(v==='Retraité'){ t=L.revenuRetraiteT; ph=L.revenuRetraitePh; }
+    else if(v==='Autre'){ t=L.precisezT; ph=L.precisezPh; }
+    else { t=L.revenuT; ph=L.revenuPh; }
+    document.getElementById('titreNotes').textContent=t;
+    document.getElementById('emploinotes').setAttribute('placeholder',ph);
+    document.getElementById('emploinotes').setAttribute('aria-label',t);
+  }
+}
+document.getElementById('sit').onchange=function(){marquerErreur(document.getElementById('sit'),false);majEmploi();};
+document.getElementById('resd').onchange=function(){marquerErreur(document.getElementById('resd'),false);};
 
 var sb=document.getElementById('sb');
 var coche=document.getElementById('accepte');
@@ -644,7 +955,8 @@ var cur=0;
 if(etat){
   document.getElementById('nomp').value=etat.nom;document.getElementById('naissp').value=etat.naiss;
   document.getElementById('adrp').value=etat.adr;
-  document.getElementById('sit').selectedIndex=etat.sit;document.getElementById('resd').selectedIndex=etat.res;
+  if(etat.sit)document.getElementById('sit').value=etat.sit;
+  if(etat.res)document.getElementById('resd').value=etat.res;
   document.getElementById('emploinotes').value=etat.emploinotes;document.getElementById('notesp').value=etat.notes;
   coche.checked=!!etat.accepte;
   if(etat.tels.length)etat.tels.forEach(telRow);else telRow();
@@ -665,21 +977,58 @@ function maj(){
     segEls[i].classList.toggle('now',i===cur);
   }
   ptxt.innerHTML=L.etape+' '+(cur+1)+' '+L.sur+' '+N+' &nbsp;·&nbsp; <b>'+steps[cur].t+'</b>';
+  annoncer(L.etape+' '+(cur+1)+' '+L.sur+' '+N+' : '+steps[cur].t);
   // display:none et non visibility:hidden : « caché mais réservé » laissait un vide à gauche,
   // le bouton « Suivant » se retrouvait décalé au lieu d'occuper toute la largeur à l'étape 1.
   prev.style.display=cur===0?'none':'';
   next.style.display=cur===N-1?'none':'';
   sb.style.display=cur===N-1?'':'none';
-  window.scrollTo({top:0,behavior:'smooth'});}
+  hautDePage();}
 prev.onclick=function(){if(cur>0){cur--;maj();}};
-next.onclick=function(){
-  if(cur===0){var ids=['nomp','naissp','adrp'],ok=true,first=null;
-    ids.forEach(function(id){var el=document.getElementById(id);
-      if(!el.value.trim()){el.classList.add('err');if(!first)first=el;ok=false;}
-      else el.classList.remove('err');});
-    if(!ok){if(first)first.focus();return;}}
-  if(cur<N-1){cur++;maj();}};
+// Toute frappe et tout choix alimentent le brouillon.
+root.addEventListener('input',sauverBrouillon);
+root.addEventListener('change',sauverBrouillon);
+/* Les champs obligatoires d'une étape. Le choix d'un statut EST une déclaration :
+   on ne laisse pas passer une valeur que l'usager n'a jamais choisie. */
+function requisDe(step){
+  if(step===0) return ['nomp','naissp','adrp'];
+  if(step===2) return ['sit'];
+  if(step===3) return ['resd'];
+  return [];
+}
+function validerEtape(step){
+  var manquants=0, premier=null;
+  requisDe(step).forEach(function(id){
+    var el=document.getElementById(id); if(!el) return;
+    var vide=!String(el.value||'').trim();
+    marquerErreur(el,vide);
+    if(vide){ manquants++; if(!premier) premier=el; }
+  });
+  if(manquants){
+    annoncer(manquants===1?L.erreursUne:L.erreursN.replace('{N}',manquants));
+    if(premier) premier.focus();
+    return false;
+  }
+  return true;
+}
+next.onclick=function(){ if(!validerEtape(cur)) return; if(cur<N-1){cur++;maj();} };
 maj();
+
+/* Le lien est à usage unique : si l'onglet est libéré par le système pendant que la
+   personne consulte son application bancaire, sans cette sauvegarde tout est perdu et
+   il n'y a aucun moyen de recommencer. Session seulement, effacé dès la réussite. */
+var CLE_BROUILLON='d684:'+token;
+var _minuterie=null;
+function sauverBrouillon(){
+  clearTimeout(_minuterie);
+  _minuterie=setTimeout(function(){
+    try{ sessionStorage.setItem(CLE_BROUILLON, JSON.stringify(window.collecter())); }catch(e){}
+  },400);
+}
+function lireBrouillon(){
+  try{ var b=sessionStorage.getItem(CLE_BROUILLON); return b?JSON.parse(b):null; }catch(e){ return null; }
+}
+function effacerBrouillon(){ try{ sessionStorage.removeItem(CLE_BROUILLON); }catch(e){} }
 
 window.collecter=function(){
   function v(id){var e=document.getElementById(id);return e?e.value:'';}
@@ -694,17 +1043,17 @@ window.collecter=function(){
   var cpts=[];document.querySelectorAll('#cpts .item').forEach(function(r){
     cpts.push({i:r.querySelector('.ci').value,s:r.querySelector('.cs').value,
                t:r.querySelector('.ct').value,p:r.querySelector('.cp').value});});
-  return {nom:v('nomp'),naiss:v('naissp'),adr:v('adrp'),sit:ix('sit'),res:ix('resd'),
+  return {nom:v('nomp'),naiss:v('naissp'),adr:v('adrp'),sit:v('sit'),res:v('resd'),
           emploinotes:v('emploinotes'),notes:v('notesp'),tels:tels,mails:mails,emps:emps,cpts:cpts,
           accepte:coche.checked,step:cur};};
 
 sb.onclick=async function(){
   if(!coche.checked)return;                       // garde-fou : l'engagement est obligatoire
   var nm=document.getElementById('nomp');
-  if(!nm.value.trim()){cur=0;maj();nm.focus();nm.classList.add('err');return;}
+  if(!nm.value.trim()){cur=0;maj();marquerErreur(nm,true);annoncer(L.erreursUne);nm.focus();return;}
   sb.disabled=true;sb.textContent=L.envoi;
   var v=function(id){var el=document.getElementById(id);return el?el.value:'';};
-  var sitIx=document.getElementById('sit').selectedIndex,st=sitIx<=1;
+  var sitVal=document.getElementById('sit').value, st=SIT_EMPLOYEUR.indexOf(sitVal)>=0;
   var tels=[];document.querySelectorAll('#tels .item').forEach(function(r){
     var n=r.querySelector('.tn').value;
     if(n)tels.push({type:CANON_TEL[r.querySelector('.tt').selectedIndex]||"",numero:n});});
@@ -720,21 +1069,72 @@ sb.onclick=async function(){
         t=r.querySelector('.ct').value,p=r.querySelector('.cp').value;
     if(i2||s||t)cpts.push({institution:i2,adresse_succursale:s,telephone:avecPoste(t,p)});});
   var data={token:token,nom_prenom:v('nomp'),date_naissance:v('naissp'),adresse_complete:v('adrp'),
-    situation_emploi:CANON_SIT[sitIx]||"",employeurs:emps,emploi_notes:(st?'':v('emploinotes')),
-    residence_principale:CANON_RES[document.getElementById('resd').selectedIndex]||"",
+    situation_emploi:sitVal||"",employeurs:emps,emploi_notes:(st?'':v('emploinotes')),
+    residence_principale:document.getElementById('resd').value||"",
     notes:v('notesp'),telephones:tels,courriels:mails,comptes:cpts,
     modalites_acceptees:true};
+  /* Un envoi qui échoue ne doit RIEN détruire. L'ancienne version appelait invalide(),
+     qui effaçait la page entière et annonçait « ce lien n'est plus valide » : c'était faux,
+     et la saisie était perdue sur un lien qui ne se rouvre pas. */
+  function echecEnvoi(detail){
+    sb.disabled=false; sb.textContent=L.envoyer;
+    var z=document.getElementById('zoneErr');
+    if(z){
+      z.innerHTML='<div class="envoierr" role="alert">'+ICO.alert
+        +'<div><div class="t">'+L.envoiEchecT+'</div><div class="d">'+(detail||L.envoiEchecD)+'</div></div></div>';
+      z.scrollIntoView({block:'nearest'});
+    }
+    annoncer(L.envoiEchecT);
+  }
   try{var rep=await fetch(FONC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    if(rep.ok){ecranMerci();}
-    else if(rep.status===429){sb.disabled=false;sb.textContent=L.envoyer;alert(L.tropDeTentatives);}
-    else{sb.disabled=false;sb.textContent=L.envoyer;invalide();}}
-  catch(x){sb.disabled=false;sb.textContent=L.envoyer;}};
+    if(rep.ok){ effacerBrouillon(); ecranMerci(); }
+    else if(rep.status===429){ echecEnvoi(L.tropDeTentatives); }
+    else if(rep.status===410){ echecEnvoi(L.invalideBase+' '+L.invalideTel+'.'); }
+    else { echecEnvoi(); }}
+  catch(x){ echecEnvoi(); }};
 }
 window.ecranForm=ecranForm;
 
 /* ============================ ÉCRAN FINAL ================================ */
-function row(k,v,mono){return '<div class="row"><div class="k">'+k+'</div>'
-  +'<div class="v'+(mono?' mono':'')+'">'+v+'</div></div>';}
+/* La valeur à recopier est offerte à la copie : chaque caractère retapé de travers
+   produit un paiement « réputé non reçu » selon la modalité que l'usager vient d'accepter. */
+function row(k,v,mono,copiable){
+  var btn = copiable
+    ? '<button type="button" class="cp" data-copie="'+esc(copiable)+'" aria-label="'+esc(L.copier+' \u2014 '+String(k).replace(/<[^>]*>/g,''))+'">'+ICO.copie+'<span>'+L.copier+'</span></button>'
+    : '';
+  return '<div class="row"><div class="k">'+k+'</div>'
+    +'<div class="v'+(mono?' mono':'')+'">'+v+'</div>'+btn+'</div>';
+}
+/* Branche les boutons de copie présents dans le document. */
+function brancherCopie(){
+  document.querySelectorAll('.row .cp').forEach(function(b){
+    b.onclick=function(){
+      var t=b.getAttribute('data-copie');
+      var fini=function(){
+        var g=b.querySelector('span'); var avant=g.textContent;
+        b.classList.add('ok'); g.textContent=L.copie;
+        setTimeout(function(){ b.classList.remove('ok'); g.textContent=avant; },2000);
+      };
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t).then(fini,function(){});
+      }else{
+        var z=document.createElement('textarea'); z.value=t; document.body.appendChild(z);
+        z.select(); try{ document.execCommand('copy'); fini(); }catch(e){}
+        document.body.removeChild(z);
+      }
+    };
+  });
+}
+/* Le premier versement encore à venir : le seul fait qui compte cette semaine. */
+function prochainVersement(){
+  var v=DOSSIER.echeancier||[]; if(!v.length) return null;
+  var auj=new Date(); auj.setHours(0,0,0,0);
+  for(var i=0;i<v.length;i++){
+    var p=String(v[i].date||'').slice(0,10).split('-');
+    if(p.length===3 && new Date(+p[0],+p[1]-1,+p[2])>=auj) return v[i];
+  }
+  return v[v.length-1];
+}
 
 function optionsPaiement(){
   var d=0;
@@ -751,14 +1151,17 @@ function optionsPaiement(){
 
   // 2) Virement Interac (coordonnées du dossier).
   var o2=opt('<div class="oh"><div class="oi">'+ICO.send+'</div>'
-    +'<div><div class="ot">'+L.o2t+'</div><div class="os">'+L.o2s+'</div></div></div>'
+    +'<div><div class="ot">'+L.o2t+'</div><div class="os">'+L.o2s+'</div></div>'
+    +'<span class="reco">'+L.conseilInterac+'</span></div>'
     +'<div class="rows">'
     +row(L.payee,(DOSSIER.huissier?esc(DOSSIER.huissier)+', ':'')+L.titreHuissier)
-    +row(L.courrielInterac,PAY_MAIL,true)
-    +row(L.message,'ENTENTE DE PAIEMENT - '+esc(DOSSIER.numero))
-    +row(L.reference,esc(DOSSIER.numero),true)
-    +row(L.reponse,PAY_REP+' <span class="hint">('+L.enMinuscules+')</span>')
-    +'</div>');
+    +row(L.courrielInterac,PAY_MAIL,true,PAY_MAIL)
+    +row(L.message,'ENTENTE DE PAIEMENT - '+esc(DOSSIER.numero),false,'ENTENTE DE PAIEMENT - '+DOSSIER.numero)
+    +row(L.reference,esc(DOSSIER.numero),true,DOSSIER.numero)
+    +row(L.reponse,PAY_REP+' <span class="hint">('+L.enMinuscules+')</span>',false,PAY_REP)
+    +'</div>'
+    +'<p class="ob" style="margin-top:10px">'+L.payeeRassure+'</p>'
+    +'<div class="delay">'+ICO.clock+'<p>'+L.o3delai+'</p></div>');
 
   // 3) Paiement en ligne : transfert de fonds, 48 à 72 h de traitement.
   var lien=LIEN_PAIEMENT[langue]||LIEN_PAIEMENT.fr;
@@ -771,13 +1174,38 @@ function optionsPaiement(){
   return '<div class="payhead"><h3>'+L.payT+'</h3><p>'+L.payD+'</p></div>'+o1+o2+o3;}
 
 function ecranMerci(){ecranActuel='merci';
+  var pv=prochainVersement();
+  var blocPv = pv
+    ? '<div class="prochain"><div class="k">'+L.prochainT+'</div><div class="v">'
+      +'<span class="d">'+dateLisible(pv.date)+'</span>'
+      +'<span class="m">'+argent(pv.montant)+'</span></div></div>'
+    : '';
   root.innerHTML='<div class="done"><div class="ico">'+ICO.check+'</div>'
     +'<h2>'+L.bravo+'</h2><p class="sub">'+L.merci+'</p></div>'
-    // Rappel de l'échéancier : le lien est à usage unique, l'usager ne pourra pas y revenir.
+    // Ce qui compte cette semaine passe AVANT le tableau : la date et le montant du prochain versement.
+    +blocPv
+    +'<div class="note"><div class="nt">'+L.apresT+'</div><div class="nd">'+L.apresD+'</div></div>'
+    // Le lien est à usage unique : l'échéancier et les coordonnées ne se retrouveront pas.
     +'<div class="payhead"><h3>'+L.echT+'</h3><p>'+L.echSous+'</p></div>'
     +'<div class="opt">'+echeancierHtml()+'</div>'
     +optionsPaiement()
-    +'<div class="foot"><div class="etude">'+esc(ETUDE)+'</div><div class="sub">'+L.huissiers+'</div></div>';
+    +'<button type="button" class="btn-sec" id="imprimer">'+ICO.imprimante+'<span>'+L.imprimer+'</span></button>'
+    +'<p class="repris" style="text-align:center;margin-top:10px">'+L.imprimerNote+'</p>'
+    +'<p class="fielderr" id="avisImpr" hidden style="justify-content:center"></p>'
+    +'<div class="foot"><div class="etude">'+esc(ETUDE)+'</div><div class="sub">'+L.huissiers+'</div>'
+    +'<div class="conf" style="margin-top:9px">'+L.dossierEtiq+' '+esc(DOSSIER.numero)+' &nbsp;·&nbsp; '+telLien()+'</div>'
+    +'<div class="conf">'+L.conf+'</div></div>';
+  brancherCopie();
+  var pr=document.getElementById('imprimer');
+  if(pr) pr.onclick=function(){
+    try{ window.print(); }catch(e){}
+    // Encadrée, la page n'a pas le droit d'ouvrir la boîte d'impression :
+    // on le dit plutôt que de laisser croire à un bouton cassé.
+    if(window.self!==window.top){
+      var av=document.getElementById('avisImpr');
+      if(av){ av.textContent=L.imprimerCadre; av.hidden=false; }
+    }
+  };
   window.scrollTo(0,0);}
 window.ecranMerci=ecranMerci;
 
