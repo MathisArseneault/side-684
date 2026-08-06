@@ -372,8 +372,8 @@ var BUREAUX_DEFAUT="407, boulevard Saint-Laurent, bureau 700, Montréal (Québec
 var SIT_CLES=["Salarié","Travailleur autonome","Retraité","Prestataire d'aide de dernier recours",
               "Étudiant","Invalidité / CNESST","Sans emploi","Autre"];
 var SIT_L10N=["salarie","autonome","retraite","aideDerniere","etudiant","invalidite","sansEmploi","autre"];
-var RES_CLES=["Propriétaire","Locataire","Hébergé ou chambreur"];
-var RES_L10N=["proprio","locataire","heberge"];
+var RES_CLES=["Propriétaire","Locataire","Hébergé ou chambreur","Sans domicile fixe"];
+var RES_L10N=["proprio","locataire","heberge","sansDomicile"];
 var SIT_EMPLOYEUR=["Salarié","Travailleur autonome"];   // seuls ces deux-là ont un employeur
 var CANON_TEL=["Cellulaire","Résidence","Travail"];
 var CANON_MAIL=["Personnel","Travail","Autre"];
@@ -461,12 +461,17 @@ fr:{
  /* --- Erreurs et champs requis --- */
  legendeRequis:"Les champs suivis d'un astérisque sont obligatoires.",
  champRequis:"Ce renseignement est requis.",
+ employeurRequis:"Indiquez au moins un employeur.",
+ emploiNotesRequis:"Décrivez votre situation ou vos sources de revenu.",
+ compteRequis:"Indiquez l'institution et l'adresse de sa succursale.",
+ compteAucun:"Si vous n'avez aucun compte, inscrivez « Aucun » dans les deux champs.",
  erreursUne:"1 champ reste à remplir.",
  erreursN:"{N} champs restent à remplir.",
  choisir:"Choisir…",
  /* --- Statuts d'emploi et de logement --- */
  retraite:"Retraité",aideDerniere:"Prestataire d'aide de dernier recours",
  etudiant:"Étudiant",invalidite:"Invalidité / CNESST",heberge:"Hébergé ou chambreur",
+ sansDomicile:"Sans domicile fixe",
  revenuT:"Sources de revenu",
  revenuPh:"Assurance-emploi, aide sociale, pension, travail occasionnel, soutien d'un proche…",
  revenuRetraiteT:"Sources de revenu de retraite",
@@ -554,11 +559,16 @@ en:{
  pourquoi684D:"Article 684 of the Code of Civil Procedure allows the bailiff to ask you for a statement of your property and income. Your answers go to your file: as long as the agreement is respected, they are not used for anything else.",
  legendeRequis:"Fields followed by an asterisk are required.",
  champRequis:"This information is required.",
+ employeurRequis:"Enter at least one employer.",
+ emploiNotesRequis:"Describe your situation or your sources of income.",
+ compteRequis:"Enter the institution and its branch address.",
+ compteAucun:"If you have no account, enter \u201cNone\u201d in both fields.",
  erreursUne:"1 field still needs to be filled in.",
  erreursN:"{N} fields still need to be filled in.",
  choisir:"Choose…",
  retraite:"Retired",aideDerniere:"Last-resort financial assistance",
  etudiant:"Student",invalidite:"Disability / CNESST",heberge:"Housed or renting a room",
+ sansDomicile:"No fixed address",
  revenuT:"Sources of income",
  revenuPh:"Employment insurance, social assistance, pension, occasional work, support from a relative…",
  revenuRetraiteT:"Sources of retirement income",
@@ -643,11 +653,16 @@ es:{
  pourquoi684D:"El artículo 684 del Código de Procedimiento Civil permite al agente judicial solicitarle el estado de sus bienes e ingresos. Sus respuestas se incorporan a su expediente: mientras se respete el acuerdo, no se utilizan para nada más.",
  legendeRequis:"Los campos seguidos de un asterisco son obligatorios.",
  champRequis:"Este dato es obligatorio.",
+ employeurRequis:"Indique al menos un empleador.",
+ emploiNotesRequis:"Describa su situación o sus fuentes de ingresos.",
+ compteRequis:"Indique la institución y la dirección de su sucursal.",
+ compteAucun:"Si no tiene ninguna cuenta, escriba \u00abNinguna\u00bb en ambos campos.",
  erreursUne:"Queda 1 campo por completar.",
  erreursN:"Quedan {N} campos por completar.",
  choisir:"Elegir…",
  retraite:"Jubilado",aideDerniere:"Beneficiario de asistencia de último recurso",
  etudiant:"Estudiante",invalidite:"Invalidez / CNESST",heberge:"Alojado o habitación alquilada",
+ sansDomicile:"Sin domicilio fijo",
  revenuT:"Fuentes de ingresos",
  revenuPh:"Seguro de empleo, asistencia social, pensión, trabajo ocasional, apoyo de un familiar…",
  revenuRetraiteT:"Fuentes de ingresos de jubilación",
@@ -814,11 +829,14 @@ function champ(id,libelle,controle){
     +'<p class="fielderr" id="err-'+id+'" hidden>'+ICO.alert+'<span>'+L.champRequis+'</span></p>';
 }
 /* Marque ou démarque un champ fautif, et tient à jour ce qu'un lecteur d'écran annoncera. */
-function marquerErreur(el,fautif){
+function marquerErreur(el,fautif,idMsg){
   if(!el) return;
-  var msg=document.getElementById('err-'+el.id);
+  // Les lignes répétables (employeur, compte) ont un identifiant engendré : leur message
+  // vit au niveau de la carte et son identifiant est passé explicitement.
+  var cle = idMsg || ('err-'+el.id);
+  var msg=document.getElementById(cle);
   el.classList.toggle('err',fautif);
-  if(fautif){ el.setAttribute('aria-invalid','true'); if(msg){ msg.hidden=false; el.setAttribute('aria-describedby','err-'+el.id); } }
+  if(fautif){ el.setAttribute('aria-invalid','true'); if(msg){ msg.hidden=false; el.setAttribute('aria-describedby',cle); } }
   else { el.removeAttribute('aria-invalid'); if(msg){ msg.hidden=true; el.removeAttribute('aria-describedby'); } }
 }
 function annoncer(txt){var a=document.getElementById('annonce'); if(a) a.textContent=txt;}
@@ -865,22 +883,27 @@ var steps=[
    +'<button type="button" class="add" id="aTel">'+ICO.plus+'<span>'+L.ajTel+'</span></button></div>'
    +'<div class="card"><h2>'+L.courriels+'</h2><div id="mails"></div>'
    +'<button type="button" class="add" id="aMail">'+ICO.plus+'<span>'+L.ajMail+'</span></button></div>'},
- {t:L.emploi,h:'<div class="card"><h2>'+L.situation+'</h2>'
+ {t:L.emploi,h:'<div class="card"><h2>'+L.situation+' <span class="req" aria-hidden="true">*</span>'+'</h2>'
    +'<select id="sit" required aria-required="true" aria-label="'+esc(L.situation)+'">'
    +'<option value="" disabled selected>'+L.choisir+'</option>'
    +SIT_CLES.map(function(c,i){return '<option value="'+c+'">'+L[SIT_L10N[i]]+'</option>';}).join('')
-   +'</select></div>'
-   +'<div class="card" id="cardEmps"><h2>'+L.employeurs+'</h2><div id="emps"></div>'
-   +'<button type="button" class="add" id="aEmp">'+ICO.plus+'<span>'+L.ajEmp+'</span></button></div>'
+   +'</select>'+'<p class="fielderr" id="err-sit" hidden>'+ICO.alert+'<span>'+L.champRequis+'</span></p>'+'</div>'
+   +'<div class="card" id="cardEmps"><h2>'+L.employeurs+' <span class="req" aria-hidden="true">*</span>'+'</h2><div id="emps"></div>'
+   +'<button type="button" class="add" id="aEmp">'+ICO.plus+'<span>'+L.ajEmp+'</span></button>'
+   +'<p class="fielderr" id="err-emps" hidden>'+ICO.alert+'<span>'+L.employeurRequis+'</span></p>'+'</div>'
    +'<div class="card" id="cardNotes"><h2 id="titreNotes">'+L.emploiNotes+'</h2>'
-   +'<textarea id="emploinotes" class="long" aria-label="'+esc(L.emploiNotes)+'" placeholder="'+esc(L.emploiNotesPh)+'"></textarea></div>'},
- {t:L.logement,h:'<div class="card"><h2>'+L.residence+'</h2>'
+   +'<textarea id="emploinotes" class="long" aria-required="true" aria-label="'+esc(L.emploiNotes)+'" placeholder="'+esc(L.emploiNotesPh)+'"></textarea>'
+   +'<p class="fielderr" id="err-emploinotes" hidden>'+ICO.alert+'<span>'+L.emploiNotesRequis+'</span></p>'+'</div>'},
+ {t:L.logement,h:'<div class="card"><h2>'+L.residence+' <span class="req" aria-hidden="true">*</span>'+'</h2>'
    +'<select id="resd" required aria-required="true" aria-label="'+esc(L.residence)+'">'
    +'<option value="" disabled selected>'+L.choisir+'</option>'
    +RES_CLES.map(function(c,i){return '<option value="'+c+'">'+L[RES_L10N[i]]+'</option>';}).join('')
-   +'</select></div>'
-   +'<div class="card"><h2>'+L.comptes+'</h2><div id="cpts"></div>'
-   +'<button type="button" class="add" id="aCpt">'+ICO.plus+'<span>'+L.ajCpt+'</span></button></div>'},
+   +'</select>'+'<p class="fielderr" id="err-resd" hidden>'+ICO.alert+'<span>'+L.champRequis+'</span></p>'+'</div>'
+   +'<div class="card"><h2>'+L.comptes+' <span class="req" aria-hidden="true">*</span>'+'</h2>'
+   +'<p class="legende">'+L.compteAucun+'</p>'
+   +'<div id="cpts"></div>'
+   +'<button type="button" class="add" id="aCpt">'+ICO.plus+'<span>'+L.ajCpt+'</span></button>'
+   +'<p class="fielderr" id="err-cpts" hidden>'+ICO.alert+'<span>'+L.compteRequis+'</span></p>'+'</div>'},
  {t:L.notes,h:'<div class="card"><h2>'+L.notes+'</h2>'
    +'<textarea id="notesp" class="long" aria-label="'+esc(L.notes)+'" placeholder="'+L.notesPh+'"></textarea></div>'},
  /* Dernière étape : modalités, mise en garde, puis engagement explicite. */
@@ -965,7 +988,7 @@ function majEmploi(){
     if(v==='Retraité'){ t=L.revenuRetraiteT; ph=L.revenuRetraitePh; }
     else if(v==='Autre'){ t=L.precisezT; ph=L.precisezPh; }
     else { t=L.revenuT; ph=L.revenuPh; }
-    document.getElementById('titreNotes').textContent=t;
+    document.getElementById('titreNotes').innerHTML=esc(t)+' <span class="req" aria-hidden="true">*</span>';
     document.getElementById('emploinotes').setAttribute('placeholder',ph);
     document.getElementById('emploinotes').setAttribute('aria-label',t);
   }
@@ -1018,19 +1041,36 @@ root.addEventListener('input',sauverBrouillon);
 root.addEventListener('change',sauverBrouillon);
 /* Les champs obligatoires d'une étape. Le choix d'un statut EST une déclaration :
    on ne laisse pas passer une valeur que l'usager n'a jamais choisie. */
-function requisDe(step){
-  if(step===0) return ['nomp','naissp','adrp'];
-  if(step===2) return ['sit'];
-  if(step===3) return ['resd'];
-  return [];
+/* Les sections Emploi, Résidence et Comptes ne peuvent pas rester vides : une déclaration
+   d'actifs muette sur ces points ne remplit pas son office. Selon le statut déclaré, la preuve
+   attendue change — un employeur pour un salarié, une description pour tous les autres cas. */
+function champsRequis(step){
+  var out=[];
+  var vu=function(e){ return e && e.offsetParent!==null; };
+  var pousser=function(el,idMsg){ if(el) out.push({el:el,msg:idMsg}); };
+  if(step===0) ['nomp','naissp','adrp'].forEach(function(id){ pousser(document.getElementById(id)); });
+  if(step===2){
+    pousser(document.getElementById('sit'));
+    if(vu(document.getElementById('cardEmps')))
+      pousser(document.querySelector('#emps .item .en'),'err-emps');
+    else if(vu(document.getElementById('cardNotes')))
+      pousser(document.getElementById('emploinotes'));
+  }
+  if(step===3){
+    pousser(document.getElementById('resd'));
+    // Une institution sans adresse de succursale ne permet pas de retracer le compte :
+    // les deux champs de la première ligne sont exigés.
+    pousser(document.querySelector('#cpts .item .ci'),'err-cpts');
+    pousser(document.querySelector('#cpts .item .cs'),'err-cpts');
+  }
+  return out;
 }
 function validerEtape(step){
   var manquants=0, premier=null;
-  requisDe(step).forEach(function(id){
-    var el=document.getElementById(id); if(!el) return;
-    var vide=!String(el.value||'').trim();
-    marquerErreur(el,vide);
-    if(vide){ manquants++; if(!premier) premier=el; }
+  champsRequis(step).forEach(function(c){
+    var vide=!String(c.el.value||'').trim();
+    marquerErreur(c.el,vide,c.msg);
+    if(vide){ manquants++; if(!premier) premier=c.el; }
   });
   if(manquants){
     annoncer(manquants===1?L.erreursUne:L.erreursN.replace('{N}',manquants));
