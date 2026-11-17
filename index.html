@@ -379,6 +379,11 @@ input.mono{font-variant-numeric:tabular-nums;letter-spacing:.12em}
   .duo,.duo.egal{grid-template-columns:minmax(0,1fr)}
   .adr-grille{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;grid-template-areas:"no no app app" "rue rue rue rue" "ville ville ville ville" "prov prov cp cp"}
   .ligne{grid-template-columns:minmax(0,8.6rem) minmax(0,1fr) auto}
+  .ligne.lmail{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"type x" "mail mail";row-gap:6px;padding-bottom:4px}
+  .ligne.lmail .dd{grid-area:type;justify-self:start;width:auto;min-width:9.5rem}
+  .ligne.lmail input{grid-area:mail}
+  .ligne.lmail .x{grid-area:x}
+  .ligne.lmail+.ligne.lmail{border-top:1px dashed var(--line);padding-top:10px}
   .recap{grid-template-columns:minmax(0,1fr);gap:6px}
   .rs{padding:10px 12px}
   .fgrid{grid-template-columns:minmax(0,1fr)}
@@ -387,7 +392,6 @@ input.mono{font-variant-numeric:tabular-nums;letter-spacing:.12em}
   .okb{padding:12px 14px}
   .okb .btn{flex-basis:100%;background:var(--surf)}
 }
-@media (max-width:380px){.ligne{grid-template-columns:minmax(0,1fr) auto}.ligne select{grid-column:1/-1}}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
 
@@ -1475,11 +1479,11 @@ function afficher(){
       +'</div>'};
   else if(q==='joindre'){
     var tl=R.tels.map(function(t,i){
-      return '<div class="ligne">'+menuHtml('tels.'+i+'.ti','tt'+i,[L.cell,L.res,L.trav].map(function(x,j){return {v:j,t:x};}),t.ti,L.tels+' '+(i+1))
+      return '<div class="ligne lmail">'+menuHtml('tels.'+i+'.ti','tt'+i,[L.cell,L.res,L.trav].map(function(x,j){return {v:j,t:x};}),t.ti,L.tels+' '+(i+1))
         +'<input data-k="tels.'+i+'.n" class="telfmt" inputmode="tel" autocomplete="tel" value="'+esc(t.n)+'" placeholder="'+esc(L.numero)+'" aria-label="'+esc(L.numero)+' '+(i+1)+'">'
         +'<button type="button" class="x" data-retl="tels" data-i="'+i+'" aria-label="'+esc(L.retirer+' — '+L.numero+' '+(i+1))+'">'+I('x',15,2.4)+'</button></div>';}).join('');
     var ml=R.mails.map(function(m,i){
-      return '<div class="ligne">'+menuHtml('mails.'+i+'.mi','mt'+i,[L.perso,L.trav,L.autre].map(function(x,j){return {v:j,t:x};}),m.mi,L.courriels+' '+(i+1))
+      return '<div class="ligne lmail">'+menuHtml('mails.'+i+'.mi','mt'+i,[L.perso,L.trav,L.autre].map(function(x,j){return {v:j,t:x};}),m.mi,L.courriels+' '+(i+1))
         +'<input data-k="mails.'+i+'.v" type="email" autocomplete="email" value="'+esc(m.v)+'" placeholder="'+esc(L.courriel)+'" aria-label="'+esc(L.courriel)+' '+(i+1)+'">'
         +'<button type="button" class="x" data-retl="mails" data-i="'+i+'" aria-label="'+esc(L.retirer+' — '+L.courriel+' '+(i+1))+'">'+I('x',15,2.4)+'</button></div>';}).join('');
     o={ic:'contact',t:L.qJoindre,p:L.qJoindreP,corps:
