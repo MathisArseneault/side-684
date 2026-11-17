@@ -1,357 +1,418 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#EFF1F4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0F1114" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16191E" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
 <meta name="format-detection" content="telephone=no">
 <title>Déclaration d'actifs (art. 684 C.P.C.)</title>
 <style>
 /* ============================================================================
-   Déclaration d'actifs 684 : feuille de style unique.
-   Parti pris : institutionnel SOBRE. Neutres froids, surfaces blanches, un seul
-   accent (le rouge de l'étude). Polices SYSTÈME : aucune requête réseau avant le
-   premier affichage, ce qui compte pour un défendeur qui remplit ceci sur son
-   téléphone en données mobiles. Mode sombre pris en charge (formulaire souvent
-   rempli le soir). Mouvement volontairement retenu et toujours motivé.
+   Déclaration d'actifs 684 : version D.
+   Une question à la fois, dans une carte sobre. En-tête blanc avec la marque de
+   l'étude, six étapes nommées, rouge de l'étude comme seul accent. Polices système
+   (aucune requête vers un tiers), mode sombre, mouvement retenu et coupé si
+   l'appareil demande moins d'animations.
    ========================================================================== */
 :root{
-  --accent:#B5232A;          /* rouge de l'étude, conservé de la charte */
-  --accent-press:#8C1A20;
-  --accent-ink:#A81F26;      /* rouge lisible en texte sur fond clair */
-  --accent-soft:#FDF1F1;
-  /* Gris calibrés pour que MÊME le plus pâle (étiquettes de 11,5 px) passe le contraste
-     WCAG AA sur le fond de page comme sur les cartes. */
-  --ink:#16181C; --ink-600:#42474F; --ink-500:#545A62; --ink-400:#656B73;
-  --line:#DCE0E5; --line-soft:#EBEEF1; --field:#F5F7F9;
-  --page:#EFF1F4; --surface:#FFFFFF;
-  --ok:#0F6B45; --ok-soft:#EAF5EF;
-  --warn-bg:#FFF8EA; --warn-line:#EBD5A6; --warn-ink:#7A5200; --warn-icon:#A87A08;
-  --r:12px; --r-sm:8px; --r-xs:6px;
-  --esp-serre:10px; --esp-bloc:14px; --esp-groupe:26px;
-  --shadow:0 1px 2px rgba(16,24,40,.05), 0 1px 3px rgba(16,24,40,.04);
+  --acc:#B5232A; --acc2:#8C1A20; --acc-ink:#A81F26; --acc-soft:#FBEEEE;
+  --page:#F2F3F5; --surf:#FFFFFF; --field:#F6F7F9; --line:#E3E6EA; --line2:#D2D6DC;
+  --tx:#16181C; --tx2:#474D56; --tx3:#5E646D;
+  --ok:#0F6B45; --ok-soft:#E7F3EC;
+  --warn-bg:#FFF8EA; --warn-line:#EBD5A6; --warn-ink:#6E4A00; --warn-icon:#A87A08;
+  --ombre:0 1px 2px rgba(16,24,40,.04),0 8px 24px rgba(16,24,40,.05);
   --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-  --ease:cubic-bezier(.22,1,.36,1);
 }
-@media (prefers-color-scheme:dark){
-  :root{
-    --accent:#C42B33; --accent-press:#A82129; --accent-ink:#FF8B91; --accent-soft:#2B1618;
-    --ink:#E9EBEE; --ink-600:#B4B9C0; --ink-500:#949AA2; --ink-400:#838A93;
-    --line:#2C3138; --line-soft:#23272D; --field:#1D2126;
-    --page:#0F1114; --surface:#181B1F;
-    --ok:#3FBB86; --ok-soft:#12261D;
-    --warn-bg:#2A2113; --warn-line:#4B3B1B; --warn-ink:#F0C264; --warn-icon:#D9A542;
-    --shadow:0 1px 2px rgba(0,0,0,.4);
-  }
-}
-*,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{background:var(--page);font-family:var(--font);color:var(--ink);
-  -webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5;padding:0 16px 48px}
-.wrap{max-width:660px;margin:0 auto}
+@media (prefers-color-scheme:dark){:root{
+  --acc:#E0565C; --acc2:#C9434A; --acc-ink:#F07A7F; --acc-soft:rgba(224,86,92,.14);
+  --page:#0F1114; --surf:#181B20; --field:#1F2329; --line:#2C3138; --line2:#3A4048;
+  --tx:#ECEEF1; --tx2:#C3C8CF; --tx3:#9CA2AA;
+  --ok:#4CC38A; --ok-soft:rgba(76,195,138,.13);
+  --warn-bg:rgba(232,176,60,.10); --warn-line:rgba(232,176,60,.35); --warn-ink:#F0CB7A; --warn-icon:#E8B03C;
+  --ombre:0 1px 2px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--tx);font:15px/1.45 var(--font);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+a{color:var(--acc-ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.grow{flex:1}
+svg{flex:none;display:block}
 
-/* ---- Sélecteur de langue ------------------------------------------------ */
-/* Volontairement NON collant : une pastille flottant par-dessus les cartes pendant le
-   défilement ressemble à un défaut. La page remonte en haut à chaque étape, le sélecteur
-   est donc toujours à portée. */
-.langbar{display:flex;justify-content:flex-end;padding:12px 0 0;margin:0 0 -6px}
-.langbar .grp{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--r-sm);padding:2px;box-shadow:var(--shadow)}
-.langbar button{border:0;background:transparent;font-family:inherit;font-size:13px;font-weight:600;
-  color:var(--ink-500);min-width:46px;min-height:44px;padding:6px 12px;border-radius:var(--r-xs);
-  cursor:pointer;transition:.15s var(--ease)}
-.langbar button:hover{color:var(--ink)}
-.langbar button.on{background:var(--accent-soft);color:var(--accent-ink)}
-.langbar button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+/* ---------- en-tête ---------- */
+.top{background:var(--surf);border-bottom:1px solid var(--line)}
+.top-in{max-width:792px;margin:0 auto;padding:0 16px;height:64px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand .lg{flex:none;width:38px;height:38px;padding:3px;border-radius:10px;background:#fff;border:1px solid var(--line);overflow:hidden}
+.brand .lg img{width:100%;height:100%;display:block;object-fit:contain}
+.brand b{display:block;font-size:14px;font-weight:650;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{display:block;font-size:12px;color:var(--tx3);white-space:nowrap}
+.lock{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;background:var(--ok-soft);color:var(--ok);font-size:12px;font-weight:600;white-space:nowrap}
+.langbar .grp{display:inline-flex;gap:2px;padding:2px;border-radius:9px;background:var(--field);border:1px solid var(--line)}
+.langbar button{border:0;background:none;height:28px;min-width:34px;padding:0 7px;border-radius:7px;font-size:12px;font-weight:650;color:var(--tx3);cursor:pointer}
+.langbar button.on{background:var(--surf);color:var(--tx);box-shadow:0 1px 2px rgba(16,24,40,.1)}
+.langbar button:focus-visible,.btn:focus-visible,.tile:focus-visible,.lnk:focus-visible,.cp:focus-visible,.x:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 
-/* ---- En-tête ------------------------------------------------------------ */
-.head{padding:22px 2px 18px}
-.head .rule{width:34px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:14px}
-.head h1{font-size:26px;font-weight:650;letter-spacing:-.021em;line-height:1.15;margin:0 0 5px}
-.head p{font-size:13.5px;color:var(--ink-500);margin:0}
+/* ---------- page ---------- */
+.wrap{max-width:792px;margin:0 auto;padding:0 16px 40px}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:24px 0 16px}
+.meta h1{margin:0;font-size:21px;font-weight:700;letter-spacing:-.018em;line-height:1.2}
+.meta .st{display:block;font-size:12.5px;color:var(--tx3);margin-top:2px}
+.dos{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:999px;background:var(--surf);border:1px solid var(--line);font-size:12.5px;color:var(--tx2);max-width:100%;min-width:0}
+.dos b{color:var(--tx);font-weight:650;font-variant-numeric:tabular-nums}
+.dos span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-/* ---- Progression : segments (lisible d'un coup d'oeil) ------------------ */
-.prog{margin:0 2px 16px}
-.segs{display:flex;gap:4px}
-.seg{flex:1;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
-.seg i{display:block;height:100%;width:0;background:var(--accent);border-radius:2px;
-  transition:width .35s var(--ease)}
-/* « fait » et non « done » : la classe .done est celle de la carte de fin, et un segment
-   qui l'aurait portée héritait de son fond, sa bordure et son padding de 32 px, ce qui le
-   transformait en gros carré vide. Une classe distincte évite toute collision. */
-.seg.fait i,.seg.now i{width:100%}
-.ptxt{font-size:12px;font-weight:500;color:var(--ink-500);margin-top:9px}
-.ptxt b{color:var(--ink);font-weight:600}
+/* six étapes nommées (ordi) ; barre + texte (téléphone) */
+.etapes{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.etapes li{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:600;color:var(--tx3);min-width:0}
+.etapes li i{display:block;height:4px;border-radius:2px;background:var(--line);transition:background .4s}
+.etapes li span{display:flex;align-items:flex-start;gap:5px;line-height:1.3}
+.etapes li span svg{margin-top:2px}
+.etapes li.fait i{background:var(--tx)}
+.etapes li.fait span{color:var(--tx2)}
+.etapes li.now i{background:var(--acc)}
+.etapes li.now span{color:var(--tx)}
+.etapes li.fait svg{color:var(--ok)}
+.ptxt{display:none;font-size:12.5px;color:var(--tx3);margin:-6px 0 12px}
+.ptxt b{color:var(--tx);font-weight:650}
 
-/* ---- Cartes et champs --------------------------------------------------- */
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:20px;margin-bottom:var(--esp-bloc);box-shadow:var(--shadow)}
-.card>h2{font-size:16px;font-weight:650;letter-spacing:-.011em;color:var(--ink);
-  margin:0 0 15px;padding-bottom:12px;border-bottom:1px solid var(--line-soft)}
-label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-600);margin:16px 0 6px}
-label .req{color:var(--accent-ink);font-weight:700}
-input,select,textarea{width:100%;font-size:16px;font-family:inherit;color:var(--ink);
-  padding:12px;min-height:46px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--field);
-  transition:border-color .14s var(--ease),box-shadow .14s var(--ease),background .14s var(--ease)}
-input::placeholder,textarea::placeholder{color:var(--ink-400)}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);background:var(--surface);
-  box-shadow:0 0 0 3px var(--accent-soft)}
-input.err,textarea.err,select.err{border-color:var(--accent);background:var(--accent-soft)}
-/* Le rose ne dit rien à qui ne le voit pas : chaque champ fautif reçoit AUSSI un texte,
-   relié par aria-describedby, et la bordure passe à 2 px pour ne pas dépendre de la teinte. */
-input.err,textarea.err,select.err{border-width:2px}
+/* ---------- carte de question ---------- */
+.qc{background:var(--surf);border:1px solid var(--line);border-radius:16px;box-shadow:var(--ombre)}
+.qc.entre{animation:entre .45s cubic-bezier(.2,.8,.2,1) both}
+.qc.entre.recule{animation-name:recule}
+@keyframes entre{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:none}}
+@keyframes recule{from{opacity:0;transform:translateX(-22px)}to{opacity:1;transform:none}}
+.qb{padding:24px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.eye{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--tx3)}
+.eye .tag{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;background:var(--field);color:var(--tx2)}
+.qh{display:flex;gap:14px;align-items:flex-start}
+.qh h2{margin:0;font-size:23px;font-weight:700;letter-spacing:-.022em;line-height:1.2}
+.qh h2:focus{outline:none}
+.qh p{margin:5px 0 0;color:var(--tx3);font-size:14px;line-height:1.45}
+.ic{flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--field);color:var(--tx2)}
+.ic.acc{background:var(--acc-soft);color:var(--acc)}
+.ic.ok{background:var(--ok-soft);color:var(--ok)}
+.qh .ic{width:46px;height:46px;border-radius:12px}
+.qf{display:flex;align-items:center;gap:10px;padding:12px 24px;border-top:1px solid var(--line);border-radius:0 0 16px 16px;background:var(--surf)}
+.repris{display:flex;align-items:center;gap:8px;margin:0 0 12px;padding:10px 14px;border-radius:12px;background:var(--ok-soft);color:var(--ok);font-size:13px;font-weight:600}
+
+/* ---------- boutons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:11px;border:0;background:var(--acc);color:#fff;font-size:15px;font-weight:650;white-space:nowrap;cursor:pointer;transition:background .2s,transform .12s;text-decoration:none}
+.btn:hover{background:var(--acc2)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;background:var(--acc)}
+.btn.attente{opacity:.55}
+.btn.ghost{background:var(--surf);color:var(--tx2);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--field)}
+.btn.lg{height:50px;border-radius:12px;font-size:16px}
+.btn.full{width:100%}
+.lnk{display:inline-flex;align-items:center;gap:6px;border:0;background:none;padding:4px 2px;color:var(--acc-ink);font-size:13px;font-weight:600;cursor:pointer}
+.spin{width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- champs ---------- */
+.champs{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:12px}
+.duo.egal{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.f{display:grid;gap:6px;min-width:0;align-content:start}
+.f>label,.lab{font-size:13px;font-weight:600;color:var(--tx2)}
+.req{color:var(--acc-ink);margin-left:2px}
+.fac{font-weight:400;color:var(--tx3)}
+input,select,textarea{width:100%;min-width:0;height:46px;padding:0 13px;border-radius:10px;background:var(--field);border:1px solid var(--line);color:var(--tx);font:16px var(--font);transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none;appearance:none}
+select{padding-right:34px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23767C85' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+textarea{height:auto;min-height:96px;padding:11px 13px;line-height:1.45;resize:vertical}
+textarea.long{min-height:130px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc);background:var(--surf);box-shadow:0 0 0 3px var(--acc-soft)}
+input.big{height:52px;font-size:17px;border-radius:12px}
+.err{border-color:var(--acc)!important;background:var(--acc-soft)!important}
+.fielderr{display:flex;align-items:center;gap:6px;margin:0;color:var(--acc-ink);font-size:13px;font-weight:600}
 .fielderr[hidden]{display:none}
-.fielderr{display:flex;gap:6px;align-items:flex-start;font-size:12.5px;line-height:1.45;
-  color:var(--accent-ink);margin:6px 0 0;font-weight:500}
-.fielderr svg{flex-shrink:0;width:14px;height:14px;margin-top:1px}
-/* Annonces destinées aux lecteurs d'écran : présentes dans l'arbre, hors de l'écran. */
-.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.legende{font-size:12px;color:var(--ink-500);margin:0 0 2px}
-input[type=date]{max-width:260px}
-textarea{min-height:80px;resize:vertical}textarea.long{min-height:170px}
-select{appearance:none;-webkit-appearance:none;padding-right:34px;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23656B73' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>");
-  background-repeat:no-repeat;background-position:right 12px center}
-@media (prefers-color-scheme:dark){select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23838A93' stroke-width='2.5'><path d='M6 9l6 6 6-6'/></svg>")}}
+.fielderr svg{width:15px;height:15px}
+input[type=date]{display:block;line-height:46px}
+input[type=date]::-webkit-date-and-time-value{text-align:left}
 
-/* ---- Blocs répétables (téléphones, employeurs, comptes) ----------------- */
-.item{border:1px solid var(--line-soft);border-radius:var(--r-sm);padding:13px 56px 13px 13px;
-  margin-bottom:10px;background:var(--field);position:relative}
-.item label:first-of-type{margin-top:0}
-.item .rm{position:absolute;top:6px;right:6px;width:44px;height:44px;border:1px solid var(--line);
-  border-radius:var(--r-sm);background:var(--surface);color:var(--ink-400);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:.14s var(--ease)}
-.item .rm:hover{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent-soft)}
-.item .rm:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-.duo{display:flex;gap:10px}.duo>*{flex:1;min-width:0}
-.add{display:inline-flex;align-items:center;gap:7px;background:transparent;
-  border:1px dashed var(--line);color:var(--accent-ink);font-weight:600;font-size:13px;
-  font-family:inherit;padding:11px 14px;min-height:44px;border-radius:var(--r-sm);cursor:pointer;
-  transition:.14s var(--ease)}
-.add:hover{border-color:var(--accent);background:var(--accent-soft)}
-.add:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+/* ---------- tuiles ---------- */
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:92px;padding:14px;border-radius:13px;background:var(--field);border:1.5px solid transparent;font-size:14px;font-weight:600;line-height:1.25;text-align:left;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s,transform .12s}
+.tile:hover{border-color:var(--line2)}
+.tile:active{transform:scale(.98)}
+.tile svg{color:var(--tx2)}
+.tile small{display:block;font-weight:400;color:var(--tx3);font-size:12.5px;margin-top:3px}
+.tile.on{border-color:var(--acc);background:var(--acc-soft);box-shadow:0 0 0 3px var(--acc-soft)}
+.tile.on svg{color:var(--acc)}
+.tiles.deux{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.tiles.deux .tile{flex-direction:row;align-items:center;min-height:60px;gap:12px;font-size:14.5px}
+.tiles.deux .tile .ic{width:34px;height:34px;background:var(--surf)}
 
-/* ---- Étapes et navigation ---------------------------------------------- */
-.step{display:none}
-.step.on{display:block;animation:enter .3s var(--ease)}
-@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-/* Collante : à la dernière étape le bouton d'envoi se trouvait deux écrans plus bas
-   que le regard. Le fond est opaque pour que le contenu passe dessous sans transparaître. */
-.nav{display:flex;gap:10px;margin-top:16px;position:sticky;bottom:0;z-index:20;
-  background:var(--page);padding:10px 0 12px;border-top:1px solid var(--line)}
-.btn{border:0;border-radius:var(--r);padding:14px 18px;font-family:inherit;font-size:14px;
-  font-weight:650;cursor:pointer;transition:.14s var(--ease)}
-.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.btn.prim{flex:1;background:var(--accent);color:#fff}
-.btn.prim:hover:not(:disabled){background:var(--accent-press)}
-.btn.prim:active:not(:disabled){transform:scale(.99)}
-.btn.prim:disabled{background:var(--line);color:var(--ink-400);cursor:not-allowed}
-.btn.ghost{flex:0 0 auto;background:var(--surface);color:var(--ink-600);border:1px solid var(--line)}
-.btn.ghost:hover{border-color:var(--ink-400);color:var(--ink)}
-
-/* ---- Accueil ------------------------------------------------------------ */
-.intro p{font-size:14.5px;color:var(--ink-600);line-height:1.6;margin:0 0 16px}
-.pts{list-style:none;margin:0 0 18px;padding:0}
-.pts li{display:flex;gap:11px;font-size:13.5px;color:var(--ink-600);line-height:1.5;padding:7px 0}
-.pts svg{flex-shrink:0;margin-top:2px;color:var(--ok)}
-
-/* ---- Modalités et mise en garde ---------------------------------------- */
-.mod{list-style:none;margin:0;padding:0}
-.mod li{padding:13px 0;border-bottom:1px solid var(--line-soft)}
-.mod li:last-child{border-bottom:0;padding-bottom:0}
-.mod li:first-child{padding-top:0}
-.mod .mt{font-size:13.5px;font-weight:650;color:var(--ink);margin-bottom:3px}
-.mod .md{font-size:13.5px;color:var(--ink-500);line-height:1.55}
-.mod .md code{font-family:var(--mono);font-size:12.5px;color:var(--ink);
-  background:var(--field);padding:1px 3px;border-radius:4px}
-/* ---- Échéancier : dates et montants des versements prévus --------------- */
-.ech{border:1px solid var(--line-soft);border-radius:var(--r-sm);overflow:hidden}
-.ech .er{display:flex;align-items:baseline;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line-soft)}
-.ech .er:last-child{border-bottom:0}
-.ech .er.tete{background:var(--field);padding-top:7px;padding-bottom:7px}
-.ech .er.tete span{font-size:10.5px;font-weight:700;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--ink-400)}
-.ech .en{width:26px;flex-shrink:0;font-family:var(--mono);font-size:12px;color:var(--ink-400)}
-.ech .ed{flex:1;min-width:0;font-size:13.5px;color:var(--ink)}
-.ech .em{font-family:var(--mono);font-size:13.5px;font-weight:600;color:var(--ink);
-  text-align:right;white-space:nowrap}
-.ech .er.total{background:var(--field)}
-.ech .er.total .ed{font-weight:650}
-.ech .er.total .em{color:var(--ink);font-weight:700}
-.echvide{font-size:13.5px;color:var(--ink-500);line-height:1.55;margin:0}
-
-.warn{display:flex;gap:12px;background:var(--warn-bg);border:1px solid var(--warn-line);
-  border-radius:var(--r);padding:15px 16px;margin-bottom:12px}
-.warn svg{flex-shrink:0;color:var(--warn-icon);margin-top:1px}
-.warn .wt{font-size:13px;font-weight:700;color:var(--warn-ink);margin-bottom:4px}
-.warn .wd{font-size:13.5px;color:var(--warn-ink);line-height:1.55;opacity:.92}
-
-/* ---- Case d'acceptation ------------------------------------------------- */
-.accept{display:flex;gap:12px;align-items:flex-start;background:var(--surface);
-  border:1.5px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px;
-  cursor:pointer;transition:.16s var(--ease)}
-.accept:hover{border-color:var(--ink-400)}
-.accept.on{border-color:var(--accent);background:var(--accent-soft)}
-.accept input{position:absolute;opacity:0;width:0;height:0}
-.accept .box{flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--ink-400);
-  border-radius:6px;background:var(--surface);display:flex;align-items:center;justify-content:center;
-  transition:.16s var(--ease);margin-top:1px}
-.accept.on .box{background:var(--accent);border-color:var(--accent)}
-.accept .box svg{opacity:0;transform:scale(.5);transition:.18s var(--ease);color:#fff}
-.accept.on .box svg{opacity:1;transform:scale(1)}
-.accept:focus-within{outline:2px solid var(--accent);outline-offset:2px}
-.accept .at{font-size:14px;font-weight:600;color:var(--ink);line-height:1.45}
-
-/* ---- Écran final -------------------------------------------------------- */
-.done{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:32px 22px 26px;text-align:center;box-shadow:var(--shadow);
-  margin:8px 0 var(--esp-groupe)}
-.done .ico{width:56px;height:56px;border-radius:50%;background:var(--ok-soft);color:var(--ok);
-  display:flex;align-items:center;justify-content:center;margin:0 auto 15px}
-.done h2{font-size:22px;font-weight:650;letter-spacing:-.015em;margin:0 0 7px}
-.done .sub{color:var(--ink-500);font-size:14px;margin:0;line-height:1.55}
-.done.bad .ico{background:var(--accent-soft);color:var(--accent-ink)}
-
-.payhead{margin:var(--esp-groupe) 2px 12px}
-.payhead h3{font-size:16px;font-weight:650;letter-spacing:-.012em;margin:0 0 4px}
-.payhead p{font-size:13.5px;color:var(--ink-500);margin:0;line-height:1.5}
-.opt{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:17px 18px;margin-bottom:var(--esp-serre);box-shadow:var(--shadow);text-align:left}
-.opt .oh{display:flex;gap:11px;align-items:center;margin-bottom:11px}
-.opt .oi{flex-shrink:0;width:34px;height:34px;border-radius:var(--r-sm);background:var(--accent-soft);
-  color:var(--accent-ink);display:flex;align-items:center;justify-content:center}
-.opt .ot{font-size:14.5px;font-weight:650;color:var(--ink);line-height:1.25}
-.opt .os{font-size:12px;color:var(--ink-400);margin-top:1px}
-.opt .ob{font-size:13.5px;color:var(--ink-600);line-height:1.6;margin:0}
-.addr{font-size:14px;color:var(--ink);line-height:1.6;font-weight:500}
-.addr .l2{display:block;margin-top:8px}
-.rows{border:1px solid var(--line-soft);border-radius:var(--r-sm);overflow:hidden}
-.row{display:flex;gap:12px;padding:9px 12px;border-bottom:1px solid var(--line-soft)}
-.row:last-child{border-bottom:0}
-.row .k{font-size:11.5px;font-weight:600;color:var(--ink-400);width:118px;flex-shrink:0;padding-top:2px}
-.row .v{font-size:13.5px;font-weight:600;color:var(--ink);min-width:0;word-break:break-word}
-.row .v.mono{font-family:var(--mono);font-weight:500;font-size:13px}
-.row .v .hint{color:var(--ink-400);font-weight:400}
-.paybtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
-  background:var(--accent);color:#fff;text-decoration:none;font-size:14px;font-weight:650;
-  padding:13px 18px;border-radius:var(--r);margin-top:12px;transition:.14s var(--ease)}
-.paybtn:hover{background:var(--accent-press)}
-.paybtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.delay{display:flex;gap:9px;align-items:flex-start;background:var(--warn-bg);
-  border:1px solid var(--warn-line);border-radius:var(--r-sm);padding:11px 12px;margin-top:11px}
-.delay svg{flex-shrink:0;color:var(--warn-icon);margin-top:1px}
-.delay p{font-size:12.5px;color:var(--warn-ink);line-height:1.5;margin:0}
-
-/* ---- Pied --------------------------------------------------------------- */
-.foot{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);text-align:center}
-.foot .etude{font-size:14px;font-weight:650;letter-spacing:-.01em;color:var(--ink)}
-.foot .sub{font-size:11.5px;color:var(--ink-400);margin-top:2px}
-.foot .conf{font-size:11.5px;color:var(--ink-400);margin-top:11px;line-height:1.5}
+/* ---------- listes (téléphones, courriels, employeurs, comptes) ---------- */
+.sec{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+.sec+.sec{padding-top:16px;border-top:1px solid var(--line)}
+.sec h3{margin:0;font-size:15px;font-weight:650;display:flex;align-items:center;gap:8px}
+.ligne{display:grid;grid-template-columns:minmax(0,9rem) minmax(0,1fr) auto;gap:8px;align-items:center}
+.x{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surf);color:var(--tx3);cursor:pointer}
+.x:hover{color:var(--acc-ink);border-color:var(--acc)}
+.ajout{display:inline-flex;align-items:center;gap:7px;justify-self:start;height:38px;padding:0 13px;border-radius:10px;border:1px dashed var(--line2);background:none;color:var(--tx2);font-size:13.5px;font-weight:600;cursor:pointer}
+.ajout:hover{border-color:var(--acc);color:var(--acc-ink)}
+.items{display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}
+.item{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 14px;border-radius:12px;background:var(--surf);border:1px solid var(--line)}
+.item.neuf{animation:neuf .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes neuf{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
+.item>div{flex:1;min-width:0}
+.item b{display:block;font-size:14.5px;font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item small{display:block;font-size:12.5px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.num{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--tx);color:var(--surf);font-size:11.5px;font-weight:700}
+.item .x{width:34px;height:34px}
+.aucun{display:flex;flex-wrap:wrap;align-items:center;gap:8px;color:var(--tx3);font-size:13px}
+.aucun button{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:999px;border:1px dashed var(--line2);background:none;color:var(--tx2);font-size:13px;font-weight:600;cursor:pointer}
+.aucun button:hover{border-color:var(--acc);color:var(--acc-ink)}
+.why{display:flex;gap:11px;padding:12px 14px;border-radius:12px;background:var(--field);font-size:13px;line-height:1.5;color:var(--tx2)}
+.why svg{color:var(--ok);margin-top:1px}
+.why b{display:block;color:var(--tx);font-weight:650}
 
 
-/* ---- Bandeau de dossier : la page dit qu'elle connaît déjà le destinataire ----
-   Sans nom de personne : le lien peut être transféré, un numéro et une raison
-   sociale suffisent à établir la légitimité sans exposer qui que ce soit. */
-.dossier{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;
-  margin:12px 0 0;padding:10px 12px;background:var(--field);
-  border:1px solid var(--line-soft);border-radius:var(--r-sm)}
-.dossier .k{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-400)}
-.dossier .n{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink)}
-.dossier .e{font-size:12.5px;color:var(--ink-500);margin-left:auto}
 
-/* ---- Encadré d'explication : pourquoi cette demande, ce qui arrive ensuite ---- */
-.note{border:1px solid var(--line);border-radius:var(--r-sm);padding:13px 15px;
-  background:var(--surface);margin:0 0 12px}
-.note .nt{font-size:13.5px;font-weight:650;color:var(--ink);margin-bottom:4px}
-.note .nd{font-size:13.5px;line-height:1.6;color:var(--ink-600)}
+/* ---------- listes déroulantes et suggestions maison ---------- */
+.dd{display:flex;align-items:center;gap:8px;width:100%;height:46px;padding:0 12px 0 13px;border-radius:10px;background:var(--field);border:1px solid var(--line);color:var(--tx);font:16px var(--font);text-align:left;cursor:pointer;transition:border-color .2s,box-shadow .2s,background .2s}
+.dd:hover{border-color:var(--line2)}
+.dd .dd-v{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd svg{color:var(--tx3);transition:transform .2s}
+.dd[aria-expanded="true"]{border-color:var(--acc);background:var(--surf);box-shadow:0 0 0 3px var(--acc-soft)}
+.dd[aria-expanded="true"] svg{transform:rotate(180deg);color:var(--acc)}
+.dd:focus-visible{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.pan{position:absolute;z-index:50;max-height:320px;overflow:auto;padding:6px;border-radius:14px;background:var(--surf);border:1px solid var(--line);
+  box-shadow:0 18px 44px rgba(16,24,40,.18),0 2px 6px rgba(16,24,40,.07);opacity:0;transform:translateY(-4px) scale(.98);transform-origin:top center;transition:opacity .16s,transform .2s cubic-bezier(.2,.8,.2,1)}
+.pan.on{opacity:1;transform:none}
+.pan .opt{display:flex;align-items:center;gap:10px;width:100%;min-height:42px;padding:8px 10px;border:0;border-radius:9px;background:none;color:var(--tx);font:15px var(--font);text-align:left;cursor:pointer}
+.pan .opt .ot{flex:1;min-width:0}
+.pan .opt .oc{flex:none;font-size:12.5px;color:var(--tx3);font-variant-numeric:tabular-nums}
+.pan .opt svg{color:var(--acc)}
+.pan .opt:hover,.pan .opt:focus,.pan .opt.actif{background:var(--field);outline:none}
+.pan .opt.on{font-weight:650}
+.pan mark{background:none;color:var(--acc-ink);font-weight:700}
+.pan .pied-pan{padding:8px 10px 4px;margin-top:4px;border-top:1px solid var(--line);font-size:12.5px;color:var(--tx3)}
+.voile{position:fixed;inset:0;z-index:49;background:rgba(10,12,16,.35);opacity:0;transition:opacity .2s}
+.voile.on{opacity:1}
+.pan.feuille{position:fixed;left:0;right:0;bottom:0;top:auto;max-height:70vh;border-radius:18px 18px 0 0;padding:8px 10px calc(14px + env(safe-area-inset-bottom));transform:translateY(24px)}
+.pan.feuille.on{transform:none}
+.pan.feuille .grab{width:38px;height:4px;border-radius:2px;background:var(--line2);margin:2px auto 8px}
+.pan.feuille h4{margin:0 6px 6px;font-size:13px;font-weight:650;color:var(--tx3)}
+.pan.feuille .opt{min-height:50px;font-size:16px}
+/* ---------- adresse : chaque case à sa place ---------- */
+.adr-grille{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;grid-template-areas:"no rue rue rue rue app" "ville ville ville prov cp cp"}
+.a-no{grid-area:no}.a-rue{grid-area:rue}.a-app{grid-area:app}.a-ville{grid-area:ville}.a-prov{grid-area:prov}.a-cp{grid-area:cp}
+#adrcp{text-transform:uppercase;letter-spacing:.06em}
+/* ---------- adresse en champs séparés ---------- */
+.duo.adr1{grid-template-columns:minmax(0,1fr) minmax(0,2.4fr)}
+.apercu{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:var(--field);line-height:1.4}
+.apercu .ic{width:34px;height:34px;background:var(--surf)}
+.apercu small{display:block;font-size:12px;color:var(--tx3);font-weight:600}
+.apercu div span{display:block;font-size:14.5px;font-weight:600;color:var(--tx)}
+.aide-champ{font-size:12px;color:var(--tx3);line-height:1.35}
+input.mono{font-variant-numeric:tabular-nums;letter-spacing:.12em}
+.banque-trouvee{display:flex;align-items:center;gap:7px;margin:-4px 0 0;font-size:13.5px;font-weight:650;color:var(--ok)}
+.banque-trouvee[hidden]{display:none}
+/* ---------- chèque expliqué ---------- */
+.cheque{border-radius:12px;background:var(--field);overflow:hidden}
+.cheque summary{display:flex;align-items:center;gap:9px;padding:12px 14px;font-size:14px;font-weight:650;cursor:pointer;list-style:none}
+.cheque summary::-webkit-details-marker{display:none}
+.cheque summary::after{content:"";margin-left:auto;width:8px;height:8px;border-right:2px solid var(--tx3);border-bottom:2px solid var(--tx3);transform:rotate(45deg);transition:transform .2s}
+.cheque[open] summary::after{transform:rotate(-135deg)}
+.cheque summary svg{color:var(--acc)}
+.cheque-in{display:grid;gap:12px;padding:0 14px 14px}
+.cheque-svg{display:block;width:100%;max-width:400px;height:auto;font-family:var(--font)}
+.ch-fond{fill:var(--surf);stroke:var(--line2)}
+.ch-gris{fill:var(--line2)}.ch-gris2{fill:var(--line)}.ch-ligne{fill:none;stroke:var(--line2)}
+.ch-banque{font-size:10px;font-weight:700;fill:var(--tx3);letter-spacing:.04em}
+.ch-num{font-size:16px;font-weight:700;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.ch-off{fill:var(--line2);font-size:13px;letter-spacing:.03em}
+.ch-a{fill:var(--acc)}.ch-b{fill:var(--tx)}
+.ch-cadre-a{fill:var(--acc-soft);stroke:var(--acc);stroke-width:1.5}
+.ch-cadre-b{fill:var(--field);stroke:var(--tx);stroke-width:1.5}
+.ch-trait-a{stroke:var(--acc);stroke-width:1.5}.ch-trait-b{stroke:var(--tx);stroke-width:1.5}
+.ch-et{font-size:13px;font-weight:700}
+.ch-sous{font-size:12px;fill:var(--tx3)}
+.cheque-pas{margin:0;padding:0 0 0 20px;display:grid;gap:6px;font-size:13.5px;line-height:1.45;color:var(--tx2)}
+.cheque-pas b{color:var(--tx)}
+.cheque-note{display:flex;align-items:center;gap:7px;margin:0;font-size:12.5px;color:var(--tx3)}
+.cheque-note svg{color:var(--ok)}
+/* ---------- vérification ---------- */
+.recap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.rs{display:flex;gap:11px;align-items:center;padding:12px;border-radius:12px;background:var(--field);min-width:0}
+.rs .ic{width:32px;height:32px;background:var(--surf)}
+.rs>div{flex:1;min-width:0}
+.rs b{display:block;font-size:13px;font-weight:650}
+.rs small{display:block;font-size:13px;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rs small.vide{color:var(--tx3);font-style:italic}
+.rs .lnk{font-size:12.5px;flex:none}
+.bloc{display:grid;gap:10px}
+.bloc>h3{margin:0;font-size:16px;font-weight:700;letter-spacing:-.01em}
+.bloc>p{margin:0;font-size:13.5px;color:var(--tx3);line-height:1.5}
+.ech{display:grid;border-radius:12px;background:var(--field);padding:4px 0}
+.ev{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 14px;font-size:14px}
+.ev .n{flex:none;width:22px;color:var(--tx3);font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.ev .d{flex:1;min-width:0}
+.ev .d sup{font-size:.65em}
+.ev .m{font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ev.pro .d{font-weight:650}
+.ev .tag{height:21px;padding:0 8px;border-radius:999px;background:var(--acc-soft);color:var(--acc-ink);font-size:11px;font-weight:700;display:inline-flex;align-items:center;margin-left:6px;vertical-align:1px}
+.ev.tot{border-top:1px solid var(--line);margin-top:4px;min-height:44px}
+.ev.tot .d{font-weight:650}
+.echvide{margin:0;padding:12px 14px;border-radius:12px;background:var(--field);color:var(--tx3);font-size:13.5px}
+.mod{margin:0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:m}
+.mod li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:4px 10px;counter-increment:m;font-size:13.5px;line-height:1.5;color:var(--tx2)}
+.mod li::before{content:counter(m);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--field);color:var(--tx2);font-size:11.5px;font-weight:700;grid-row:span 2}
+.mod .mt{font-weight:650;color:var(--tx)}
+.mod code,.warn code{font:inherit;font-weight:650;color:var(--tx)}
+.warn{display:flex;gap:11px;padding:13px 14px;border-radius:12px;background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);font-size:13.5px;line-height:1.5}
+.warn svg{color:var(--warn-icon);margin-top:1px}
+.warn .wt{font-weight:700;margin-bottom:2px}
+.note{padding:12px 14px;border-radius:12px;background:var(--ok-soft);color:var(--tx2);font-size:13.5px;line-height:1.5}
+.note b{color:var(--tx)}
+.checks{display:grid;gap:8px}
+.chk{position:relative;display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border-radius:12px;background:var(--field);border:1.5px solid transparent;font-size:14px;line-height:1.45;cursor:pointer;transition:border-color .2s,background .2s}
+.chk input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.chk .box{flex:none;display:grid;place-items:center;width:22px;height:22px;margin-top:1px;border-radius:6px;border:1.5px solid var(--line2);background:var(--surf);color:transparent;transition:all .2s}
+.chk.on{border-color:var(--acc);background:var(--acc-soft)}
+.chk.on .box{background:var(--acc);border-color:var(--acc);color:#fff}
+.chk input:focus-visible+.box{outline:2px solid var(--acc);outline-offset:2px}
+.chk.err{border-color:var(--acc)}
+.envoierr{display:flex;gap:11px;padding:13px 14px;margin-bottom:12px;border-radius:12px;background:var(--acc-soft);color:var(--acc-ink);font-size:13.5px;line-height:1.5}
+.envoierr .t{font-weight:700}
 
-/* ---- Bandeau d'échec d'envoi : remplace la fenêtre système et la fausse page « lien expiré » ---- */
-.envoierr{display:flex;gap:11px;background:var(--accent-soft);border:1px solid var(--accent);
-  border-radius:var(--r-sm);padding:13px 15px;margin:0 0 12px}
-.envoierr svg{flex-shrink:0;color:var(--accent-ink);margin-top:1px}
-.envoierr .t{font-size:13.5px;font-weight:700;color:var(--accent-ink);margin-bottom:3px}
-.envoierr .d{font-size:13px;line-height:1.55;color:var(--ink-600)}
-.envoierr a{color:var(--accent-ink);font-weight:600}
-/* Les liens téléphone se lisent dans la couleur du texte qui les porte : le bleu
-   du navigateur jurait avec la charte. Le soulignement discret dit qu'ils sont actifs. */
-a[href^="tel:"]{color:inherit;text-decoration:underline;text-decoration-thickness:1px;
-  text-underline-offset:2px;text-decoration-color:color-mix(in srgb,currentColor 42%,transparent)}
-a[href^="tel:"]:hover{text-decoration-color:currentColor}
-a[href^="tel:"]:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+/* ---------- pied ---------- */
+.pied{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:14px;font-size:13px;color:var(--tx3)}
+.garde{display:inline-flex;align-items:center;gap:6px}
+.garde svg{color:var(--ok)}
+.aide{display:inline-flex;align-items:center;gap:7px}
+.aide a{color:var(--tx);font-weight:650;text-decoration:none;white-space:nowrap}
+.aide a:hover{text-decoration:underline}
+.foot{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);text-align:center;font-size:12.5px;color:var(--tx3);line-height:1.6}
+.foot .etude{font-weight:650;color:var(--tx2)}
 
-/* ---- Reprise d'un brouillon ---- */
-.repris{font-size:12.5px;color:var(--ink-500);background:var(--field);
-  border:1px solid var(--line-soft);border-radius:var(--r-xs);padding:8px 11px;margin:0 0 12px}
+/* ---------- écrans d'erreur ---------- */
+.msg{margin-top:28px;padding:32px 24px;text-align:center;display:grid;justify-items:center;gap:12px}
+.msg .ic{width:56px;height:56px;border-radius:50%}
+.msg p{margin:0;max-width:440px;color:var(--tx2);line-height:1.55}
+.charge{display:grid;place-items:center;padding:80px 0;color:var(--tx3)}
+.charge .spin{width:26px;height:26px;border-color:var(--line);border-top-color:var(--acc)}
 
-/* ---- Prochain versement : le seul fait qui compte cette semaine ---- */
-.prochain{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:16px 18px;margin-bottom:var(--esp-serre);box-shadow:var(--shadow)}
-.prochain .k{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-  color:var(--ink-400);margin-bottom:5px}
-.prochain .v{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
-.prochain .d{font-size:19px;font-weight:650;color:var(--ink);letter-spacing:-.015em}
-.prochain .m{font-size:19px;font-weight:700;color:var(--ink);
-  font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+/* ---------- Mon entente ---------- */
+.okb{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:var(--ok-soft);margin-bottom:14px}
+.okb .rond{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--ok);color:#fff;animation:pop .6s .15s cubic-bezier(.3,1.6,.4,1) both}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+.okb{flex-wrap:wrap}
+.okb>div{flex:1;min-width:0}
+.okb b{display:block;font-size:17px;font-weight:700;color:var(--ok)}
+.okb small{display:block;font-size:13px;color:var(--tx2);line-height:1.45}
+.fgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
+.fcol{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.fc{background:var(--surf);border:1px solid var(--line);border-radius:16px;box-shadow:var(--ombre);padding:16px;display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.fh{display:flex;align-items:center;gap:11px}
+.fh>div{flex:1;min-width:0}
+.fh b{display:block;font-size:15px;font-weight:650}
+.fh small{display:block;font-size:12.5px;color:var(--tx3)}
+.fh .reco{flex:none;height:22px;padding:0 9px;border-radius:999px;background:var(--ok-soft);color:var(--ok);font-size:11.5px;font-weight:700;display:inline-flex;align-items:center}
+.hui{display:flex;align-items:center;gap:12px}
+.hui>div{flex:1;min-width:0}
+.hui b{display:block;font-size:15px;font-weight:650}
+.hui small{display:block;font-size:12.5px;color:var(--tx3)}
+.av{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--tx);color:var(--surf);font-size:14px;font-weight:700}
+.telb{flex:none;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:10px;background:var(--field);color:var(--tx);font-size:13.5px;font-weight:650;white-space:nowrap;text-decoration:none}
+.telb:hover{background:var(--line)}
+.rows{display:grid;border-radius:12px;background:var(--field)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:2px 10px;min-height:48px;padding:8px 12px}
+.row+.row{border-top:1px solid var(--line)}
+.row .k{grid-column:1;font-size:12px;color:var(--tx3);font-weight:600;line-height:1.3}
+.row .cp{grid-column:2;grid-row:1/span 2}
+.row .v{grid-column:1;min-width:0;font-size:14px;font-weight:650;overflow-wrap:anywhere}
+.row .v.mono{font-variant-numeric:tabular-nums}
+.row .hint{font-weight:400;color:var(--tx3);font-size:12px}
+.cp{flex:none;display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 10px;border-radius:8px;background:var(--surf);border:1px solid var(--line);font-size:12.5px;font-weight:600;color:var(--tx2);cursor:pointer;transition:all .2s}
+.cp.ok{color:var(--ok);border-color:var(--ok)}
+.delai{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.45;color:var(--tx3)}
+.delai svg{margin-top:1px}
+.cal{display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}
+.btn.full{white-space:normal;height:auto;min-height:46px;padding:10px 16px;text-align:center}
+.calok{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ok);font-weight:600}
+.calok[hidden]{display:none}
+.calnote{margin:0;font-size:12.5px;color:var(--tx3);line-height:1.45}
+.autre{display:grid;gap:8px;padding:12px;border-radius:12px;background:var(--field)}
+.autre b{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:650}
+.autre p{margin:0;font-size:13px;color:var(--tx2);line-height:1.5}
+.autre .addr{font-size:13px;line-height:1.55;color:var(--tx)}
+.autre .addr .l2{display:block;margin-top:6px}
+.tips{display:grid;gap:11px}
+.tips>div{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.45;color:var(--tx2)}
+.tips svg{margin-top:1px;color:var(--acc)}
+.tips b{color:var(--tx);font-weight:650}
+.fin{display:grid;gap:8px;justify-items:center;margin-top:16px;text-align:center}
+.fin p{margin:0;font-size:12.5px;color:var(--tx3)}
 
-/* ---- Bouton copier dans les lignes Interac ---- */
-.row{align-items:center}
-.row .cp{flex-shrink:0;margin-left:auto;display:inline-flex;align-items:center;gap:5px;
-  min-height:44px;padding:8px 12px;font-family:inherit;font-size:12px;font-weight:600;
-  color:var(--ink-500);background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--r-xs);cursor:pointer;transition:.14s var(--ease)}
-.row .cp:hover{border-color:var(--ink-400);color:var(--ink)}
-.row .cp:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-.row .cp.ok{color:var(--ok);border-color:var(--ok)}
+/* ---------- téléphone ---------- */
+@media (max-width:640px){
+  .top-in{height:58px;gap:8px}
+  .brand .lg{width:34px;height:34px}
+  .brand b{font-size:13px}
+  .brand small{font-size:11.5px}
+  .lock span{display:none}
+  .lock{padding:0;width:28px;justify-content:center}
+  .meta{margin:16px 0 12px;gap:8px}
+  .meta h1{font-size:19px}
+  .meta .grow{flex-basis:100%}
+  .etapes{gap:4px;margin-bottom:12px}
+  .etapes li span{display:none}
+  .ptxt{display:block}
+  .qb{padding:18px 16px;gap:16px}
+  .qh{gap:0}
+  .qh .ic{display:none}
+  .qh h2{font-size:21px}
+  .qf{position:sticky;bottom:0;z-index:5;padding:10px 12px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -6px 16px rgba(16,24,40,.06)}
+  .qf .btn{flex:1}
+  .qf .btn.ghost{flex:none;padding:0 14px}
+  .qf .btn.ghost span{display:none}
+  .tiles{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+  .tile{min-height:76px;padding:12px;gap:8px}
+  .tiles.deux{grid-template-columns:minmax(0,1fr)}
+  .tiles.deux .tile{min-height:54px}
+  .duo,.duo.egal{grid-template-columns:minmax(0,1fr)}
+  .adr-grille{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;grid-template-areas:"no no app app" "rue rue rue rue" "ville ville ville ville" "prov prov cp cp"}
+  .ligne{grid-template-columns:minmax(0,8.6rem) minmax(0,1fr) auto}
+  .recap{grid-template-columns:minmax(0,1fr);gap:6px}
+  .rs{padding:10px 12px}
+  .fgrid{grid-template-columns:minmax(0,1fr)}
+  .fcol{display:contents}
+  .o1{order:1}.o2{order:2}.o3{order:3}.o4{order:4}.o5{order:5}.o6{order:6}
+  .okb{padding:12px 14px}
+  .okb .btn{flex-basis:100%;background:var(--surf)}
+}
+@media (max-width:380px){.ligne{grid-template-columns:minmax(0,1fr) auto}.ligne select{grid-column:1/-1}}
 
-/* ---- Conseil sur l'option la plus simple ---- */
-.opt .reco{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--ok);background:var(--ok-soft);
-  border-radius:999px;padding:3px 9px;margin-left:auto}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
 
-/* ---- Bouton secondaire pleine largeur (imprimer) ---- */
-.btn-sec{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
-  min-height:48px;font-family:inherit;font-size:14px;font-weight:650;color:var(--ink);
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  cursor:pointer;transition:.14s var(--ease)}
-.btn-sec:hover{border-color:var(--ink-400)}
-.btn-sec:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-
-/* ---- Impression : le seul exemplaire que la personne pourra garder ---- */
+/* ---------- impression / PDF ---------- */
 @media print{
-  .langbar,.nav,.btn,.btn-sec,.paybtn,.row .cp,.prog{display:none !important}
-  body{background:#fff;padding:0;font-size:11pt}
-  .wrap{max-width:none}
-  .opt,.card,.prochain,.note{box-shadow:none;border:1px solid #999;break-inside:avoid}
-  .done{border:0;padding:0 0 12pt}
-  a[href^="tel:"]::after{content:""}
-}
-
-@media(max-width:470px){
-  body{font-size:14.5px}
-  .head h1{font-size:23px}
-  /* gap:0 collait les champs l'un contre l'autre une fois empilés. */
-  .duo{flex-direction:column;gap:10px}
-  .row{flex-direction:column;align-items:stretch;gap:3px}
-  .row .k{width:auto}
-  .row .cp{margin-left:0;align-self:flex-start;margin-top:4px}
-  .card,.opt{padding:16px}
-  /* Le bouton de suppression descend sous le bloc : en absolu il volait 56 px
-     de largeur à des champs qui n'en avaient déjà plus. */
-  .item{padding:13px}
-  .item .rm{position:static;width:100%;height:40px;margin-top:10px}
-  .dossier .e{margin-left:0;width:100%}
-}
-/* Mouvement réduit : tout devient instantané, rien ne disparaît. */
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
-    transition-duration:.001ms !important}
+  :root{--page:#fff;--surf:#fff;--field:#F4F5F7;--line:#DADDE2;--tx:#000;--tx2:#222;--tx3:#444;--ombre:none}
+  body{background:#fff;font-size:12px}
+  .top{border:0}
+  .langbar,.lock,.noprint,.cp,.cal,.telb{display:none!important}
+  .wrap{max-width:none;padding:0}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .fc,.okb{break-inside:avoid}
+  a{color:#000;text-decoration:none}
 }
 </style></head>
 <body>
-<div class="wrap">
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="lg"><img src="marque-cbl.png" alt="" width="32" height="32"></span>
+    <div><b id="bEtude">Charron Boissé Lévesque</b><small id="bSous">Huissiers de justice</small></div></div>
+  <span class="grow"></span>
+  <span class="lock" id="lock"></span>
   <nav class="langbar" id="langbar" aria-label="Langue / Language / Idioma"></nav>
-  <main id="root"><div class="done"><div class="ico">…</div></div></main>
+</div></header>
+<div class="wrap">
+  <main id="root"><div class="charge"><span class="spin"></span></div></main>
 </div>
 <script>
 var FONC="https://mcoryyirdrtzpogiqkbm.supabase.co/functions/v1/d";
@@ -364,13 +425,11 @@ var TEL_ETUDE="514-878-3143";
 var LIEN_PAIEMENT={fr:"https://huissier.qc.ca/paiement-en-ligne/",
                    en:"https://huissier.qc.ca/paiement-en-ligne/?lang=en",
                    es:"https://huissier.qc.ca/paiement-en-ligne/"};
-// Repli si la fonction ne renvoie pas encore l'adresse propre au dossier.
-var BUREAUX_DEFAUT="407, boulevard Saint-Laurent, bureau 700, Montréal (Québec) H2Y 2Y5"
-  +"  ou  249, boulevard Sainte-Rose, bureau 102, Laval (Québec) H7L 1L8";
+// La fonction renvoie l'adresse inscrite à l'entente (règle du client). Repli : Montréal,
+// comme dans l'application.
+var BUREAU_DEFAUT="407, boulevard Saint-Laurent, bureau 700, Montréal (Québec) H2Y 2Y5";
 
 // Valeurs canoniques (français) envoyées à la base, indépendantes de la langue d'affichage.
-// Les statuts couvrent le Québec réel : ce sont eux qui déterminent si un revenu est
-// saisissable, et une liste trop courte pousse le défendeur vers « Autre » ou le faux.
 var SIT_CLES=["Salarié","Travailleur autonome","Retraité","Prestataire d'aide de dernier recours",
               "Étudiant","Invalidité / CNESST","Sans emploi","Autre"];
 var SIT_L10N=["salarie","autonome","retraite","aideDerniere","etudiant","invalidite","sansEmploi","autre"];
@@ -379,24 +438,50 @@ var RES_L10N=["proprio","locataire","heberge","sansDomicile"];
 var SIT_EMPLOYEUR=["Salarié","Travailleur autonome"];   // seuls ces deux-là ont un employeur
 var CANON_TEL=["Cellulaire","Résidence","Travail"];
 var CANON_MAIL=["Personnel","Travail","Autre"];
+var LISTE_MAX=25;   // la fonction serveur refuse au-delà
 
-/* -- Icônes : tracés géométriques simples, en ligne (page statique sans build) -- */
-var ICO={
- check:'<svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
- checkSm:'<svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
- dot:'<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
- alert:'<svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
- clock:'<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
- office:'<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M16 9h3a2 2 0 0 1 2 2v10"/><path d="M9 7h3M9 11h3M9 15h3"/></svg>',
- send:'<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>',
- card:'<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>',
- plus:'<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
- copie:'<svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
- ok:'<svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
- imprimante:'<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg>',
- tel:'<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
- ext:'<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>'
+/* -- Icônes : tracés simples, en ligne (page statique sans build) -- */
+function svg(t,s,w){return '<svg aria-hidden="true" width="'+(s||18)+'" height="'+(s||18)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(w||2)+'" stroke-linecap="round" stroke-linejoin="round">'+t+'</svg>';}
+var P={
+ check:'<path d="M20 6 9 17l-5-5"/>',
+ alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ office:'<path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M16 9h3a2 2 0 0 1 2 2v10"/><path d="M9 7h3M9 11h3M9 15h3"/>',
+ mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/>',
+ card:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ x:'<path d="M18 6 6 18M6 6l12 12"/>',
+ copie:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',
+ tel:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+ ext:'<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/>',
+ lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+ gauche:'<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+ user:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+ contact:'<rect width="18" height="18" x="3" y="4" rx="2"/><circle cx="12" cy="10" r="2"/><path d="M8 2v2M16 2v2"/><path d="M7 22v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/>',
+ briefcase:'<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/>',
+ hammer:'<path d="m15 12-8.5 8.5a2.1 2.1 0 0 1-3-3L12 9"/><path d="M17.6 15 22 10.6"/><path d="m20.9 11.6-1.3-1.3a2 2 0 0 1-.6-1.4V7.6L16.4 5a5.6 5.6 0 0 0-4-1.7H9l.9.8A6.2 6.2 0 0 1 12 8.7V10l2 2h1.2a2 2 0 0 1 1.5.6l1.2 1.3"/>',
+ sunset:'<path d="M12 10V2"/><path d="m4.9 10.9 1.4 1.4"/><path d="M2 18h2M20 18h2"/><path d="m19.1 10.9-1.4 1.4"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/>',
+ coins:'<circle cx="8" cy="8" r="6"/><path d="M18.1 10.4A6 6 0 1 1 10.3 18"/><path d="M7 6h1v4"/><path d="m16.7 13.9.7.7-2.8 2.8"/>',
+ grad:'<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+ coeur:'<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/><path d="M3.2 12h6.3l.5-1 2 4.5 2-7 1.5 3.5h5.3"/>',
+ slash:'<circle cx="12" cy="12" r="10"/><path d="M9 15 15 9"/>',
+ dots:'<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+ maison:'<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .7-1.5l7-6a2 2 0 0 1 2.6 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+ cle:'<path d="M2.6 17.4A2 2 0 0 0 2 18.8V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.2a2 2 0 0 0 1.4-.6l.8-.8a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5"/>',
+ lit:'<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/>',
+ sansAdr:'<path d="M12.8 7.1a3 3 0 0 1 2.2 2.2"/><path d="M17.1 17.1c-1.6 2.2-3.5 3.9-4.5 4.7a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 1.4-4.6"/><path d="m2 2 20 20"/><path d="M8.5 2.8A8 8 0 0 1 20 10c0 1.2-.3 2.4-.8 3.5"/><path d="M9.1 9.1a3 3 0 0 0 3.7 3.7"/>',
+ banque:'<path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="m12 2 8 5H4z"/>',
+ immeuble:'<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/>',
+ doc:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8M16 13H8M16 17H8"/>',
+ bouclier:'<path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+ calPlus:'<path d="M8 2v4M16 2v4"/><path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M3 10h18"/><path d="M16 19h6M19 16v6"/>',
+ cloche:'<path d="M10.3 21a2 2 0 0 0 3.4 0"/><path d="M3.3 15.3A1 1 0 0 0 4 17h16a1 1 0 0 0 .7-1.7C19.4 14 18 12.5 18 8A6 6 0 0 0 6 8c0 4.5-1.4 6-2.7 7.3"/>',
+ pdf:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/>',
+ ampoule:'<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/>',
+ diese:'<path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/>',
+ chev:'<path d="m6 9 6 6 6-6"/>'
 };
+function I(n,s,w){return svg(P[n],s,w);}
 
 var DICTS={
 fr:{
@@ -691,538 +776,1045 @@ es:{
  huissiers:"Agentes judiciales"
 }};
 
+/* Textes ajoutés par la version D (une question à la fois, écran « Mon entente »). */
+var PLUS={
+fr:{
+ adrApercu:"Sur votre dossier, l'adresse se lira ainsi :",instLibre:"Choisissez dans la liste ou écrivez le nom de votre banque ou caisse.",instLibreCourt:"Pas dans la liste ? Écrivez simplement son nom.",
+ interacDelai:"Un virement Interac arrive habituellement en environ 1 heure.",o1d1:"Présentez-vous à notre bureau, tel qu'indiqué à votre feuille d'entente :",
+ etAdresse:"Adresse et logement",etComptes:"Comptes et biens",
+ qAdr:"Où habitez-vous ?",qAdrP:"Votre adresse actuelle. Chaque partie dans sa case, c'est plus simple.",
+ adrNo:"N° civique",adrRue:"Rue",adrRuePh:"Ex. : rue Rachel Est",adrApp:"App. ou bureau",adrAppPh:"Ex. : 3",
+ adrVille:"Ville",adrVillePh:"Ex. : Montréal",adrProv:"Province",adrCp:"Code postal",adrCpErr:"Code postal à vérifier (ex. : H2J 2J1).",
+ instRequis:"Indiquez le nom de votre banque ou caisse.",
+ transit:"Numéro de transit",transitAide:"5 chiffres · votre succursale",transitErr:"Le numéro de transit compte 5 chiffres.",
+ instNo:"Numéro d'institution",instNoAide:"3 chiffres · votre banque",instNoErr:"Le numéro d'institution compte 3 chiffres.",
+ succFac:"(si vous n'avez pas le transit)",succRequis:"Indiquez le numéro de transit ou l'adresse de la succursale.",
+ transitCourt:"Transit",instCourt:"Inst.",
+ chequeT:"Où trouver ces numéros ? Au bas d'un chèque",
+ chequeAlt:"Bas d'un chèque : le numéro de transit (5 chiffres) puis le numéro d'institution (3 chiffres).",
+ chequeBanque:"NOM DE LA BANQUE",chequeSucc:"= votre succursale",chequeBq:"= votre banque",chequeCompte:"Votre numéro de compte n'est pas demandé.",
+ chequeP1:"Prenez un chèque, ou ouvrez votre application bancaire et cherchez « Spécimen de chèque » ou « Dépôt direct ».",
+ chequeP2:"Au bas, le <b>numéro de transit</b> (5 chiffres) nous dit à quelle <b>succursale</b> est votre compte.",
+ chequeP3:"Juste après, le <b>numéro d'institution</b> (3 chiffres) nous dit quelle est votre <b>banque</b>. Ex. : 815 = Desjardins, 006 = Banque Nationale.",
+ qCpt1P:"Un compte à la fois. Les numéros au bas d'un chèque nous aident à trouver la bonne succursale.",
+ lienSecu:"Lien sécurisé",garde:"Réponses gardées sur cet appareil",uneQuestion:"Une question ?",
+ continuer:"Continuer",enregistrer:"Enregistrer",modifier:"Modifier",
+ qNom:"Qui êtes-vous ?",qNomP:"Ces renseignements confirment que le dossier est bien le vôtre.",
+ qJoindre:"Comment pouvons-nous vous joindre ?",qJoindreP:"Facultatif, mais utile si un versement pose problème. Vous pouvez en ajouter plusieurs.",
+ ajTel2:"Ajouter un autre numéro",ajMail2:"Ajouter un autre courriel",
+ qSit:"Quelle est votre situation d'emploi ?",qSitP:"Choisissez ce qui vous décrit aujourd'hui.",
+ qEmp1:"Qui est votre employeur ?",qEmp1P:"Le nom est obligatoire. Le téléphone et l'adresse nous évitent de vous rappeler.",
+ qEmpN:"Un autre employeur",qEmpNP:"Même chose : le nom suffit pour continuer.",
+ qEmpEd:"Modifier cet employeur",
+ qEmpPlus:"Avez-vous un autre employeur ?",qEmpPlusP:"Un 2e emploi, un travail de fin de semaine, des contrats : ajoutez-les tous.",
+ ajEmpCe:"Ajouter cet employeur",ouiAutre:"Oui, en ajouter un autre",nonTout:"Non, c'est tout",
+ empPh:"Ex. : Entreprise inc.",adrPh:"Numéro, rue, ville",
+ revenuP:"D'où vient votre argent chaque mois ? Indiquez la source et, si possible, le montant approximatif.",
+ qRes:"Quelle est votre situation de logement ?",qResP:"Votre résidence principale, là où vous habitez la plupart du temps.",
+ resD:["Maison ou condo à votre nom","Vous payez un loyer","Chez un proche, une chambre","Aucune adresse stable"],
+ qCpt1:"Où avez-vous un compte bancaire ?",
+ qCptN:"Un autre compte",qCptNP:"Une autre banque, une caisse ou un compte en ligne.",qCptEd:"Modifier ce compte",
+ qCptPlus:"Avez-vous un autre compte ?",qCptPlusP:"Une autre banque, une caisse, un compte en ligne : ajoutez-les tous.",
+ ajCptCe:"Ajouter ce compte",instPh:"Ex. : Desjardins",succ2:"Succursale (adresse ou nom)",succPh:"Ex. : Caisse du Plateau, Montréal",
+ pasDeCpt:"Pas de compte ?",aucunCpt:"Je n'ai aucun compte",aucunCptRecap:"Aucun compte bancaire",
+ qNotes:"Autre chose à signaler ?",qNotesP:"Facultatif : biens, véhicules, autres revenus, remarques.",
+ qRecap:"Vérifiez avant de transmettre",qRecapP:"Touchez « Modifier » pour corriger une réponse.",
+ nonFourni:"Non fourni",aucune:"Aucune",
+ votreEntente:"Votre entente",
+ vrai:"Je déclare que mes réponses sont vraies et complètes.",
+ cochez:"Cochez les deux cases pour transmettre votre déclaration.",
+ verif:"Vérification",
+ transmiseLe:"Transmise le {D}. Gardez cette page : le lien ne se rouvrira pas.",
+ huissierResp:"Huissier responsable de votre dossier",
+ versements:"Mes versements",prochain:"Prochain",
+ calBtn:"Ajouter les rappels à mon calendrier",
+ calNote:"iPhone, Outlook et la plupart des agendas : tous les versements d'un coup, avec un rappel 3 jours avant chacun.",
+ calGoogle:"Google Agenda : ajouter le prochain versement",
+ calOk:"Fichier de rappels téléchargé. Ouvrez-le pour l'ajouter à votre calendrier.",
+ calTitre:"Versement de {M} (dossier {NO})",
+ calDesc:"Entente de paiement, dossier {NO}. Interac : {MAIL}, question {NO}, réponse {REP}. Interac : environ 1 h. Paiement en ligne (TFE) : 48 à 72 h, payez 3 jours avant. Une question : {TEL}.",
+ autresPay:"Autres façons de payer",
+ conseilsT:"Pour garder votre entente",
+ conseils:["<b>Choisissez le bon délai.</b> Un virement Interac arrive en environ 1 h. Un paiement en ligne (transfert de fonds électronique) prend de 48 à 72 h : faites-le 3 jours avant la date.","<b>Inscrivez le dossier {NO}</b> dans le message de chaque paiement.","<b>Un imprévu ? Appelez avant la date</b>, pas après. Un arrangement se discute mieux avant un retard."],
+ pdf:"Enregistrer en PDF",
+ nouvelleFenetre:"(nouvelle fenêtre)"
+},
+en:{
+ adrApercu:"On your file, the address will read:",instLibre:"Choose from the list or type the name of your bank or credit union.",instLibreCourt:"Not in the list? Just type its name.",
+ interacDelai:"An Interac transfer usually arrives in about 1 hour.",o1d1:"Come to our office, as shown on your agreement sheet:",
+ etAdresse:"Address and housing",etComptes:"Accounts and assets",
+ qAdr:"Where do you live?",qAdrP:"Your current address. One part per box, it's simpler.",
+ adrNo:"Civic no.",adrRue:"Street",adrRuePh:"E.g.: Rachel Street East",adrApp:"Apt. or suite",adrAppPh:"E.g.: 3",
+ adrVille:"City",adrVillePh:"E.g.: Montréal",adrProv:"Province",adrCp:"Postal code",adrCpErr:"Please check the postal code (e.g.: H2J 2J1).",
+ instRequis:"Enter the name of your bank or credit union.",
+ transit:"Transit number",transitAide:"5 digits · your branch",transitErr:"The transit number has 5 digits.",
+ instNo:"Institution number",instNoAide:"3 digits · your bank",instNoErr:"The institution number has 3 digits.",
+ succFac:"(if you don't have the transit)",succRequis:"Enter the transit number or the branch address.",
+ transitCourt:"Transit",instCourt:"Inst.",
+ chequeT:"Where to find these numbers? At the bottom of a cheque",
+ chequeAlt:"Bottom of a cheque: the transit number (5 digits), then the institution number (3 digits).",
+ chequeBanque:"BANK NAME",chequeSucc:"= your branch",chequeBq:"= your bank",chequeCompte:"Your account number is not requested.",
+ chequeP1:"Take a cheque, or open your banking app and look for “Void cheque” or “Direct deposit”.",
+ chequeP2:"At the bottom, the <b>transit number</b> (5 digits) tells us which <b>branch</b> holds your account.",
+ chequeP3:"Right after, the <b>institution number</b> (3 digits) tells us your <b>bank</b>. E.g.: 815 = Desjardins, 006 = National Bank.",
+ qCpt1P:"One account at a time. The numbers at the bottom of a cheque help us find the right branch.",
+ lienSecu:"Secure link",garde:"Answers kept on this device",uneQuestion:"A question?",
+ continuer:"Continue",enregistrer:"Save",modifier:"Edit",
+ qNom:"Who are you?",qNomP:"This information confirms that the file is yours.",
+ qJoindre:"How can we reach you?",qJoindreP:"Optional, but useful if a payment becomes a problem. You can add several.",
+ ajTel2:"Add another number",ajMail2:"Add another email",
+ qSit:"What is your employment status?",qSitP:"Choose what describes you today.",
+ qEmp1:"Who is your employer?",qEmp1P:"The name is required. The phone and address save us from calling you back.",
+ qEmpN:"Another employer",qEmpNP:"Same thing: the name is enough to continue.",
+ qEmpEd:"Edit this employer",
+ qEmpPlus:"Do you have another employer?",qEmpPlusP:"A second job, weekend work, contracts: add them all.",
+ ajEmpCe:"Add this employer",ouiAutre:"Yes, add another one",nonTout:"No, that's all",
+ empPh:"E.g.: Company Inc.",adrPh:"Number, street, city",
+ revenuP:"Where does your money come from each month? Give the source and, if possible, the approximate amount.",
+ qRes:"What is your housing situation?",qResP:"Your primary residence, where you live most of the time.",
+ resD:["House or condo in your name","You pay rent","With a relative, a room","No stable address"],
+ qCpt1:"Where do you have a bank account?",
+ qCptN:"Another account",qCptNP:"Another bank, a credit union or an online account.",qCptEd:"Edit this account",
+ qCptPlus:"Do you have another account?",qCptPlusP:"Another bank, a credit union, an online account: add them all.",
+ ajCptCe:"Add this account",instPh:"E.g.: Desjardins",succ2:"Branch (address or name)",succPh:"E.g.: Plateau branch, Montréal",
+ pasDeCpt:"No account?",aucunCpt:"I have no account",aucunCptRecap:"No bank account",
+ qNotes:"Anything else to mention?",qNotesP:"Optional: assets, vehicles, other income, remarks.",
+ qRecap:"Review before submitting",qRecapP:"Tap “Edit” to correct an answer.",
+ nonFourni:"Not provided",aucune:"None",
+ votreEntente:"Your agreement",
+ vrai:"I declare that my answers are true and complete.",
+ cochez:"Check both boxes to submit your declaration.",
+ verif:"Review",
+ transmiseLe:"Submitted on {D}. Keep this page: the link will not open again.",
+ huissierResp:"Bailiff in charge of your file",
+ versements:"My payments",prochain:"Next",
+ calBtn:"Add reminders to my calendar",
+ calNote:"iPhone, Outlook and most calendars: all payments at once, with a reminder 3 days before each.",
+ calGoogle:"Google Calendar: add the next payment",
+ calOk:"Reminder file downloaded. Open it to add it to your calendar.",
+ calTitre:"Payment of {M} (file {NO})",
+ calDesc:"Payment agreement, file {NO}. Interac: {MAIL}, question {NO}, answer {REP}. Interac: about 1 h. Online payment (EFT): 48 to 72 h, pay 3 days early. Questions: {TEL}.",
+ autresPay:"Other ways to pay",
+ conseilsT:"To keep your agreement",
+ conseils:["<b>Allow the right delay.</b> An Interac transfer arrives in about 1 h. An online payment (electronic funds transfer) takes 48 to 72 h: make it 3 days before the date.","<b>Write file {NO}</b> in the message of every payment.","<b>Something came up? Call before the date</b>, not after. An arrangement is easier before a late payment."],
+ pdf:"Save as PDF",
+ nouvelleFenetre:"(new window)"
+},
+es:{
+ adrApercu:"En su expediente, la dirección se leerá así:",instLibre:"Elija de la lista o escriba el nombre de su banco o caja.",instLibreCourt:"¿No está en la lista? Escriba simplemente su nombre.",
+ interacDelai:"Una transferencia Interac suele llegar en aproximadamente 1 hora.",o1d1:"Preséntese en nuestra oficina, según lo indicado en su hoja de acuerdo:",
+ etAdresse:"Dirección y vivienda",etComptes:"Cuentas y bienes",
+ qAdr:"¿Dónde vive?",qAdrP:"Su dirección actual. Cada parte en su casilla, es más sencillo.",
+ adrNo:"Número",adrRue:"Calle",adrRuePh:"Ej.: rue Rachel Est",adrApp:"Apto. u oficina",adrAppPh:"Ej.: 3",
+ adrVille:"Ciudad",adrVillePh:"Ej.: Montréal",adrProv:"Provincia",adrCp:"Código postal",adrCpErr:"Verifique el código postal (ej.: H2J 2J1).",
+ instRequis:"Indique el nombre de su banco o caja.",
+ transit:"Número de tránsito",transitAide:"5 cifras · su sucursal",transitErr:"El número de tránsito tiene 5 cifras.",
+ instNo:"Número de institución",instNoAide:"3 cifras · su banco",instNoErr:"El número de institución tiene 3 cifras.",
+ succFac:"(si no tiene el tránsito)",succRequis:"Indique el número de tránsito o la dirección de la sucursal.",
+ transitCourt:"Tránsito",instCourt:"Inst.",
+ chequeT:"¿Dónde encontrar estos números? Al pie de un cheque",
+ chequeAlt:"Pie de un cheque: el número de tránsito (5 cifras) y luego el número de institución (3 cifras).",
+ chequeBanque:"NOMBRE DEL BANCO",chequeSucc:"= su sucursal",chequeBq:"= su banco",chequeCompte:"No se pide su número de cuenta.",
+ chequeP1:"Tome un cheque, o abra su aplicación bancaria y busque «Cheque anulado» o «Depósito directo».",
+ chequeP2:"Al pie, el <b>número de tránsito</b> (5 cifras) nos indica en qué <b>sucursal</b> está su cuenta.",
+ chequeP3:"Justo después, el <b>número de institución</b> (3 cifras) nos indica su <b>banco</b>. Ej.: 815 = Desjardins, 006 = Banco Nacional.",
+ qCpt1P:"Una cuenta a la vez. Los números al pie de un cheque nos ayudan a encontrar la sucursal correcta.",
+ lienSecu:"Enlace seguro",garde:"Respuestas guardadas en este dispositivo",uneQuestion:"¿Alguna pregunta?",
+ continuer:"Continuar",enregistrer:"Guardar",modifier:"Modificar",
+ qNom:"¿Quién es usted?",qNomP:"Estos datos confirman que el expediente es el suyo.",
+ qJoindre:"¿Cómo podemos comunicarnos con usted?",qJoindreP:"Opcional, pero útil si un pago presenta un problema. Puede añadir varios.",
+ ajTel2:"Añadir otro número",ajMail2:"Añadir otro correo",
+ qSit:"¿Cuál es su situación laboral?",qSitP:"Elija lo que lo describe hoy.",
+ qEmp1:"¿Quién es su empleador?",qEmp1P:"El nombre es obligatorio. El teléfono y la dirección nos evitan volver a llamarle.",
+ qEmpN:"Otro empleador",qEmpNP:"Lo mismo: el nombre basta para continuar.",
+ qEmpEd:"Modificar este empleador",
+ qEmpPlus:"¿Tiene otro empleador?",qEmpPlusP:"Un segundo empleo, trabajo de fin de semana, contratos: añádalos todos.",
+ ajEmpCe:"Añadir este empleador",ouiAutre:"Sí, añadir otro",nonTout:"No, es todo",
+ empPh:"Ej.: Empresa inc.",adrPh:"Número, calle, ciudad",
+ revenuP:"¿De dónde proviene su dinero cada mes? Indique la fuente y, si es posible, el monto aproximado.",
+ qRes:"¿Cuál es su situación de vivienda?",qResP:"Su residencia principal, donde vive la mayor parte del tiempo.",
+ resD:["Casa o condominio a su nombre","Paga un alquiler","Con un familiar, una habitación","Sin dirección estable"],
+ qCpt1:"¿Dónde tiene una cuenta bancaria?",
+ qCptN:"Otra cuenta",qCptNP:"Otro banco, una caja o una cuenta en línea.",qCptEd:"Modificar esta cuenta",
+ qCptPlus:"¿Tiene otra cuenta?",qCptPlusP:"Otro banco, una caja, una cuenta en línea: añádalas todas.",
+ ajCptCe:"Añadir esta cuenta",instPh:"Ej.: Desjardins",succ2:"Sucursal (dirección o nombre)",succPh:"Ej.: Caisse du Plateau, Montréal",
+ pasDeCpt:"¿Sin cuenta?",aucunCpt:"No tengo ninguna cuenta",aucunCptRecap:"Ninguna cuenta bancaria",
+ qNotes:"¿Algo más que señalar?",qNotesP:"Opcional: bienes, vehículos, otros ingresos, comentarios.",
+ qRecap:"Verifique antes de enviar",qRecapP:"Toque «Modificar» para corregir una respuesta.",
+ nonFourni:"No indicado",aucune:"Ninguna",
+ votreEntente:"Su acuerdo",
+ vrai:"Declaro que mis respuestas son verdaderas y completas.",
+ cochez:"Marque las dos casillas para enviar su declaración.",
+ verif:"Verificación",
+ transmiseLe:"Enviada el {D}. Conserve esta página: el enlace no se volverá a abrir.",
+ huissierResp:"Agente judicial a cargo de su expediente",
+ versements:"Mis pagos",prochain:"Próximo",
+ calBtn:"Añadir los recordatorios a mi calendario",
+ calNote:"iPhone, Outlook y la mayoría de los calendarios: todos los pagos de una vez, con un recordatorio 3 días antes de cada uno.",
+ calGoogle:"Google Calendar: añadir el próximo pago",
+ calOk:"Archivo de recordatorios descargado. Ábralo para añadirlo a su calendario.",
+ calTitre:"Pago de {M} (expediente {NO})",
+ calDesc:"Acuerdo de pago, expediente {NO}. Interac: {MAIL}, pregunta {NO}, respuesta {REP}. Interac: aprox. 1 h. Pago en línea (TEF): de 48 a 72 h, pague 3 días antes. Preguntas: {TEL}.",
+ autresPay:"Otras formas de pagar",
+ conseilsT:"Para mantener su acuerdo",
+ conseils:["<b>Prevea el plazo correcto.</b> Una transferencia Interac llega en aproximadamente 1 h. Un pago en línea (transferencia electrónica de fondos) tarda de 48 a 72 h: hágalo 3 días antes de la fecha.","<b>Indique el expediente {NO}</b> en el mensaje de cada pago.","<b>¿Un imprevisto? Llame antes de la fecha</b>, no después. Un arreglo se negocia mejor antes de un retraso."],
+ pdf:"Guardar en PDF",
+ nouvelleFenetre:"(nueva ventana)"
+}};
+Object.keys(PLUS).forEach(function(k){ Object.keys(PLUS[k]).forEach(function(c){ DICTS[k][c]=PLUS[k][c]; }); });
+
 var token=location.hash.replace(/^#/,'').split('&')[0].replace(/^t=/,'');
 var root=document.getElementById('root');
 var DOSSIER={numero:"",huissier:"",debiteur:"",bureaux:"",echeancier:[],modalites:null};
 var langue="fr";var L=DICTS.fr;var ecranActuel="";
+var R=null;          // toutes les réponses, gardées en mémoire et dans le brouillon
+var repris=false;    // un brouillon de cet appareil a été retrouvé
+var sens=1;          // sens de la dernière navigation (1 = avance, -1 = recule), pour l'animation
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function fmtTel(v){var d=(v||'').replace(/\D/g,'').slice(0,10);
   if(d.length>6)return d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6);
   if(d.length>3)return d.slice(0,3)+'-'+d.slice(3);return d;}
-document.addEventListener('input',function(e){
-  if(e.target&&e.target.classList&&e.target.classList.contains('telfmt'))e.target.value=fmtTel(e.target.value);});
 function avecPoste(num,poste){num=(num||'').trim();poste=(poste||'').trim();
   return poste?(num+' poste '+poste):num;}
+function vide(x){return !String(x==null?'':x).trim();}
 /* Le numéro doit être appelable d'un doigt : c'est la seule issue quand la page ne suffit pas. */
-function telLien(){return '<a href="tel:+1'+TEL_ETUDE.replace(/\D/g,'')+'">'+TEL_ETUDE+'</a>';}
-function footHtml(){return '<div class="foot"><div class="etude">'+esc(ETUDE)+'</div>'
-  +'<div class="sub">'+L.huissiers+'</div><div class="conf">'+L.conf+'</div></div>';}
-function messageSimple(txt){root.innerHTML='<div class="done bad"><div class="ico">'+ICO.alert+'</div><p class="sub">'+txt+'</p></div>';}
+function telHref(){return 'tel:+1'+TEL_ETUDE.replace(/\D/g,'');}
+function telLien(){return '<a href="'+telHref()+'">'+TEL_ETUDE+'</a>';}
+function footHtml(){return '<div class="foot"><div class="etude">'+esc(ETUDE)+' · '+L.huissiers+'</div>'
+  +'<div>'+L.conf+'</div></div>';}
+function aideHtml(){return '<span class="aide">'+I('tel',14)+'<span>'+L.uneQuestion+'</span>'+telLien()+'</span>';}
+function messageSimple(txt){
+  root.innerHTML='<div class="msg"><span class="ic acc">'+I('alert',26)+'</span><p>'+txt+'</p></div>'+footHtml();}
 function invalide(){var msg=L.invalideBase+' '+L.invalideTel;
   msg+=DOSSIER.numero?(' '+L.invalideDoss+' '+esc(DOSSIER.numero)+'.'):'.';
-  root.innerHTML='<div class="done bad"><div class="ico">'+ICO.alert+'</div><p class="sub">'+msg+'</p></div>';}
-function majLangbar(){var b=document.getElementById('langbar');
+  messageSimple(msg);}
+function majEntete(){
+  document.getElementById('bSous').textContent=L.huissiers;
+  document.getElementById('lock').innerHTML=I('lock',12,2.4)+'<span>'+L.lienSecu+'</span>';
+  document.getElementById('lock').setAttribute('title',L.lienSecu);
+  var b=document.getElementById('langbar');
   b.innerHTML='<div class="grp">'+['fr','en','es'].map(function(c){
-    return '<button type="button" data-l="'+c+'" class="'+(c===langue?'on':'')+'" aria-pressed="'+(c===langue)+'">'+c.toUpperCase()+'</button>';}).join('')+'</div>';
+    return '<button type="button" data-l="'+c+'" class="'+(c===langue?'on':'')+'" aria-pressed="'+(c===langue)+'" lang="'+c+'">'+c.toUpperCase()+'</button>';}).join('')+'</div>';
   b.querySelectorAll('button').forEach(function(bt){bt.onclick=function(){changerLangue(bt.getAttribute('data-l'));};});}
 function changerLangue(code){if(code===langue||!DICTS[code])return;
-  var etat=ecranActuel==='form'?window.collecter():null;
-  langue=code;L=DICTS[code];document.documentElement.lang=code;document.title=L.titre;majLangbar();
+  langue=code;L=DICTS[code];document.documentElement.lang=code;document.title=L.titre;majEntete();
+  sens=0;
   if(ecranActuel==='intro')ecranIntro();
-  else if(ecranActuel==='form')ecranForm(etat);
+  else if(ecranActuel==='q')afficher();
   else if(ecranActuel==='merci')ecranMerci();}
 
 (async function(){
+majEntete();
 try{var rep0=await fetch(FONC+'?t='+encodeURIComponent(token));
-  if(rep0.status===429){majLangbar();messageSimple(L.tropDeTentatives);return;}
+  if(rep0.status===429){messageSimple(L.tropDeTentatives);return;}
   var info=await rep0.json();
   langue=info.langue===1?'en':info.langue===2?'es':'fr';L=DICTS[langue];document.documentElement.lang=langue;
-  DOSSIER.numero=info.numero||"";DOSSIER.huissier=info.huissier||"";
+  DOSSIER.numero=String(info.numero||"").trim().replace(/^(\d+)(?:-\d+)+$/,"$1");DOSSIER.huissier=info.huissier||"";
   DOSSIER.debiteur=info.debiteur||"";
   // Adresse de paiement propre au dossier (règle du client, comme sur la feuille d'entente).
-  // Absente si la fonction n'a pas encore été redéployée : on retombe sur les deux bureaux.
-  DOSSIER.bureaux=info.adresse_paiement||BUREAUX_DEFAUT;
-  // Versements prévus (date + montant), tels qu'inscrits à l'échéancier du dossier.
+  DOSSIER.bureaux=info.adresse_paiement||BUREAU_DEFAUT;
   DOSSIER.echeancier=Array.isArray(info.echeancier)?info.echeancier:[];
-  // Encadre des modalites : redige dans les parametres de l'etude et cible par client,
-  // juridiction et departement. Null si la fonction n'a pas encore ete redeployee, ou si
-  // aucun bloc ne vise ce dossier : le formulaire garde alors ses textes integres.
+  // Encadré des modalités : rédigé dans les paramètres de l'étude et ciblé par client.
+  // Null si aucun bloc ne vise ce dossier : la page garde alors ses textes intégrés.
   DOSSIER.modalites=(info.modalites && typeof info.modalites==="object")?info.modalites:null;
-  if(!info.valide){majLangbar();invalide();return;}
-}catch(e){majLangbar();invalide();return;}
-document.title=L.titre;majLangbar();
+  if(!info.valide){majEntete();invalide();return;}
+}catch(e){majEntete();invalide();return;}
+document.title=L.titre;majEntete();
 
-function enteteHtml(){
-  // Le n° de dossier est accompagné du nom du défendeur, pour qu'il reconnaisse
-  // immédiatement que le lien est bien le sien. Repli sur la raison sociale tant que
-  // la fonction ne renvoie pas encore le nom.
-  var d = DOSSIER.numero
-    ? '<div class="dossier"><span class="k">'+L.dossierEtiq+'</span>'
-      +'<span class="n">'+esc(DOSSIER.numero)+'</span>'
-      +'<span class="e">'+esc(DOSSIER.debiteur||ETUDE)+'</span></div>'
-    : '';
-  return '<div class="head"><div class="rule"></div><h1>'+L.titre+'</h1><p>'+L.soustitre+'</p>'+d+'</div>';
+/* ======================= État des réponses et brouillon =======================
+   Le lien est à usage unique : si l'onglet est libéré pendant que la personne
+   consulte son application bancaire, sans brouillon tout est perdu. Session
+   seulement, effacé dès la réussite de l'envoi. Les noms de champs sont ceux de
+   l'ancienne page : un brouillon commencé avant la mise à jour se reprend. */
+var CLE_BROUILLON='d684:'+token;
+function etatVide(){return {nom:'',naiss:'',adr:'',adrNo:'',adrRue:'',adrApp:'',adrVille:'',adrProv:'QC',adrCp:'',tels:[{ti:0,n:''}],mails:[{mi:0,v:''}],sit:'',
+  emps:[],emploinotes:'',res:'',cpts:[],aucunCpt:false,notes:'',vrai:false,accepte:false,
+  q:'',ei:-1,ci:-1,recap:false};}
+function normaliser(b){
+  var e=etatVide();
+  if(!b||typeof b!=='object') return e;
+  ['nom','naiss','adr','adrNo','adrRue','adrApp','adrVille','adrProv','adrCp','sit','emploinotes','res','notes'].forEach(function(k){ if(typeof b[k]==='string') e[k]=b[k]; });
+  e.vrai=!!b.vrai; e.accepte=!!b.accepte; e.aucunCpt=!!b.aucunCpt; e.recap=!!b.recap;
+  if(Array.isArray(b.tels)&&b.tels.length) e.tels=b.tels.slice(0,LISTE_MAX).map(function(t){return {ti:+t.ti||0,n:String(t.n||'')};});
+  if(Array.isArray(b.mails)&&b.mails.length) e.mails=b.mails.slice(0,LISTE_MAX).map(function(m){return {mi:+m.mi||0,v:String(m.v||'')};});
+  if(Array.isArray(b.emps)) e.emps=b.emps.slice(0,LISTE_MAX).map(function(x){return {n:String(x.n||''),a:String(x.a||''),t:String(x.t||''),p:String(x.p||'')};});
+  if(Array.isArray(b.cpts)) e.cpts=b.cpts.slice(0,LISTE_MAX).map(function(x){return {i:String(x.i||''),n:String(x.n||''),tr:String(x.tr||''),s:String(x.s||''),t:String(x.t||''),p:String(x.p||'')};});
+  // Brouillon de l'ancienne page : l'adresse tenait dans un seul champ ; on la remet dans « Rue ».
+  if(!e.adrRue && !e.adrNo && e.adr) e.adrRue=e.adr;
+  if(PROVINCES.indexOf(e.adrProv)<0) e.adrProv='QC';
+  // L'ancienne page demandait « Aucun » dans les deux champs quand il n'y a pas de compte.
+  if(e.cpts.length===1 && /^aucun$/i.test(e.cpts[0].i.trim()) && /^aucun$/i.test(e.cpts[0].s.trim())){ e.cpts=[]; e.aucunCpt=true; }
+  e.q=typeof b.q==='string'?b.q:''; e.ei=typeof b.ei==='number'?b.ei:-1; e.ci=typeof b.ci==='number'?b.ci:-1;
+  if(e.q==='emp' && !e.emps[e.ei]) e.q='';
+  if(e.q==='cpt' && !e.cpts[e.ci]) e.q='';
+  if(e.q!=='emp') e.emps=e.emps.filter(function(x){return !(vide(x.n)&&vide(x.a)&&vide(x.t));});
+  if(e.q!=='cpt') e.cpts=e.cpts.filter(function(x){return !(vide(x.i)&&vide(x.s)&&vide(x.t));});
+  if(ECRANS.indexOf(e.q)<0) e.q=e.nom?'recap':'';
+  if(e.q==='recap' && (!e.nom||!e.sit||!e.res)) e.q='nom';
+  if(e.q==='nom' && e.nom && e.naiss && !e.adrRue) e.q='adresse';
+  return e;
 }
+var _minuterie=null;
+function sauver(){
+  clearTimeout(_minuterie);
+  _minuterie=setTimeout(function(){ try{ sessionStorage.setItem(CLE_BROUILLON, JSON.stringify(R)); }catch(e){} },300);
+}
+function lireBrouillon(){ try{ var b=sessionStorage.getItem(CLE_BROUILLON); return b?JSON.parse(b):null; }catch(e){ return null; } }
+function effacerBrouillon(){ clearTimeout(_minuterie); try{ sessionStorage.removeItem(CLE_BROUILLON); }catch(e){} }
 
-/* ---------------------- Échéancier : dates et montants ----------------------
-   La date arrive en « AAAA-MM-JJ » (déjà ramenée au fuseau de Montréal par la
-   fonction serveur). On la reconstruit champ par champ plutôt qu'avec
-   new Date("...") : une chaîne ISO est interprétée en UTC et afficherait la
-   veille pour un lecteur au Québec. */
-/* scrollTo({behavior:'smooth'}) n'est pas couvert par la règle CSS de mouvement réduit :
-   c'est une API, il faut la tester nous-mêmes. */
+var ECRANS=['nom','adresse','res','joindre','sit','emp','empPlus','revenu','cpt','cptPlus','notes','recap'];
+var ETAPE_DE={nom:0,adresse:1,res:1,joindre:2,sit:3,emp:3,empPlus:3,revenu:3,cpt:4,cptPlus:4,notes:4,recap:5};
+function nomsEtapes(){return [L.identite,L.etAdresse,L.coord,L.emploi,L.etComptes,L.engagement];}
+var ICO_ETAPE=['user','maison','contact','briefcase','banque','bouclier'];
+var PROVINCES=['QC','ON','NB','NS','PE','NL','MB','SK','AB','BC','YT','NT','NU'];
+/* Les numéros d'institution des principales banques au Canada (3 chiffres, au bas du chèque). */
+var BANQUES={'001':'BMO Banque de Montréal','002':'Banque Scotia','003':'RBC Banque Royale','004':'Banque TD',
+  '006':'Banque Nationale','010':'CIBC','016':'HSBC','030':'Banque canadienne de l\'Ouest','039':'Banque Laurentienne',
+  '219':'ATB Financial','320':'Banque le Choix du Président (PC Financial)','540':'Banque Manuvie','614':'Tangerine',
+  '621':'Peoples Trust (KOHO)','623':'EQ Bank (Banque Équitable)','809':'Central 1 (caisses de la C.-B.)',
+  '815':'Desjardins','828':'Central 1 (caisses de l\'Ontario)','829':'Desjardins Ontario','837':'Meridian'};
+/* Liste offerte pendant la frappe. Le défendeur peut toujours écrire un autre nom. */
+var BANQUES_NOMS=[['Desjardins','815'],['Banque Nationale','006'],['RBC Banque Royale','003'],['Banque TD','004'],
+  ['BMO Banque de Montréal','001'],['Banque Scotia','002'],['CIBC','010'],['Simplii Financial','010'],['Banque Laurentienne','039'],
+  ['Tangerine','614'],['Banque le Choix du Président (PC Financial)','320'],['EQ Bank (Banque Équitable)','623'],
+  ['KOHO','621'],['Peoples Trust','621'],['Banque Manuvie','540'],['HSBC','016'],['Banque canadienne de l\'Ouest','030'],
+  ['ATB Financial','219'],['Desjardins Ontario','829'],['Meridian','837'],['Wealthsimple',''],['Neo Financial',''],
+  ['Alterna',''],['Vancity',''],['Coast Capital',''],['UNI Coopération financière',''],['Motusbank',''],['Caisse populaire',''],
+  ['Autre caisse d\'épargne et de crédit','']];
+function nomBanque(n){return BANQUES[String(n||'').replace(/\D/g,'')]||'';}
+function sansAccents(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+var PROV_NOMS={fr:['Québec','Ontario','Nouveau-Brunswick','Nouvelle-Écosse','Île-du-Prince-Édouard','Terre-Neuve-et-Labrador','Manitoba','Saskatchewan','Alberta','Colombie-Britannique','Yukon','Territoires du Nord-Ouest','Nunavut'],
+  en:['Quebec','Ontario','New Brunswick','Nova Scotia','Prince Edward Island','Newfoundland and Labrador','Manitoba','Saskatchewan','Alberta','British Columbia','Yukon','Northwest Territories','Nunavut']};
+function nomProv(c){var i=PROVINCES.indexOf(c);return i<0?c:(PROV_NOMS[langue]||PROV_NOMS.fr)[i];}
+/* L'adresse en une ligne, telle que l'étude la reçoit (une seule colonne en base). */
+function adresseComplete(){
+  var l1=(R.adrNo.trim()+' '+R.adrRue.trim()).trim();
+  var p=[l1];
+  if(!vide(R.adrApp)) p.push((/^\d/.test(R.adrApp.trim())?'app. ':'')+R.adrApp.trim());
+  var v=R.adrVille.trim(); if(v) p.push(v+(R.adrProv?' ('+R.adrProv+')':'')+(vide(R.adrCp)?'':' '+R.adrCp.trim()));
+  else if(!vide(R.adrCp)) p.push(R.adrCp.trim());
+  var t=p.filter(nonVide).join(', ');
+  return t||String(R.adr||'').trim();
+}
+function fmtCp(v){var d=String(v||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);return d.length>3?d.slice(0,3)+' '+d.slice(3):d;}
+function cpValide(v){return /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z] ?\d[ABCEGHJ-NPRSTV-Z]\d$/.test(String(v||'').trim().toUpperCase());}
+function chiffres(v,n){return String(v||'').replace(/\D/g,'').slice(0,n);}
+function cptTexte(x){
+  var inst=x.i.trim()+(vide(x.n)?'':' (institution '+x.n.trim()+')');
+  var succ=[x.s.trim(),vide(x.tr)?'':'transit '+x.tr.trim()].filter(nonVide).join(' · ');
+  return {institution:inst.trim(),adresse_succursale:succ};
+}
+function aEmployeur(){return SIT_EMPLOYEUR.indexOf(R.sit)>=0;}
+
+var b0=lireBrouillon();
+if(b0){ R=normaliser(b0); repris=!!(R.nom||R.sit||R.tels[0].n); } else R=etatVide();
+
+/* ============================ Morceaux communs =========================== */
 function hautDePage(){
   var doux=!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   try{ window.scrollTo({top:0,behavior:doux?'smooth':'auto'}); }catch(e){ window.scrollTo(0,0); }
 }
 function localeDe(){return langue==='en'?'en-CA':langue==='es'?'es-ES':'fr-CA';}
-function dateLisible(iso){
-  var p=String(iso||'').slice(0,10).split('-');
-  if(p.length!==3) return esc(iso||'');
-  var d=new Date(+p[0], +p[1]-1, +p[2]);
-  if(isNaN(d)) return esc(iso||'');
+/* La date arrive en « AAAA-MM-JJ » (fuseau de Montréal). On la reconstruit champ par champ :
+   new Date("AAAA-MM-JJ") est lu en UTC et afficherait la veille au Québec. */
+function dateDe(iso){var p=String(iso||'').slice(0,10).split('-'); if(p.length!==3) return null;
+  var d=new Date(+p[0],+p[1]-1,+p[2]); return isNaN(d)?null:d;}
+function dateLisible(iso,brut){
+  var d=(iso instanceof Date)?iso:dateDe(iso);
+  if(!d) return esc(iso||'');
   try{
     var t=d.toLocaleDateString(localeDe(),{day:'numeric',month:'long',year:'numeric'});
-    // En français, le premier jour du mois s'écrit « 1er ».
-    if(langue==='fr' && d.getDate()===1) t=t.replace(/^1(?!\d)/,'1<sup>er</sup>');
+    if(langue==='fr' && d.getDate()===1) t=t.replace(/^1(?!\d)/,brut?'1er':'1<sup>er</sup>');
     return t;
-  }
-  catch(e){ return p[2]+'/'+p[1]+'/'+p[0]; }
+  }catch(e){ return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear(); }
 }
 function argent(v){
   var n=Number(v)||0;
   try{
     if(langue==='en') return n.toLocaleString('en-CA',{style:'currency',currency:'CAD'});
-    // fr et es : chiffres à la française puis le symbole, comme sur la feuille d'entente.
-    return n.toLocaleString(langue==='es'?'es-ES':'fr-CA',
-      {minimumFractionDigits:2,maximumFractionDigits:2})+' $';
+    return n.toLocaleString(langue==='es'?'es-ES':'fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2})+' $';
   }catch(e){ return n.toFixed(2)+' $'; }
 }
-
-/** Bloc « Vos versements » : une ligne par versement prévu, plus le total. */
+/* Le premier versement encore à venir : le seul fait qui compte cette semaine. */
+function indexProchain(){
+  var v=DOSSIER.echeancier||[]; if(!v.length) return -1;
+  var auj=new Date(); auj.setHours(0,0,0,0);
+  for(var i=0;i<v.length;i++){ var d=dateDe(v[i].date); if(d && d>=auj) return i; }
+  return -1;
+}
+/** Les versements prévus, le prochain en évidence, puis le total. */
 function echeancierHtml(){
   var v=DOSSIER.echeancier||[];
   if(!v.length) return '<p class="echvide">'+L.echVide+'</p>';
-  var total=0, lignes='';
+  var total=0, pro=indexProchain(), lignes='';
   v.forEach(function(x,i){
     total+=Number(x.montant)||0;
-    lignes+='<div class="er"><div class="en">'+(i+1)+'</div>'
-      +'<div class="ed">'+dateLisible(x.date)+'</div>'
-      +'<div class="em">'+argent(x.montant)+'</div></div>';
+    lignes+='<div class="ev'+(i===pro?' pro':'')+'"><span class="n">'+(i+1)+'</span>'
+      +'<span class="d">'+dateLisible(x.date)+(i===pro?'<span class="tag">'+L.prochain+'</span>':'')+'</span>'
+      +'<span class="m">'+argent(x.montant)+'</span></div>';
   });
-  return '<div class="ech">'
-    +'<div class="er tete"><span class="en">N<sup>o</sup></span>'
-      +'<span class="ed">'+L.echDate+'</span><span class="em">'+L.echMontant+'</span></div>'
-    +lignes
-    +'<div class="er total"><div class="en"></div><div class="ed">'+L.echTotal+'</div>'
-      +'<div class="em">'+argent(total)+'</div></div>'
-    +'</div>';
+  return '<div class="ech" role="table" aria-label="'+esc(L.echT)+'">'+lignes
+    +'<div class="ev tot"><span class="n"></span><span class="d">'+L.echTotal+'</span><span class="m">'+argent(total)+'</span></div></div>';
 }
-
-/* ============================ ACCUEIL ==================================== */
-function ecranIntro(){ecranActuel='intro';
- var li='';L.introLi.forEach(function(x){li+='<li>'+ICO.dot+'<span>'+x+'</span></li>';});
- root.innerHTML=enteteHtml()
-  +'<div class="card intro"><h2>'+L.introT+'</h2><p>'+L.intro1+'</p><ul class="pts">'+li+'</ul>'
-  +'<div class="note"><div class="nt">'+L.pourquoi684T+'</div><div class="nd">'+L.pourquoi684D+'</div></div>'
-  +'<button type="button" class="btn prim" id="go" style="width:100%">'+L.commencer+'</button></div>'
-  +'<p class="repris" style="text-align:center">'+L.questions+telLien()+'</p>'
-  +footHtml();
- document.getElementById('go').onclick=function(){ecranForm(null);};}
-window.ecranIntro=ecranIntro;
-
-/* Un champ requis porte TOUJOURS trois choses : un libellé relié, un astérisque
-   expliqué par la légende, et un message d'erreur prêt à être révélé et annoncé. */
-function champ(id,libelle,controle){
-  return '<label for="'+id+'">'+libelle+' <span class="req" aria-hidden="true">*</span></label>'
-    +controle
-    +'<p class="fielderr" id="err-'+id+'" hidden>'+ICO.alert+'<span>'+L.champRequis+'</span></p>';
+function enteteHtml(){
+  var d = DOSSIER.numero
+    ? '<span class="dos">'+I('diese',13)+'<b>'+esc(DOSSIER.numero)+'</b>'+(DOSSIER.debiteur?'<span>· '+esc(DOSSIER.debiteur)+'</span>':'')+'</span>'
+    : '';
+  return '<div class="meta"><div class="grow"><h1>'+L.titre+'</h1><span class="st">'+L.soustitre+'</span></div>'+d+'</div>';
 }
-/* Marque ou démarque un champ fautif, et tient à jour ce qu'un lecteur d'écran annoncera. */
-function marquerErreur(el,fautif,idMsg){
+function etapesHtml(cur){
+  var n=nomsEtapes();
+  var li=n.map(function(t,i){
+    var c=i<cur?'fait':i===cur?'now':'';
+    return '<li class="'+c+'"'+(i===cur?' aria-current="step"':'')+'><i></i><span>'+(i<cur?I('check',12,3):'')+esc(t)+'</span></li>';
+  }).join('');
+  return '<ol class="etapes" aria-label="'+esc(L.etape)+'">'+li+'</ol>'
+    +(cur>=0?'<p class="ptxt">'+L.etape+' '+(cur+1)+' '+L.sur+' '+n.length+' · <b>'+esc(n[cur])+'</b></p>':'');
+}
+function annoncer(txt){var a=document.getElementById('annonce'); if(a) a.textContent=txt;}
+function marquerErreur(el,fautif){
   if(!el) return;
-  // Les lignes répétables (employeur, compte) ont un identifiant engendré : leur message
-  // vit au niveau de la carte et son identifiant est passé explicitement.
-  var cle = idMsg || ('err-'+el.id);
-  var msg=document.getElementById(cle);
+  var cle='err-'+el.id, msg=document.getElementById(cle);
   el.classList.toggle('err',fautif);
   if(fautif){ el.setAttribute('aria-invalid','true'); if(msg){ msg.hidden=false; el.setAttribute('aria-describedby',cle); } }
   else { el.removeAttribute('aria-invalid'); if(msg){ msg.hidden=true; el.removeAttribute('aria-describedby'); } }
 }
-function annoncer(txt){var a=document.getElementById('annonce'); if(a) a.textContent=txt;}
+function errHtml(id,txt){return '<p class="fielderr" id="err-'+id+'" hidden>'+I('alert',15)+'<span>'+(txt||L.champRequis)+'</span></p>';}
+/* Un champ lié à l'état : data-k donne le chemin (« nom », « emps.0.n »). */
+function champ(o){
+  var id=o.id||o.k.replace(/\./g,'-');
+  var val=lire(o.k);
+  var attrs=' id="'+id+'" data-k="'+o.k+'"'+(o.req?' aria-required="true"':'')+(o.ac?' autocomplete="'+o.ac+'"':'')
+    +(o.im?' inputmode="'+o.im+'"':'')+(o.ph?' placeholder="'+esc(o.ph)+'"':'')+(o.cls?' class="'+o.cls+'"':'')+(o.combo?' role="combobox" aria-autocomplete="list" aria-expanded="false" autocomplete="off"':'')+(o.aide?' aria-describedby="aide-'+id+'"':'');
+  var ctl = o.area ? '<textarea'+attrs+'>'+esc(val)+'</textarea>'
+                   : '<input'+attrs+(o.type?' type="'+o.type+'"':'')+' value="'+esc(val)+'">';
+  var lab=o.lab?'<label for="'+id+'">'+o.lab+(o.req?'<span class="req" aria-hidden="true">*</span>':(o.fac?' <span class="fac">'+o.fac+'</span>':''))+'</label>':'';
+  return '<div class="f">'+lab+ctl+(o.aide?'<small class="aide-champ" id="aide-'+id+'">'+o.aide+'</small>':'')+((o.req||o.err)?errHtml(id,o.err):'')+'</div>';
+}
+function lire(k){var p=k.split('.'),o=R;for(var i=0;i<p.length;i++){if(o==null)return '';o=o[p[i]];}return o==null?'':o;}
+function poser(k,v){var p=k.split('.'),o=R;for(var i=0;i<p.length-1;i++){o=o[p[i]];if(o==null)return;}o[p[p.length-1]]=v;}
 
-/* ============================ FORMULAIRE ================================= */
-function ecranForm(etat){ecranActuel='form';
-// Rien en mémoire vive ? On regarde si cet appareil garde un brouillon de ce dossier.
-var repris=false;
-if(!etat){ var b=lireBrouillon(); if(b){ etat=b; repris=true; } }
-/* Un texte de parametre arrive en clair : on l'echappe, PUIS on rend les deux variables que
-   le formulaire detient — le numero dans sa pastille, et le telephone de l'etude. */
+/* Toute frappe et tout choix alimentent l'état et le brouillon. */
+function surSaisie(e){
+  var t=e.target; if(!t||!t.getAttribute) return;
+  var k=t.getAttribute('data-k'); if(!k) return;
+  if(t.classList.contains('telfmt')) t.value=fmtTel(t.value);
+  if(t.classList.contains('cpfmt')){ var avant=t.value; t.value=fmtCp(t.value); }
+  if(t.classList.contains('chf5')) t.value=chiffres(t.value,5);
+  if(t.classList.contains('chf3')) t.value=chiffres(t.value,3);
+  if(t.getAttribute('data-val')){ poser(k,t.value); if(t.classList.contains('err')) marquerErreur(t,false); majApercu(); sauver(); return; }
+  var v=t.type==='checkbox'?t.checked:(t.tagName==='SELECT'?t.selectedIndex:t.value);
+  poser(k,v);
+  if(t.classList.contains('err')) marquerErreur(t,false);
+  if(/^adr/.test(k)) majApercu();
+  if(t.id==='cptn') majBanque(t.value);
+  if(t.id==='cpttr'||t.id==='cpts'){ var o1=document.getElementById(t.id==='cpttr'?'cpts':'cpttr'); if(o1&&o1.classList.contains('err')&&!vide(t.value)&&o1.id==='cpts') marquerErreur(o1,false); }
+  if(t.type==='checkbox'){ var l=t.closest('.chk'); if(l){ l.classList.toggle('on',t.checked); l.classList.remove('err'); } majEnvoi(); }
+  sauver();
+}
+root.addEventListener('input',surSaisie);
+root.addEventListener('change',surSaisie);
+// Entrée dans un champ d'une ligne = « Continuer », comme sur un formulaire classique.
+root.addEventListener('keydown',function(e){
+  if(e.key!=='Enter'||!e.target||e.target.tagName!=='INPUT'||e.target.type==='checkbox') return;
+  var b=document.getElementById('suiv'); if(b&&!b.disabled){ e.preventDefault(); b.click(); }
+});
+
+function majApercu(){var a=document.getElementById('apercu'); var t=document.getElementById('apercuTxt'); if(a&&t) t.textContent=adresseComplete()||'—';}
+/* Le numéro d'institution donne la banque : on l'affiche, et on remplit le nom s'il est vide. */
+function majBanque(n){
+  var b=nomBanque(n), p=document.getElementById('bqTrouvee'), c=R.cpts[R.ci];
+  if(p){ p.hidden=!b; p.querySelector('span').textContent=b; }
+  if(b && c && vide(c.i)){ c.i=b; var el=document.getElementById('cpti'); if(el){ el.value=b; marquerErreur(el,false); } }
+}
+/* Le bas d'un chèque, dessiné : on montre où lire le transit (succursale) et l'institution (banque).
+   Le numéro de compte n'est pas demandé : il reste grisé. */
+function chequeHtml(ouvert){
+  var T=function(x,y,txt,cls,anc){return '<text x="'+x+'" y="'+y+'" class="'+cls+'"'+(anc?' text-anchor="'+anc+'"':'')+'>'+esc(txt)+'</text>';};
+  var svgc='<svg class="cheque-svg" viewBox="0 0 300 172" role="img" aria-label="'+esc(L.chequeAlt)+'">'
+    +'<path d="M1 1h298v92a8 8 0 0 1-8 8H9a8 8 0 0 1-8-8z" class="ch-fond"/>'
+    +'<rect x="14" y="10" width="150" height="2" class="ch-gris2"/><rect x="200" y="10" width="86" height="2" class="ch-gris2"/>'
+    +T(14,34,L.chequeBanque,'ch-banque')+'<rect x="14" y="40" width="88" height="5" rx="2.5" class="ch-gris2"/>'
+    +'<rect x="180" y="40" width="106" height="2" class="ch-gris2"/>'
+    +T(12,77,'101','ch-num ch-off')
+    +'<rect x="44" y="60" width="72" height="26" rx="6" class="ch-cadre-a"/>'+T(80,78,'12345','ch-num ch-a','middle')
+    +'<rect x="122" y="60" width="46" height="26" rx="6" class="ch-cadre-b"/>'+T(145,78,'815','ch-num ch-b','middle')
+    +T(176,77,'012','ch-num ch-off')+T(210,77,'345 67 89','ch-num ch-off')
+    +'<path d="M80 87v22" class="ch-trait-a"/><path d="M145 87v54" class="ch-trait-b"/>'
+    +T(80,123,L.transit,'ch-et ch-a','middle')+T(80,138,L.chequeSucc,'ch-sous','middle')
+    +T(153,155,L.instNo,'ch-et ch-b')+T(153,169,L.chequeBq,'ch-sous')
+    +'</svg>';
+  return '<details class="cheque"'+(ouvert?' open':'')+'><summary>'+I('card',16)+'<span>'+L.chequeT+'</span></summary>'
+    +'<div class="cheque-in">'+svgc
+    +'<ol class="cheque-pas"><li>'+L.chequeP1+'</li><li>'+L.chequeP2+'</li><li>'+L.chequeP3+'</li></ol><p class="cheque-note">'+I('lock',13,2.4)+'<span>'+L.chequeCompte+'</span></p></div></details>';
+}
+
+/* ===================== Listes déroulantes maison =====================
+   Le menu natif du navigateur jure avec la page : on dessine le nôtre. Un bouton
+   ouvre un panneau flottant sous lui (une feuille du bas sur téléphone), au clavier
+   comme au doigt : flèches, Entrée, Échap. */
+function menuHtml(k,id,opts,courant,etiq){
+  var o=opts.filter(function(x){return String(x.v)===String(courant);})[0]||opts[0];
+  return '<button type="button" class="dd" id="'+id+'" data-dd="'+k+'" aria-haspopup="listbox" aria-expanded="false" aria-label="'+esc(etiq)+'"'
+    +' data-opts="'+esc(JSON.stringify(opts))+'"><span class="dd-v">'+esc(o.t)+'</span>'+I('chev',15,2.4)+'</button>';
+}
+var PAN=null;   // le panneau ouvert : {el, voile, ancre, fermer}
+function fermerPanneau(rendreFocus){
+  if(!PAN) return; var p=PAN; PAN=null;
+  p.el.classList.remove('on'); if(p.voile) p.voile.classList.remove('on');
+  if(p.ancre) p.ancre.setAttribute('aria-expanded','false');
+  setTimeout(function(){ if(p.el.parentNode) p.el.parentNode.removeChild(p.el); if(p.voile&&p.voile.parentNode) p.voile.parentNode.removeChild(p.voile); },180);
+  if(rendreFocus&&p.ancre) p.ancre.focus();
+}
+function estTel(){return window.matchMedia&&window.matchMedia('(max-width: 640px)').matches;}
+/* Place le panneau sous l'ancre, ou au-dessus s'il n'y a pas la place. */
+function placer(el,ancre){
+  var r=ancre.getBoundingClientRect(), h=el.offsetHeight, bas=window.innerHeight-r.bottom;
+  el.style.left=(r.left+window.scrollX)+'px'; el.style.width=Math.max(r.width,220)+'px';
+  el.style.top=((bas<h+16&&r.top>h+16)?(r.top+window.scrollY-h-6):(r.bottom+window.scrollY+6))+'px';
+}
+function ouvrirPanneau(ancre,items,courant,choisir,o){
+  fermerPanneau(); o=o||{};
+  var feuille=!o.suggestions && estTel();
+  var el=document.createElement('div'); el.className='pan'+(feuille?' feuille':'')+(o.suggestions?' sugg':'');
+  el.setAttribute('role','listbox'); el.id='pan-'+(ancre.id||'x');
+  if(o.titre) el.setAttribute('aria-label',o.titre);
+  el.innerHTML=(feuille?'<div class="grab"></div>'+(o.titre?'<h4>'+esc(o.titre)+'</h4>':''):'')
+    +items.map(function(it,i){var on=String(it.v)===String(courant);
+      return '<button type="button" role="option" tabindex="-1" class="opt'+(on?' on':'')+'" aria-selected="'+on+'" data-i="'+i+'">'
+        +'<span class="ot">'+(it.html||esc(it.t))+'</span>'+(it.court?'<span class="oc">'+esc(it.court)+'</span>':'')
+        +(on?I('check',15,2.8):'')+'</button>';}).join('')
+    +(o.pied?'<div class="pied-pan">'+o.pied+'</div>':'');
+  var voile=null;
+  if(feuille){ voile=document.createElement('div'); voile.className='voile'; document.body.appendChild(voile); voile.onclick=function(){fermerPanneau(true);}; }
+  document.body.appendChild(el);
+  if(!feuille) placer(el,ancre);
+  ancre.setAttribute('aria-expanded','true'); ancre.setAttribute('aria-controls',el.id);
+  PAN={el:el,voile:voile,ancre:ancre,items:items,choisir:choisir,sugg:!!o.suggestions,actif:-1};
+  requestAnimationFrame(function(){ el.classList.add('on'); if(voile) voile.classList.add('on'); });
+  el.addEventListener('mousedown',function(e){ if(o.suggestions) e.preventDefault(); });
+  el.querySelectorAll('.opt').forEach(function(b){ b.onclick=function(){ var it=items[+b.getAttribute('data-i')]; fermerPanneau(!o.suggestions); choisir(it); }; });
+  if(!o.suggestions){ var c=el.querySelector('.opt.on')||el.querySelector('.opt'); if(c) c.focus({preventScroll:true}); }
+}
+function bougerDans(pas){
+  if(!PAN) return; var opts=[].slice.call(PAN.el.querySelectorAll('.opt')); if(!opts.length) return;
+  var i=PAN.sugg?PAN.actif:opts.indexOf(document.activeElement);
+  i=Math.max(0,Math.min(opts.length-1,(i<0&&pas<0)?opts.length-1:i+pas));
+  if(PAN.sugg){ PAN.actif=i; opts.forEach(function(b,j){b.classList.toggle('actif',j===i);}); PAN.ancre.setAttribute('aria-activedescendant',''); opts[i].scrollIntoView({block:'nearest'}); }
+  else opts[i].focus();
+}
+document.addEventListener('keydown',function(e){
+  if(!PAN) return;
+  if(e.key==='Escape'){ e.preventDefault(); fermerPanneau(true); }
+  else if(e.key==='ArrowDown'){ e.preventDefault(); bougerDans(1); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); bougerDans(-1); }
+  else if(e.key==='Tab'){ fermerPanneau(false); }
+  else if(e.key==='Enter' && PAN.sugg && PAN.actif>=0){ e.preventDefault(); e.stopPropagation(); var it=PAN.items[PAN.actif]; var ch=PAN.choisir; fermerPanneau(false); ch(it); }
+},true);
+document.addEventListener('mousedown',function(e){ if(PAN && !PAN.el.contains(e.target) && e.target!==PAN.ancre && !PAN.ancre.contains(e.target)) fermerPanneau(false); });
+window.addEventListener('resize',function(){ if(PAN&&!PAN.voile) placer(PAN.el,PAN.ancre); });
+/* Le bouton d'une liste : ouvre le panneau, puis range le choix dans l'état. */
+function brancherMenus(){
+  root.querySelectorAll('.dd').forEach(function(b){
+    b.onclick=function(){
+      if(PAN&&PAN.ancre===b){ fermerPanneau(true); return; }
+      var k=b.getAttribute('data-dd'), opts=JSON.parse(b.getAttribute('data-opts'));
+      ouvrirPanneau(b,opts,lire(k),function(it){
+        poser(k,it.v); b.querySelector('.dd-v').textContent=it.t; majApercu(); sauver();
+      },{titre:b.getAttribute('aria-label')});
+    };
+    b.onkeydown=function(e){ if(e.key==='ArrowDown'||e.key==='ArrowUp'){ e.preventDefault(); b.click(); } };
+  });
+  // Nom de la banque : suggestions pendant la frappe, texte libre toujours accepté.
+  var ci=document.getElementById('cpti');
+  if(ci){
+    var montrer=function(){
+      var q=sansAccents(ci.value.trim());
+      var liste=BANQUES_NOMS.filter(function(b){return !q || sansAccents(b[0]).indexOf(q)>=0 || (b[1]&&b[1].indexOf(q)===0);}).slice(0,7);
+      if(!liste.length || (liste.length===1 && sansAccents(liste[0][0])===q)){ fermerPanneau(false); ci.setAttribute('aria-expanded','false'); return; }
+      var items=liste.map(function(b){
+        var i=sansAccents(b[0]).indexOf(q), html=(q&&i>=0)?esc(b[0].slice(0,i))+'<mark>'+esc(b[0].slice(i,i+q.length))+'</mark>'+esc(b[0].slice(i+q.length)):esc(b[0]);
+        return {v:b[0],t:b[0],html:html,court:b[1]};});
+      ouvrirPanneau(ci,items,'',function(it){
+        var c=R.cpts[R.ci]; if(!c) return;
+        c.i=it.v; ci.value=it.v; marquerErreur(ci,false);
+        if(it.court && vide(c.n)){ c.n=it.court; var n=document.getElementById('cptn'); if(n) n.value=it.court; majBanque(it.court); }
+        sauver();
+      },{suggestions:true,pied:L.instLibreCourt});
+    };
+    ci.addEventListener('focus',montrer); ci.addEventListener('input',montrer);
+    ci.addEventListener('blur',function(){ setTimeout(function(){ if(PAN&&PAN.ancre===ci) fermerPanneau(false); },120); });
+  }
+}
+
+/* ============================ ACCUEIL ==================================== */
+function ecranIntro(){ecranActuel='intro';
+  var li=L.introLi.map(function(x){return '<div>'+I('check',16,2.6)+'<span>'+x+'</span></div>';}).join('');
+  root.innerHTML=enteteHtml()+etapesHtml(-1)
+    +'<section class="qc entre"><div class="qb">'
+    +'<div class="qh"><span class="ic acc">'+I('bouclier',22)+'</span><div><h2 tabindex="-1">'+L.introT+'</h2><p>'+L.intro1+'</p></div></div>'
+    +'<div class="tips">'+li.replace(/<svg/g,'<svg style="color:var(--ok)"')+'</div>'
+    +'<div class="why">'+I('bouclier',17)+'<div><b>'+L.pourquoi684T+'</b>'+L.pourquoi684D+'</div></div>'
+    +'</div><div class="qf"><span class="grow"></span>'
+    +'<button type="button" class="btn lg" id="go">'+(repris?L.continuer:L.commencer)+'</button></div></section>'
+    +'<div class="pied">'+aideHtml()+'</div>'+footHtml();
+  document.getElementById('go').onclick=function(){ sens=1; ecranActuel='q'; if(!R.q) R.q='nom'; afficher(); hautDePage(); };
+}
+
+/* ======================= Navigation entre les questions ===================== */
+function aller(q,s){ sens=s==null?1:s; R.q=q; if(q==='recap') R.recap=true; sauver(); afficher(); hautDePage(); }
+function nettoyerListes(){
+  R.emps=R.emps.filter(function(x,i){return i===R.ei || !(vide(x.n)&&vide(x.a)&&vide(x.t));});
+  R.cpts=R.cpts.filter(function(x,i){return i===R.ci || !(vide(x.i)&&vide(x.s)&&vide(x.t));});
+}
+function nouvelEmp(){ R.emps.push({n:'',a:'',t:'',p:''}); R.ei=R.emps.length-1; aller('emp'); }
+function nouveauCpt(){ R.cpts.push({i:'',n:'',tr:'',s:'',t:'',p:''}); R.ci=R.cpts.length-1; R.aucunCpt=false; aller('cpt'); }
+/* Quitter le formulaire d'un employeur ou d'un compte sans l'ajouter : une fiche
+   restée vide disparaît. */
+function quitterFiche(){
+  if(R.q==='emp' && R.emps[R.ei]){ var x=R.emps[R.ei]; if(vide(x.n)&&vide(x.a)&&vide(x.t)) R.emps.splice(R.ei,1); }
+  if(R.q==='cpt' && R.cpts[R.ci]){ var c=R.cpts[R.ci]; if(vide(c.i)&&vide(c.s)&&vide(c.t)&&vide(c.n)&&vide(c.tr)) R.cpts.splice(R.ci,1); }
+  R.ei=-1; R.ci=-1;
+}
+/* Ce qui suit une question. Revenu d'un « Modifier » de la vérification ? On y retourne
+   dès que la section est complète. */
+function apresEmploi(){ if(R.recap) return aller('recap'); return (R.cpts.length||R.aucunCpt)?aller(R.aucunCpt?'cpt':'cptPlus'):nouveauCpt(); }
+function apresComptes(){ if(R.recap) aller('recap'); else aller('notes'); }
+function suivant(){
+  switch(R.q){
+    case 'nom': return R.recap?aller('recap'):aller('adresse');
+    case 'adresse': return aller('res');
+    case 'res': return R.recap?aller('recap'):aller('joindre');
+    case 'joindre': return R.recap?aller('recap'):aller('sit');
+    case 'sit':
+      if(aEmployeur()) return R.emps.length?aller('empPlus'):nouvelEmp();
+      return aller('revenu');
+    case 'emp': R.ei=-1; return aller('empPlus');
+    case 'empPlus': return apresEmploi();
+    case 'revenu': return apresEmploi();
+    case 'cpt': R.ci=-1; return R.aucunCpt?apresComptes():aller('cptPlus');
+    case 'cptPlus': return apresComptes();
+    case 'notes': return aller('recap');
+  }
+}
+function precedent(){
+  var q=R.q; quitterFiche();
+  switch(q){
+    case 'nom': sens=-1; ecranIntro(); hautDePage(); return;
+    case 'adresse': return aller('nom',-1);
+    case 'res': return aller('adresse',-1);
+    case 'joindre': return aller('res',-1);
+    case 'sit': return aller('joindre',-1);
+    case 'emp': return aller(R.emps.length?'empPlus':'sit',-1);
+    case 'empPlus': case 'revenu': return aller('sit',-1);
+    case 'cpt': return aller(R.cpts.length?'cptPlus':(aEmployeur()?'empPlus':'revenu'),-1);
+    case 'cptPlus': return aller(aEmployeur()?'empPlus':'revenu',-1);
+    case 'notes':
+      if(R.cpts.length) return aller('cptPlus',-1);
+      R.aucunCpt=true; return aller('cpt',-1);
+    case 'recap': return aller('notes',-1);
+  }
+}
+
+/* ============================ Les écrans ================================ */
+function carte(o){
+  var step=ETAPE_DE[R.q];
+  return '<section class="qc entre'+(sens<0?' recule':'')+'" aria-labelledby="qt">'
+    +'<div class="qb">'
+    +'<div class="eye"><span class="tag">'+I(ICO_ETAPE[step],13)+esc(nomsEtapes()[step])+'</span>'+(o.eye?'<span>'+o.eye+'</span>':'')+'</div>'
+    +'<div class="qh"><span class="ic">'+I(o.ic,22)+'</span><div><h2 id="qt" tabindex="-1">'+o.t+'</h2>'+(o.p?'<p>'+o.p+'</p>':'')+'</div></div>'
+    +o.corps
+    +'</div>'
+    +'<div class="qf"><button type="button" class="btn ghost" id="prec" aria-label="'+esc(L.prec)+'">'+I('gauche',17)+'<span>'+L.prec+'</span></button>'
+    +'<span class="grow"></span>'
+    +(o.bouton===false?'':'<button type="button" class="btn'+(o.attente?' attente':'')+'" id="suiv"'+(o.dis?' disabled':'')+'>'+(o.bouton||L.continuer)+'</button>')
+    +'</div></section>';
+}
+function tuiles(cles,l10n,icos,choisi,groupe,descr){
+  return '<div class="tiles" role="radiogroup" aria-labelledby="qt">'+cles.map(function(c,i){
+    return '<button type="button" class="tile'+(choisi===c?' on':'')+'" role="radio" aria-checked="'+(choisi===c)+'" data-tuile="'+groupe+'" data-v="'+esc(c)+'">'
+      +I(icos[i],20)+'<span>'+L[l10n[i]]+(descr?'<small>'+descr[i]+'</small>':'')+'</span></button>';
+  }).join('')+'</div>';
+}
+function oupas(){
+  return '<div class="tiles deux">'
+    +'<button type="button" class="tile" id="oui"><span class="ic">'+I('plus',17,2.4)+'</span>'+L.ouiAutre+'</button>'
+    +'<button type="button" class="tile" id="non"><span class="ic">'+I('check',17,2.6)+'</span>'+L.nonTout+'</button></div>';
+}
+function itemHtml(n,t,d,genre,i,neuf){
+  return '<div class="item'+(neuf?' neuf':'')+'"><span class="num">'+n+'</span><div><b>'+esc(t)+'</b><small>'+d+'</small></div>'
+    +'<button type="button" class="lnk" data-mod="'+genre+'" data-i="'+i+'">'+L.modifier+'</button>'
+    +'<button type="button" class="x" data-ret="'+genre+'" data-i="'+i+'" aria-label="'+esc(L.retirer+' — '+t)+'">'+I('x',15,2.4)+'</button></div>';
+}
+function details(parts){var p=parts.filter(function(x){return !vide(x);}).map(esc);return p.length?p.join(' · '):'<i>'+L.nonFourni+'</i>';}
+
+var dernierAjout=-1;   // pour animer la petite carte qui vient d'être ajoutée
+
+function afficher(){
+  fermerPanneau(false);
+  ecranActuel='q';
+  if(ECRANS.indexOf(R.q)<0) R.q='nom';
+  var q=R.q, o, step=ETAPE_DE[q];
+  var sitIco=['briefcase','hammer','sunset','coins','grad','coeur','slash','dots'];
+  if(q==='nom') o={ic:'user',t:L.qNom,p:L.qNomP,corps:'<div class="champs">'
+      +champ({k:'nom',id:'nomp',lab:L.nom,req:true,ac:'name',cls:'big'})
+      +champ({k:'naiss',id:'naissp',lab:L.naiss,req:true,ac:'bday',type:'date'})+'</div>'};
+  else if(q==='adresse') o={ic:'maison',t:L.qAdr,p:L.qAdrP,corps:'<div class="champs">'
+      +'<div class="adr-grille">'
+      +'<div class="a-no">'+champ({k:'adrNo',id:'adrno',lab:L.adrNo,req:true,im:'numeric',ph:'1234'})+'</div>'
+      +'<div class="a-rue">'+champ({k:'adrRue',id:'adrrue',lab:L.adrRue,req:true,ac:'address-line1',ph:L.adrRuePh})+'</div>'
+      +'<div class="a-app">'+champ({k:'adrApp',id:'adrapp',lab:L.adrApp,ac:'address-line2',ph:L.adrAppPh,fac:''})+'</div>'
+      +'<div class="a-ville">'+champ({k:'adrVille',id:'adrville',lab:L.adrVille,req:true,ac:'address-level2',ph:L.adrVillePh})+'</div>'
+      +'<div class="a-prov"><div class="f"><label id="lab-adrprov">'+L.adrProv+'</label>'
+      +menuHtml('adrProv','adrprov',PROVINCES.map(function(c){return {v:c,t:nomProv(c),court:c};}),R.adrProv,L.adrProv)+'</div></div>'
+      +'<div class="a-cp">'+champ({k:'adrCp',id:'adrcp',lab:L.adrCp,req:true,ac:'postal-code',ph:'H2J 2J1',cls:'cpfmt',err:L.adrCpErr})+'</div>'
+      +'</div>'
+      +'<div class="apercu" id="apercu"><span class="ic ok">'+I('mail',15)+'</span><div><small>'+L.adrApercu+'</small><span id="apercuTxt">'+esc(adresseComplete()||'—')+'</span></div></div>'
+      +'</div>'};
+  else if(q==='joindre'){
+    var tl=R.tels.map(function(t,i){
+      return '<div class="ligne">'+menuHtml('tels.'+i+'.ti','tt'+i,[L.cell,L.res,L.trav].map(function(x,j){return {v:j,t:x};}),t.ti,L.tels+' '+(i+1))
+        +'<input data-k="tels.'+i+'.n" class="telfmt" inputmode="tel" autocomplete="tel" value="'+esc(t.n)+'" placeholder="'+esc(L.numero)+'" aria-label="'+esc(L.numero)+' '+(i+1)+'">'
+        +'<button type="button" class="x" data-retl="tels" data-i="'+i+'" aria-label="'+esc(L.retirer+' — '+L.numero+' '+(i+1))+'">'+I('x',15,2.4)+'</button></div>';}).join('');
+    var ml=R.mails.map(function(m,i){
+      return '<div class="ligne">'+menuHtml('mails.'+i+'.mi','mt'+i,[L.perso,L.trav,L.autre].map(function(x,j){return {v:j,t:x};}),m.mi,L.courriels+' '+(i+1))
+        +'<input data-k="mails.'+i+'.v" type="email" autocomplete="email" value="'+esc(m.v)+'" placeholder="'+esc(L.courriel)+'" aria-label="'+esc(L.courriel)+' '+(i+1)+'">'
+        +'<button type="button" class="x" data-retl="mails" data-i="'+i+'" aria-label="'+esc(L.retirer+' — '+L.courriel+' '+(i+1))+'">'+I('x',15,2.4)+'</button></div>';}).join('');
+    o={ic:'contact',t:L.qJoindre,p:L.qJoindreP,corps:
+      '<div class="sec"><h3>'+I('tel',15)+L.tels+'</h3>'+tl
+      +(R.tels.length<LISTE_MAX?'<button type="button" class="ajout" data-ajl="tels">'+I('plus',15,2.6)+L.ajTel2+'</button>':'')+'</div>'
+      +'<div class="sec"><h3>'+I('mail',15)+L.courriels+'</h3>'+ml
+      +(R.mails.length<LISTE_MAX?'<button type="button" class="ajout" data-ajl="mails">'+I('plus',15,2.6)+L.ajMail2+'</button>':'')+'</div>'};
+  }
+  else if(q==='sit') o={ic:'briefcase',t:L.qSit,p:L.qSitP,dis:!R.sit,corps:
+      tuiles(SIT_CLES,SIT_L10N,sitIco,R.sit,'sit')+errHtml('sit')};
+  else if(q==='emp'){
+    var e=R.emps[R.ei], nEmp=R.ei+1, autres=R.emps.filter(function(x,i){return i!==R.ei && !vide(x.n);}).length;
+    o={ic:'immeuble',t:(R.ei===0&&!autres)?L.qEmp1:L.qEmpN,p:(R.ei===0&&!autres)?L.qEmp1P:L.qEmpNP,
+      eye:autres?'#'+nEmp:'',bouton:L.ajEmpCe,corps:'<div class="champs">'
+      +champ({k:'emps.'+R.ei+'.n',id:'empn',lab:L.nomEmp,req:true,ph:L.empPh,cls:'big',err:L.employeurRequis,ac:'organization'})
+      +'<div class="duo egal">'
+      +champ({k:'emps.'+R.ei+'.t',id:'empt',lab:L.tel,ph:'514-555-0000',cls:'telfmt',im:'tel'})
+      +champ({k:'emps.'+R.ei+'.p',id:'empp',lab:L.poste,im:'numeric'})+'</div>'
+      +champ({k:'emps.'+R.ei+'.a',id:'empa',lab:L.adr,ph:L.adrPh})+'</div>'
+      +'<div class="why">'+I('bouclier',17)+'<div><b>'+L.pourquoi684T+'</b>'+L.pourquoi684D+'</div></div>'};
+  }
+  else if(q==='empPlus'){
+    var it=R.emps.map(function(x,i){return itemHtml(i+1,x.n,details([avecPoste(x.t,x.p),x.a]),'emp',i,i===dernierAjout);}).join('');
+    o={ic:'immeuble',t:L.qEmpPlus,p:L.qEmpPlusP,bouton:false,corps:'<div class="items">'+it+'</div>'
+      +(R.emps.length<LISTE_MAX?oupas():'')};
+  }
+  else if(q==='revenu'){
+    var t,ph;
+    if(R.sit==='Retraité'){ t=L.revenuRetraiteT; ph=L.revenuRetraitePh; }
+    else if(R.sit==='Autre'){ t=L.precisezT; ph=L.precisezPh; }
+    else { t=L.revenuT; ph=L.revenuPh; }
+    o={ic:'coins',t:esc(t),p:L.revenuP,corps:champ({k:'emploinotes',id:'emploinotes',req:true,area:true,cls:'long',ph:ph,err:L.emploiNotesRequis})
+      .replace('<div class="f">','<div class="f"><label class="sr" for="emploinotes">'+esc(t)+'</label>')};
+  }
+  else if(q==='res') o={ic:'maison',t:L.qRes,p:L.qResP,dis:!R.res,corps:
+      tuiles(RES_CLES,RES_L10N,['maison','cle','lit','sansAdr'],R.res,'res',L.resD)+errHtml('res')};
+  else if(q==='cpt'){
+    var c=R.cpts[R.ci], autresC=R.cpts.filter(function(x,i){return i!==R.ci && !vide(x.i);}).length;
+    if(R.aucunCpt && !c){
+      o={ic:'banque',t:L.qCpt1,p:L.qCpt1P,corps:'<div class="items"><div class="item"><span class="ic ok" style="width:28px;height:28px">'+I('check',14,3)+'</span><div><b>'+L.aucunCptRecap+'</b></div>'
+        +'<button type="button" class="lnk" id="annAucun">'+L.modifier+'</button></div></div>'};
+    } else o={ic:'banque',t:autresC?L.qCptN:L.qCpt1,p:autresC?L.qCptNP:L.qCpt1P,eye:autresC?'#'+(R.ci+1):'',bouton:L.ajCptCe,corps:'<div class="champs">'
+      +champ({k:'cpts.'+R.ci+'.i',id:'cpti',lab:L.inst,req:true,ph:L.instPh,cls:'big',err:L.instRequis,aide:L.instLibre,combo:true})
+      +chequeHtml(!autresC)
+      +'<div class="duo egal">'+champ({k:'cpts.'+R.ci+'.tr',id:'cpttr',lab:L.transit,im:'numeric',ph:'12345',cls:'chf5 mono',err:L.transitErr,aide:L.transitAide})
+      +champ({k:'cpts.'+R.ci+'.n',id:'cptn',lab:L.instNo,im:'numeric',ph:'815',cls:'chf3 mono',err:L.instNoErr,aide:L.instNoAide})+'</div>'
+      +'<p class="banque-trouvee" id="bqTrouvee"'+(nomBanque(c&&c.n)?'':' hidden')+'>'+I('check',14,2.8)+'<span>'+esc(nomBanque(c&&c.n))+'</span></p>'
+      +champ({k:'cpts.'+R.ci+'.s',id:'cpts',lab:L.succ2,ph:L.succPh,err:L.succRequis,fac:L.succFac})
+      +'<div class="duo egal">'+champ({k:'cpts.'+R.ci+'.t',id:'cptt',lab:L.tel,ph:'514-555-0000',cls:'telfmt',im:'tel'})
+      +champ({k:'cpts.'+R.ci+'.p',id:'cptp',lab:L.poste,im:'numeric'})+'</div>'
+      +(autresC?'':'<div class="aucun">'+L.pasDeCpt+'<button type="button" id="aucun">'+I('slash',14)+L.aucunCpt+'</button></div>')
+      +'</div>'};
+  }
+  else if(q==='cptPlus'){
+    var itc=R.cpts.map(function(x,i){return itemHtml(i+1,x.i,details([vide(x.tr)?'':L.transitCourt+' '+x.tr,vide(x.n)?'':L.instCourt+' '+x.n,x.s,avecPoste(x.t,x.p)]),'cpt',i,i===dernierAjout);}).join('');
+    o={ic:'banque',t:L.qCptPlus,p:L.qCptPlusP,bouton:false,corps:'<div class="items">'+itc+'</div>'+(R.cpts.length<LISTE_MAX?oupas():'')};
+  }
+  else if(q==='notes') o={ic:'doc',t:L.qNotes,p:L.qNotesP,
+      corps:champ({k:'notes',id:'notesp',area:true,cls:'long',ph:L.notesPh}).replace('<div class="f">','<div class="f"><label class="sr" for="notesp">'+L.notes+'</label>')};
+  else if(q==='recap') o=recapEcran();
+  dernierAjout=-1;
+
+  root.innerHTML=enteteHtml()+etapesHtml(step)
+    +'<div id="annonce" class="sr" role="status" aria-live="polite"></div>'
+    +(repris?'<p class="repris">'+I('check',15,2.8)+L.brouillonRepris+'</p>':'')
+    +'<div id="zoneErr"></div>'
+    +carte(o)
+    +'<div class="pied"><span class="garde">'+I('check',13,2.8)+L.garde+'</span><span class="grow"></span>'+aideHtml()+'</div>'
+    +footHtml();
+  repris=false;
+  brancher();
+  annoncer(L.etape+' '+(step+1)+' '+L.sur+' 6 : '+nomsEtapes()[step]);
+  if(sens!==0){ var h=document.getElementById('qt'); if(h) try{ h.focus({preventScroll:true}); }catch(x){} }
+  sens=1;
+}
+
+/* ============================ Vérification =============================== */
 function texteBloc(t){
   return esc(String(t||''))
     .replace(/\{(NO|numero)\}/gi,'<code>'+esc(DOSSIER.numero||'...')+'</code>')
     .replace(/\{tel_etude\}/gi, esc(TEL_ETUDE));
 }
 function nonVide(x){ return x && String(x).trim(); }
-var M=DOSSIER.modalites||{};
-var mIntro=(Array.isArray(M.intro)&&M.intro.filter(nonVide).length)
-  ? M.intro.filter(nonVide).map(texteBloc).join(' ')
-  : texteBloc(L.modIntro);
-var mItems=(Array.isArray(M.modalites)&&M.modalites.length)
-  ? M.modalites
-  : L.mod.map(function(m){ return {titre:m[0], corps:m[1]}; });
-var mAvert=(Array.isArray(M.consequences)&&M.consequences.length)
-  ? M.consequences
-  : [{titre:L.avertT, corps:L.avertD}];
-var modLi='';mItems.forEach(function(m){
-  var t=nonVide(m.titre)?'<div class="mt">'+texteBloc(m.titre)+'</div>':'';
-  modLi+='<li>'+t+'<div class="md">'+texteBloc(m.corps)+'</div></li>';});
-var avertHtml='';mAvert.forEach(function(a){
-  avertHtml+='<div class="warn">'+ICO.alert+'<div>'
-    +(nonVide(a.titre)?'<div class="wt">'+texteBloc(a.titre)+'</div>':'')
-    +'<div class="wd">'+texteBloc(a.corps)+'</div></div></div>';});
-
-var steps=[
- {t:L.identite,h:'<div class="card"><h2>'+L.identite+'</h2>'
-   +'<p class="legende">'+L.legendeRequis+'</p>'
-   +champ('nomp',L.nom,'<input id="nomp" autocomplete="name" required aria-required="true">')
-   +champ('naissp',L.naiss,'<input id="naissp" type="date" autocomplete="bday" required aria-required="true">')
-   +champ('adrp',L.adresse,'<textarea id="adrp" autocomplete="street-address" required aria-required="true"></textarea>')
-   +'</div>'},
- {t:L.coord,h:'<div class="card"><h2>'+L.tels+'</h2><div id="tels"></div>'
-   +'<button type="button" class="add" id="aTel">'+ICO.plus+'<span>'+L.ajTel+'</span></button></div>'
-   +'<div class="card"><h2>'+L.courriels+'</h2><div id="mails"></div>'
-   +'<button type="button" class="add" id="aMail">'+ICO.plus+'<span>'+L.ajMail+'</span></button></div>'},
- {t:L.emploi,h:'<div class="card"><h2>'+L.situation+' <span class="req" aria-hidden="true">*</span>'+'</h2>'
-   +'<select id="sit" required aria-required="true" aria-label="'+esc(L.situation)+'">'
-   +'<option value="" disabled selected>'+L.choisir+'</option>'
-   +SIT_CLES.map(function(c,i){return '<option value="'+c+'">'+L[SIT_L10N[i]]+'</option>';}).join('')
-   +'</select>'+'<p class="fielderr" id="err-sit" hidden>'+ICO.alert+'<span>'+L.champRequis+'</span></p>'+'</div>'
-   +'<div class="card" id="cardEmps"><h2>'+L.employeurs+' <span class="req" aria-hidden="true">*</span>'+'</h2><div id="emps"></div>'
-   +'<button type="button" class="add" id="aEmp">'+ICO.plus+'<span>'+L.ajEmp+'</span></button>'
-   +'<p class="fielderr" id="err-emps" hidden>'+ICO.alert+'<span>'+L.employeurRequis+'</span></p>'+'</div>'
-   +'<div class="card" id="cardNotes"><h2 id="titreNotes">'+L.emploiNotes+'</h2>'
-   +'<textarea id="emploinotes" class="long" aria-required="true" aria-label="'+esc(L.emploiNotes)+'" placeholder="'+esc(L.emploiNotesPh)+'"></textarea>'
-   +'<p class="fielderr" id="err-emploinotes" hidden>'+ICO.alert+'<span>'+L.emploiNotesRequis+'</span></p>'+'</div>'},
- {t:L.logement,h:'<div class="card"><h2>'+L.residence+' <span class="req" aria-hidden="true">*</span>'+'</h2>'
-   +'<select id="resd" required aria-required="true" aria-label="'+esc(L.residence)+'">'
-   +'<option value="" disabled selected>'+L.choisir+'</option>'
-   +RES_CLES.map(function(c,i){return '<option value="'+c+'">'+L[RES_L10N[i]]+'</option>';}).join('')
-   +'</select>'+'<p class="fielderr" id="err-resd" hidden>'+ICO.alert+'<span>'+L.champRequis+'</span></p>'+'</div>'
-   +'<div class="card"><h2>'+L.comptes+' <span class="req" aria-hidden="true">*</span>'+'</h2>'
-   +'<p class="legende">'+L.compteAucun+'</p>'
-   +'<div id="cpts"></div>'
-   +'<button type="button" class="add" id="aCpt">'+ICO.plus+'<span>'+L.ajCpt+'</span></button>'
-   +'<p class="fielderr" id="err-cpts" hidden>'+ICO.alert+'<span>'+L.compteRequis+'</span></p>'+'</div>'},
- {t:L.notes,h:'<div class="card"><h2>'+L.notes+'</h2>'
-   +'<textarea id="notesp" class="long" aria-label="'+esc(L.notes)+'" placeholder="'+L.notesPh+'"></textarea></div>'},
- /* Dernière étape : modalités, mise en garde, puis engagement explicite. */
- /* L'échéancier ouvre l'étape : on voit ce à quoi on s'engage AVANT de lire les
-    modalités et de cocher. */
- {t:L.engagement,h:'<div class="card"><h2>'+L.echT+'</h2>'
-   +'<p style="font-size:13px;color:var(--ink-500);margin:0 0 12px;line-height:1.5">'+L.echSous+'</p>'
-   +echeancierHtml()+'</div>'
-   +'<div class="card"><h2>'+L.modT+'</h2>'
-   +'<p style="font-size:13.5px;color:var(--ink-500);margin:0 0 4px;line-height:1.55">'+mIntro+'</p>'
-   +'<ul class="mod">'+modLi+'</ul></div>'
-   +avertHtml
-   +'<div class="note"><div class="nt">'+L.avertRassure+'</div>'
-   +'<div class="nd" style="margin-top:7px"><b>'+L.difficulteT+'</b><br>'+L.difficulteD+' '+telLien()+'</div></div>'
-   +'<label class="accept" id="acceptBox" for="accepte">'
-   +'<input type="checkbox" id="accepte"><span class="box">'+ICO.checkSm+'</span>'
-   +'<span class="at">'+L.accepte+'</span></label>'}
-];
-
-var sh='';for(var i=0;i<steps.length;i++)sh+='<section class="step">'+steps[i].h+'</section>';
-var segs='';for(var s=0;s<steps.length;s++)segs+='<div class="seg"><i></i></div>';
-
-root.innerHTML=enteteHtml()
- +'<div class="prog"><div class="segs" id="segs">'+segs+'</div><div class="ptxt" id="ptxt"></div></div>'
- +'<div id="annonce" class="sr" role="status" aria-live="polite"></div>'
- +(repris?'<p class="repris">'+L.brouillonRepris+'</p>':'')
- +'<div id="zoneErr"></div>'
- +'<div>'+sh
- +'<div class="nav"><button type="button" class="btn ghost" id="prev">'+L.prec+'</button>'
- +'<button type="button" class="btn prim" id="next">'+L.suiv+'</button>'
- +'<button type="button" class="btn prim" id="sb" style="display:none" disabled>'+L.envoyer+'</button></div></div>'
- +footHtml();
-
-var _uid=0;   // identifiants uniques pour relier étiquette et champ dans les blocs répétés
-function rm(el,quoi){var b=document.createElement('button');b.type='button';b.className='rm';
-  // « × » comme nom accessible donnait quatre boutons identiques : on dit ce qu'on retire.
-  b.setAttribute('aria-label',(L.retirer||'Retirer')+' — '+quoi);
-  b.innerHTML='<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
-  b.onclick=function(){el.remove();};return b;}
-function add(host,inner,quoi){var d=document.createElement('div');d.className='item';d.innerHTML=inner;
-  d.appendChild(rm(d,quoi));document.getElementById(host).appendChild(d);return d;}
-function telRow(data){var u=++_uid;
-  var it=add('tels','<div class="duo">'
-    +'<select class="tt" aria-label="'+esc(L.tels)+'"><option>'+L.cell+'</option><option>'+L.res+'</option><option>'+L.trav+'</option></select>'
-    +'<input class="tn telfmt" inputmode="tel" autocomplete="tel" aria-label="'+esc(L.numero)+'" placeholder="'+esc(L.numero)+'"></div>', L.tels);
-  if(data){it.querySelector('.tt').selectedIndex=data.ti||0;it.querySelector('.tn').value=data.n||'';}}
-function mailRow(data){var u=++_uid;
-  var it=add('mails','<div class="duo">'
-    +'<select class="mt" aria-label="'+esc(L.courriels)+'"><option>'+L.perso+'</option><option>'+L.trav+'</option><option>'+L.autre+'</option></select>'
-    +'<input class="mm" type="email" autocomplete="email" aria-label="'+esc(L.courriel)+'" placeholder="'+esc(L.courriel)+'"></div>', L.courriels);
-  if(data){it.querySelector('.mt').selectedIndex=data.mi||0;it.querySelector('.mm').value=data.v||'';}}
-function empRow(data){var u=++_uid;
-  var it=add('emps','<label for="en'+u+'">'+L.nomEmp+'</label><input id="en'+u+'" class="en">'
-    +'<label for="ea'+u+'">'+L.adr+'</label><input id="ea'+u+'" class="ea">'
-    +'<div class="duo"><div><label for="et'+u+'">'+L.tel+'</label><input id="et'+u+'" class="et telfmt" inputmode="tel"></div>'
-    +'<div><label for="ep'+u+'">'+L.poste+'</label><input id="ep'+u+'" class="ep" inputmode="numeric"></div></div>', L.employeurs);
-  if(data){it.querySelector('.en').value=data.n||'';it.querySelector('.ea').value=data.a||'';
-    it.querySelector('.et').value=data.t||'';it.querySelector('.ep').value=data.p||'';}}
-function cptRow(data){var u=++_uid;
-  var it=add('cpts','<label for="ci'+u+'">'+L.inst+'</label><input id="ci'+u+'" class="ci">'
-    +'<label for="cs'+u+'">'+L.succ+'</label><input id="cs'+u+'" class="cs">'
-    +'<div class="duo"><div><label for="ct'+u+'">'+L.tel+'</label><input id="ct'+u+'" class="ct telfmt" inputmode="tel"></div>'
-    +'<div><label for="cp'+u+'">'+L.poste+'</label><input id="cp'+u+'" class="cp" inputmode="numeric"></div></div>', L.comptes);
-  if(data){it.querySelector('.ci').value=data.i||'';it.querySelector('.cs').value=data.s||'';
-    it.querySelector('.ct').value=data.t||'';it.querySelector('.cp').value=data.p||'';}}
-
-document.getElementById('aTel').onclick=function(){telRow();};
-document.getElementById('aMail').onclick=function(){mailRow();};
-document.getElementById('aEmp').onclick=function(){empRow();};
-document.getElementById('aCpt').onclick=function(){cptRow();};
-
-function majEmploi(){
-  var v=document.getElementById('sit').value;
-  var employeur=SIT_EMPLOYEUR.indexOf(v)>=0;
-  var choisi=!!v;
-  document.getElementById('cardEmps').style.display=(choisi&&employeur)?'':'none';
-  document.getElementById('cardNotes').style.display=(choisi&&!employeur)?'':'none';
-  // Le titre et l'invite suivent le statut : demander « votre employeur » à quelqu'un
-  // qui vient de déclarer être sans emploi se lit comme un piège.
-  if(choisi&&!employeur){
-    var t,ph;
-    if(v==='Retraité'){ t=L.revenuRetraiteT; ph=L.revenuRetraitePh; }
-    else if(v==='Autre'){ t=L.precisezT; ph=L.precisezPh; }
-    else { t=L.revenuT; ph=L.revenuPh; }
-    document.getElementById('titreNotes').innerHTML=esc(t)+' <span class="req" aria-hidden="true">*</span>';
-    document.getElementById('emploinotes').setAttribute('placeholder',ph);
-    document.getElementById('emploinotes').setAttribute('aria-label',t);
-  }
+function recapEcran(){
+  var rs=function(ic,t,v,cible){
+    return '<div class="rs"><span class="ic">'+I(ic,16)+'</span><div><b>'+t+'</b><small'+(v?'':' class="vide"')+'>'+(v||L.nonFourni)+'</small></div>'
+      +'<button type="button" class="lnk" data-va="'+cible+'" aria-label="'+esc(L.modifier+' — '+t)+'">'+L.modifier+'</button></div>';
+  };
+  var tels=R.tels.filter(function(t){return !vide(t.n);}).map(function(t){return t.n;});
+  var mails=R.mails.filter(function(m){return !vide(m.v);}).map(function(m){return m.v;});
+  var sitTxt=R.sit?L[SIT_L10N[SIT_CLES.indexOf(R.sit)]]:'';
+  var emp=aEmployeur()?R.emps.map(function(x){return x.n;}).filter(nonVide).join(', '):R.emploinotes;
+  var resTxt=R.res?L[RES_L10N[RES_CLES.indexOf(R.res)]]:'';
+  var cpt=R.aucunCpt?L.aucunCptRecap:R.cpts.map(function(x){return x.i+(vide(x.tr)?'':' · '+L.transitCourt+' '+x.tr);}).filter(nonVide).join(', ');
+  var M=DOSSIER.modalites||{};
+  var mIntro=(Array.isArray(M.intro)&&M.intro.filter(nonVide).length)? M.intro.filter(nonVide).map(texteBloc).join(' ') : texteBloc(L.modIntro);
+  var mItems=(Array.isArray(M.modalites)&&M.modalites.length)? M.modalites : L.mod.map(function(m){ return {titre:m[0], corps:m[1]}; });
+  var mAvert=(Array.isArray(M.consequences)&&M.consequences.length)? M.consequences : [{titre:L.avertT, corps:L.avertD}];
+  var modLi=mItems.map(function(m){
+    return '<li>'+(nonVide(m.titre)?'<div class="mt">'+texteBloc(m.titre)+'</div>':'')+'<div class="md">'+texteBloc(m.corps)+'</div></li>';}).join('');
+  var avertHtml=mAvert.map(function(a){
+    return '<div class="warn">'+I('alert',18)+'<div>'+(nonVide(a.titre)?'<div class="wt">'+texteBloc(a.titre)+'</div>':'')
+      +'<div class="wd">'+texteBloc(a.corps)+'</div></div></div>';}).join('');
+  var chk=function(k,txt){
+    return '<label class="chk'+(R[k]?' on':'')+'" for="c-'+k+'"><input type="checkbox" id="c-'+k+'" data-k="'+k+'"'+(R[k]?' checked':'')+'>'
+      +'<span class="box">'+I('check',14,3.4)+'</span><span>'+txt+'</span></label>';
+  };
+  return {ic:'bouclier',t:L.qRecap,p:L.qRecapP,eye:L.verif,bouton:L.envoyer,attente:!(R.vrai&&R.accepte),corps:
+    '<div class="recap">'
+    +rs('user',L.identite,[R.nom,R.naiss?dateLisible(R.naiss):''].filter(nonVide).map(function(x,i){return i?x:esc(x);}).join(' · '),'nom')
+    +rs('maison',L.etAdresse,[adresseComplete(),resTxt].filter(nonVide).map(esc).join(' · '),'adresse')
+    +rs('contact',L.coord,tels.concat(mails).map(esc).join(' · '),'joindre')
+    +rs('briefcase',L.emploi,[sitTxt,emp].filter(nonVide).map(esc).join(' · '),'sit')
+    +rs('banque',L.comptes,esc(cpt),R.aucunCpt?'cpt':'cptPlus')
+    +rs('doc',L.notes,esc(R.notes)||esc(L.aucune),'notes')
+    +'</div>'
+    +'<div class="bloc"><h3>'+L.votreEntente+'</h3><p>'+L.echSous+'</p>'+echeancierHtml()+'</div>'
+    +'<div class="bloc"><h3>'+L.modT+'</h3><p>'+mIntro+'</p><ol class="mod">'+modLi+'</ol></div>'
+    +avertHtml
+    +'<div class="note"><b>'+L.avertRassure+'</b><br>'+L.difficulteT+' '+L.difficulteD+' '+telLien()+'</div>'
+    +'<div class="checks">'+chk('vrai',L.vrai)+chk('accepte',L.accepte)+'</div>'
+    +'<p class="fielderr" id="err-checks" hidden>'+I('alert',15)+'<span>'+L.cochez+'</span></p>'};
 }
-document.getElementById('sit').onchange=function(){marquerErreur(document.getElementById('sit'),false);majEmploi();};
-document.getElementById('resd').onchange=function(){marquerErreur(document.getElementById('resd'),false);};
+function majEnvoi(){var b=document.getElementById('suiv'); if(b&&R.q==='recap') b.classList.toggle('attente',!(R.vrai&&R.accepte));
+  var e=document.getElementById('err-checks'); if(e&&R.vrai&&R.accepte) e.hidden=true;}
 
-var sb=document.getElementById('sb');
-var coche=document.getElementById('accepte');
-var acceptBox=document.getElementById('acceptBox');
-function majAccept(){acceptBox.classList.toggle('on',coche.checked);sb.disabled=!coche.checked;}
-coche.onchange=majAccept;
-
-var cur=0;
-if(etat){
-  document.getElementById('nomp').value=etat.nom;document.getElementById('naissp').value=etat.naiss;
-  document.getElementById('adrp').value=etat.adr;
-  if(etat.sit)document.getElementById('sit').value=etat.sit;
-  if(etat.res)document.getElementById('resd').value=etat.res;
-  document.getElementById('emploinotes').value=etat.emploinotes;document.getElementById('notesp').value=etat.notes;
-  coche.checked=!!etat.accepte;
-  if(etat.tels.length)etat.tels.forEach(telRow);else telRow();
-  if(etat.mails.length)etat.mails.forEach(mailRow);else mailRow();
-  if(etat.emps.length)etat.emps.forEach(empRow);else empRow();
-  if(etat.cpts.length)etat.cpts.forEach(cptRow);else cptRow();
-  cur=etat.step;
-}else{telRow();mailRow();empRow();cptRow();}
-majEmploi();majAccept();
-
-var secs=document.querySelectorAll('.step'),N=secs.length;
-var segEls=document.querySelectorAll('#segs .seg');
-var ptxt=document.getElementById('ptxt'),prev=document.getElementById('prev'),next=document.getElementById('next');
-function maj(){
-  for(var i=0;i<N;i++){
-    secs[i].classList.toggle('on',i===cur);
-    segEls[i].classList.toggle('fait',i<cur);
-    segEls[i].classList.toggle('now',i===cur);
-  }
-  ptxt.innerHTML=L.etape+' '+(cur+1)+' '+L.sur+' '+N+' &nbsp;·&nbsp; <b>'+steps[cur].t+'</b>';
-  annoncer(L.etape+' '+(cur+1)+' '+L.sur+' '+N+' : '+steps[cur].t);
-  // display:none et non visibility:hidden : « caché mais réservé » laissait un vide à gauche,
-  // le bouton « Suivant » se retrouvait décalé au lieu d'occuper toute la largeur à l'étape 1.
-  prev.style.display=cur===0?'none':'';
-  next.style.display=cur===N-1?'none':'';
-  sb.style.display=cur===N-1?'':'none';
-  hautDePage();}
-prev.onclick=function(){if(cur>0){cur--;maj();}};
-// Toute frappe et tout choix alimentent le brouillon.
-root.addEventListener('input',sauverBrouillon);
-root.addEventListener('change',sauverBrouillon);
-/* Les champs obligatoires d'une étape. Le choix d'un statut EST une déclaration :
-   on ne laisse pas passer une valeur que l'usager n'a jamais choisie. */
-/* Les sections Emploi, Résidence et Comptes ne peuvent pas rester vides : une déclaration
-   d'actifs muette sur ces points ne remplit pas son office. Selon le statut déclaré, la preuve
-   attendue change — un employeur pour un salarié, une description pour tous les autres cas. */
-function champsRequis(step){
-  var out=[];
-  var vu=function(e){ return e && e.offsetParent!==null; };
-  var pousser=function(el,idMsg){ if(el) out.push({el:el,msg:idMsg}); };
-  if(step===0) ['nomp','naissp','adrp'].forEach(function(id){ pousser(document.getElementById(id)); });
-  if(step===2){
-    pousser(document.getElementById('sit'));
-    if(vu(document.getElementById('cardEmps')))
-      pousser(document.querySelector('#emps .item .en'),'err-emps');
-    else if(vu(document.getElementById('cardNotes')))
-      pousser(document.getElementById('emploinotes'));
-  }
-  if(step===3){
-    pousser(document.getElementById('resd'));
-    // Une institution sans adresse de succursale ne permet pas de retracer le compte :
-    // les deux champs de la première ligne sont exigés.
-    pousser(document.querySelector('#cpts .item .ci'),'err-cpts');
-    pousser(document.querySelector('#cpts .item .cs'),'err-cpts');
-  }
-  return out;
-}
-function validerEtape(step){
-  var manquants=0, premier=null;
-  champsRequis(step).forEach(function(c){
-    var vide=!String(c.el.value||'').trim();
-    marquerErreur(c.el,vide,c.msg);
-    if(vide){ manquants++; if(!premier) premier=c.el; }
+/* ============================ Branchements =============================== */
+function brancher(){
+  var q=R.q;
+  brancherMenus();
+  var p=document.getElementById('prec'); if(p) p.onclick=precedent;
+  var s=document.getElementById('suiv'); if(s) s.onclick=function(){ if(q==='recap') return envoyer(s); if(valider()) suivant(); };
+  // Tuiles : le choix fait avancer tout seul, après un court instant pour voir la sélection.
+  root.querySelectorAll('[data-tuile]').forEach(function(b){
+    b.onclick=function(){
+      var g=b.getAttribute('data-tuile'), v=b.getAttribute('data-v');
+      R[g]=v; sauver();
+      root.querySelectorAll('[data-tuile]').forEach(function(x){ var on=x===b; x.classList.toggle('on',on); x.setAttribute('aria-checked',on); });
+      var er=document.getElementById('err-'+g); if(er) er.hidden=true;
+      if(s) s.disabled=false;
+      setTimeout(function(){ if(R.q===q) suivant(); },260);
+    };
   });
-  if(manquants){
-    annoncer(manquants===1?L.erreursUne:L.erreursN.replace('{N}',manquants));
-    if(premier) premier.focus();
-    return false;
+  // Lignes de téléphones et de courriels : ajouter, retirer.
+  root.querySelectorAll('[data-ajl]').forEach(function(b){ b.onclick=function(){
+    var l=b.getAttribute('data-ajl'); R[l].push(l==='tels'?{ti:0,n:''}:{mi:0,v:''}); sauver(); sens=0; afficher();
+    var ins=root.querySelectorAll('[data-k^="'+l+'."][data-k$=".'+(l==='tels'?'n':'v')+'"]'); if(ins.length) ins[ins.length-1].focus();
+  };});
+  root.querySelectorAll('[data-retl]').forEach(function(b){ b.onclick=function(){
+    var l=b.getAttribute('data-retl'); R[l].splice(+b.getAttribute('data-i'),1);
+    if(!R[l].length) R[l].push(l==='tels'?{ti:0,n:''}:{mi:0,v:''});
+    sauver(); sens=0; afficher();
+  };});
+  // Petites cartes d'employeurs et de comptes.
+  root.querySelectorAll('[data-mod]').forEach(function(b){ b.onclick=function(){
+    var g=b.getAttribute('data-mod'), i=+b.getAttribute('data-i');
+    if(g==='emp'){ R.ei=i; aller('emp'); } else { R.ci=i; aller('cpt'); }
+  };});
+  root.querySelectorAll('[data-ret]').forEach(function(b){ b.onclick=function(){
+    var g=b.getAttribute('data-ret'), i=+b.getAttribute('data-i');
+    if(g==='emp'){ R.emps.splice(i,1); if(!R.emps.length) return nouvelEmp(); }
+    else { R.cpts.splice(i,1); if(!R.cpts.length) return nouveauCpt(); }
+    sauver(); sens=0; afficher();
+  };});
+  var oui=document.getElementById('oui'); if(oui) oui.onclick=function(){ q==='empPlus'?nouvelEmp():nouveauCpt(); };
+  var non=document.getElementById('non'); if(non) non.onclick=function(){ suivant(); };
+  var au=document.getElementById('aucun'); if(au) au.onclick=function(){
+    R.cpts.splice(R.ci,1); R.ci=-1; R.aucunCpt=true; sauver(); apresComptes(); };
+  var an=document.getElementById('annAucun'); if(an) an.onclick=function(){ nouveauCpt(); };
+  // « Modifier » de la vérification : on revient ici dès que la section est refaite.
+  root.querySelectorAll('[data-va]').forEach(function(b){ b.onclick=function(){
+    var c=b.getAttribute('data-va'); R.recap=true;
+    if(c==='cptPlus' && !R.cpts.length) return nouveauCpt();
+    aller(c,-1);
+  };});
+}
+
+/* Les champs obligatoires de l'écran. Le choix d'un statut EST une déclaration :
+   on ne laisse pas passer une valeur que l'usager n'a jamais choisie. */
+function valider(){
+  var ids=[], q=R.q;
+  if(q==='nom') ids=['nomp','naissp'];
+  if(q==='adresse'){ separerNumero(); ids=['adrno','adrrue','adrville','adrcp']; }
+  if(q==='emp') ids=['empn'];
+  if(q==='revenu') ids=['emploinotes'];
+  if(q==='cpt' && R.cpts[R.ci]) ids=['cpti'];
+  if(q==='sit' && !R.sit){ document.getElementById('err-sit').hidden=false; annoncer(L.champRequis); return false; }
+  if(q==='res' && !R.res){ document.getElementById('err-res').hidden=false; annoncer(L.champRequis); return false; }
+  var manquants=0, premier=null;
+  ids.forEach(function(id){ var el=document.getElementById(id); if(!el) return;
+    var v=vide(el.value); marquerErreur(el,v); if(v){ manquants++; if(!premier) premier=el; } });
+  if(manquants){ annoncer(manquants===1?L.erreursUne:L.erreursN.replace('{N}',manquants)); premier.focus(); return false; }
+  // Contrôles de forme : code postal canadien, transit à 5 chiffres, institution à 3 chiffres,
+  // et au moins un moyen de retrouver la succursale (transit ou adresse).
+  var mal=function(id,cond){var el=document.getElementById(id); if(el&&cond){ marquerErreur(el,true); if(!premier) premier=el; return true;} return false;};
+  var faute=false;
+  if(q==='adresse' && R.adrProv!=='' ) faute=mal('adrcp',!cpValide(R.adrCp))||faute;
+  if(q==='cpt' && R.cpts[R.ci]){ var c=R.cpts[R.ci];
+    faute=mal('cpttr',!vide(c.tr)&&c.tr.length!==5)||faute;
+    faute=mal('cptn',!vide(c.n)&&c.n.length!==3)||faute;
+    if(vide(c.tr)&&vide(c.s)){ faute=mal('cpts',true)||faute; }
   }
+  if(faute){ annoncer(L.erreursUne); premier.focus(); return false; }
+  if(q==='emp'||q==='cpt') dernierAjout=q==='emp'?R.ei:R.ci;
   return true;
 }
-next.onclick=function(){ if(!validerEtape(cur)) return; if(cur<N-1){cur++;maj();} };
-maj();
 
-/* Le lien est à usage unique : si l'onglet est libéré par le système pendant que la
-   personne consulte son application bancaire, sans cette sauvegarde tout est perdu et
-   il n'y a aucun moyen de recommencer. Session seulement, effacé dès la réussite. */
-var CLE_BROUILLON='d684:'+token;
-var _minuterie=null;
-function sauverBrouillon(){
-  clearTimeout(_minuterie);
-  _minuterie=setTimeout(function(){
-    try{ sessionStorage.setItem(CLE_BROUILLON, JSON.stringify(window.collecter())); }catch(e){}
-  },400);
+/* Le navigateur remplit souvent « 1234 rue Rachel Est » d'un coup dans la rue :
+   on sépare le numéro civique tout seul plutôt que de le redemander. */
+function separerNumero(){
+  if(!vide(R.adrNo)) return;
+  var m=String(R.adrRue||'').trim().match(/^(\d+[A-Za-z]?(?:-\d+)?)[,\s]+(.+)$/);
+  if(m){ R.adrNo=m[1]; R.adrRue=m[2];
+    var a=document.getElementById('adrno'), b=document.getElementById('adrrue'); if(a) a.value=m[1]; if(b) b.value=m[2]; majApercu(); sauver(); }
 }
-function lireBrouillon(){
-  try{ var b=sessionStorage.getItem(CLE_BROUILLON); return b?JSON.parse(b):null; }catch(e){ return null; }
-}
-function effacerBrouillon(){ try{ sessionStorage.removeItem(CLE_BROUILLON); }catch(e){} }
 
-window.collecter=function(){
-  function v(id){var e=document.getElementById(id);return e?e.value:'';}
-  function ix(id){var e=document.getElementById(id);return e?e.selectedIndex:0;}
-  var tels=[];document.querySelectorAll('#tels .item').forEach(function(r){
-    tels.push({ti:r.querySelector('.tt').selectedIndex,n:r.querySelector('.tn').value});});
-  var mails=[];document.querySelectorAll('#mails .item').forEach(function(r){
-    mails.push({mi:r.querySelector('.mt').selectedIndex,v:r.querySelector('.mm').value});});
-  var emps=[];document.querySelectorAll('#emps .item').forEach(function(r){
-    emps.push({n:r.querySelector('.en').value,a:r.querySelector('.ea').value,
-               t:r.querySelector('.et').value,p:r.querySelector('.ep').value});});
-  var cpts=[];document.querySelectorAll('#cpts .item').forEach(function(r){
-    cpts.push({i:r.querySelector('.ci').value,s:r.querySelector('.cs').value,
-               t:r.querySelector('.ct').value,p:r.querySelector('.cp').value});});
-  return {nom:v('nomp'),naiss:v('naissp'),adr:v('adrp'),sit:v('sit'),res:v('resd'),
-          emploinotes:v('emploinotes'),notes:v('notesp'),tels:tels,mails:mails,emps:emps,cpts:cpts,
-          accepte:coche.checked,step:cur};};
-
-sb.onclick=async function(){
-  if(!coche.checked)return;                       // garde-fou : l'engagement est obligatoire
-  var nm=document.getElementById('nomp');
-  if(!nm.value.trim()){cur=0;maj();marquerErreur(nm,true);annoncer(L.erreursUne);nm.focus();return;}
-  sb.disabled=true;sb.textContent=L.envoi;
-  var v=function(id){var el=document.getElementById(id);return el?el.value:'';};
-  var sitVal=document.getElementById('sit').value, st=SIT_EMPLOYEUR.indexOf(sitVal)>=0;
-  var tels=[];document.querySelectorAll('#tels .item').forEach(function(r){
-    var n=r.querySelector('.tn').value;
-    if(n)tels.push({type:CANON_TEL[r.querySelector('.tt').selectedIndex]||"",numero:n});});
-  var mails=[];document.querySelectorAll('#mails .item').forEach(function(r){
-    var mv=r.querySelector('.mm').value;
-    if(mv)mails.push({type:CANON_MAIL[r.querySelector('.mt').selectedIndex]||"",valeur:mv});});
-  var emps=[];if(st)document.querySelectorAll('#emps .item').forEach(function(r){
-    var n=r.querySelector('.en').value,a=r.querySelector('.ea').value,
-        t=r.querySelector('.et').value,p=r.querySelector('.ep').value;
-    if(n||a||t)emps.push({nom:n,adresse:a,telephone:avecPoste(t,p)});});
-  var cpts=[];document.querySelectorAll('#cpts .item').forEach(function(r){
-    var i2=r.querySelector('.ci').value,s=r.querySelector('.cs').value,
-        t=r.querySelector('.ct').value,p=r.querySelector('.cp').value;
-    if(i2||s||t)cpts.push({institution:i2,adresse_succursale:s,telephone:avecPoste(t,p)});});
-  var data={token:token,nom_prenom:v('nomp'),date_naissance:v('naissp'),adresse_complete:v('adrp'),
-    situation_emploi:sitVal||"",employeurs:emps,emploi_notes:(st?'':v('emploinotes')),
-    residence_principale:document.getElementById('resd').value||"",
-    notes:v('notesp'),telephones:tels,courriels:mails,comptes:cpts,
-    modalites_acceptees:true};
-  /* Un envoi qui échoue ne doit RIEN détruire. L'ancienne version appelait invalide(),
-     qui effaçait la page entière et annonçait « ce lien n'est plus valide » : c'était faux,
-     et la saisie était perdue sur un lien qui ne se rouvre pas. */
+/* ============================ Envoi ===================================== */
+function envoyer(sb){
+  if(!(R.vrai&&R.accepte)){ document.getElementById('err-checks').hidden=false;
+    root.querySelectorAll('.chk').forEach(function(l){ if(!l.querySelector('input').checked) l.classList.add('err'); }); return; }
+  // Garde-fou : une section obligatoire laissée vide renvoie à sa question.
+  if(vide(R.nom)||vide(R.naiss)) return aller('nom',-1);
+  if(vide(R.adrRue)||vide(R.adrVille)) return aller('adresse',-1);
+  if(!R.sit) return aller('sit',-1);
+  if(aEmployeur() && !R.emps.some(function(x){return !vide(x.n);})) return nouvelEmp();
+  if(!aEmployeur() && vide(R.emploinotes)) return aller('revenu',-1);
+  if(!R.res) return aller('res',-1);
+  if(!R.aucunCpt && !R.cpts.some(function(x){return !vide(x.i)&&(!vide(x.s)||!vide(x.tr));})) return nouveauCpt();
+  sb.disabled=true; sb.innerHTML='<span class="spin"></span>'+L.envoi;
+  var st=aEmployeur();
+  var tels=[];R.tels.forEach(function(t){ if(!vide(t.n)) tels.push({type:CANON_TEL[t.ti]||"",numero:t.n.trim()}); });
+  var mails=[];R.mails.forEach(function(m){ if(!vide(m.v)) mails.push({type:CANON_MAIL[m.mi]||"",valeur:m.v.trim()}); });
+  var emps=[];if(st) R.emps.forEach(function(x){ if(!vide(x.n)||!vide(x.a)||!vide(x.t)) emps.push({nom:x.n.trim(),adresse:x.a.trim(),telephone:avecPoste(x.t,x.p)}); });
+  var cpts=[];
+  if(R.aucunCpt) cpts.push({institution:"Aucun",adresse_succursale:"Aucun",telephone:""});
+  else R.cpts.forEach(function(x){ if(!vide(x.i)||!vide(x.s)||!vide(x.t)||!vide(x.tr)){ var ct=cptTexte(x); cpts.push({institution:ct.institution,adresse_succursale:ct.adresse_succursale,telephone:avecPoste(x.t,x.p)}); } });
+  var data={token:token,nom_prenom:R.nom.trim(),date_naissance:R.naiss,adresse_complete:adresseComplete(),
+    situation_emploi:R.sit||"",employeurs:emps.slice(0,LISTE_MAX),emploi_notes:(st?'':R.emploinotes),
+    residence_principale:R.res||"",notes:R.notes,telephones:tels.slice(0,LISTE_MAX),courriels:mails.slice(0,LISTE_MAX),
+    comptes:cpts.slice(0,LISTE_MAX),modalites_acceptees:true};
+  /* Un envoi qui échoue ne détruit RIEN : la saisie reste, avec un bandeau clair. */
   function echecEnvoi(detail){
     sb.disabled=false; sb.textContent=L.envoyer;
     var z=document.getElementById('zoneErr');
-    if(z){
-      z.innerHTML='<div class="envoierr" role="alert">'+ICO.alert
-        +'<div><div class="t">'+L.envoiEchecT+'</div><div class="d">'+(detail||L.envoiEchecD)+'</div></div></div>';
-      z.scrollIntoView({block:'nearest'});
-    }
+    if(z){ z.innerHTML='<div class="envoierr" role="alert">'+I('alert',18)
+        +'<div><div class="t">'+L.envoiEchecT+'</div><div>'+(detail||L.envoiEchecD)+'</div></div></div>';
+      z.scrollIntoView({block:'nearest'}); }
     annoncer(L.envoiEchecT);
   }
-  try{var rep=await fetch(FONC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    if(rep.ok){ effacerBrouillon(); ecranMerci(); }
-    else if(rep.status===429){ echecEnvoi(L.tropDeTentatives); }
-    else if(rep.status===410){ echecEnvoi(L.invalideBase+' '+L.invalideTel+'.'); }
-    else { echecEnvoi(); }}
-  catch(x){ echecEnvoi(); }};
+  fetch(FONC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+    .then(function(rep){
+      if(rep.ok){ effacerBrouillon(); DOSSIER.transmisLe=new Date(); ecranMerci(); }
+      else if(rep.status===429){ echecEnvoi(L.tropDeTentatives); }
+      else if(rep.status===410){ echecEnvoi(L.invalideBase+' '+L.invalideTel+'.'); }
+      else { echecEnvoi(); }
+    }, function(){ echecEnvoi(); });
 }
-window.ecranForm=ecranForm;
 
-/* ============================ ÉCRAN FINAL ================================ */
+/* ============================ MON ENTENTE =============================== */
 /* La valeur à recopier est offerte à la copie : chaque caractère retapé de travers
-   produit un paiement « réputé non reçu » selon la modalité que l'usager vient d'accepter. */
+   produit un paiement « réputé non reçu ». */
 function row(k,v,mono,copiable){
   var btn = copiable
-    ? '<button type="button" class="cp" data-copie="'+esc(copiable)+'" aria-label="'+esc(L.copier+' \u2014 '+String(k).replace(/<[^>]*>/g,''))+'">'+ICO.copie+'<span>'+L.copier+'</span></button>'
+    ? '<button type="button" class="cp" data-copie="'+esc(copiable)+'" aria-label="'+esc(L.copier+' \u2014 '+String(k).replace(/<[^>]*>/g,''))+'">'+I('copie',13)+'<span>'+L.copier+'</span></button>'
     : '';
-  return '<div class="row"><div class="k">'+k+'</div>'
-    +'<div class="v'+(mono?' mono':'')+'">'+v+'</div>'+btn+'</div>';
+  return '<div class="row"><div class="k">'+k+'</div><div class="v'+(mono?' mono':'')+'">'+v+'</div>'+btn+'</div>';
 }
-/* Branche les boutons de copie présents dans le document. */
 function brancherCopie(){
   document.querySelectorAll('.row .cp').forEach(function(b){
     b.onclick=function(){
       var t=b.getAttribute('data-copie');
-      var fini=function(){
-        var g=b.querySelector('span'); var avant=g.textContent;
-        b.classList.add('ok'); g.textContent=L.copie;
-        setTimeout(function(){ b.classList.remove('ok'); g.textContent=avant; },2000);
-      };
-      if(navigator.clipboard&&navigator.clipboard.writeText){
-        navigator.clipboard.writeText(t).then(fini,function(){});
-      }else{
-        var z=document.createElement('textarea'); z.value=t; document.body.appendChild(z);
-        z.select(); try{ document.execCommand('copy'); fini(); }catch(e){}
-        document.body.removeChild(z);
-      }
+      var fini=function(){ var g=b.querySelector('span'); b.classList.add('ok'); g.textContent=L.copie;
+        setTimeout(function(){ b.classList.remove('ok'); g.textContent=L.copier; },2000); };
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(fini,function(){}); }
+      else{ var z=document.createElement('textarea'); z.value=t; document.body.appendChild(z); z.select();
+        try{ document.execCommand('copy'); fini(); }catch(e){} document.body.removeChild(z); }
     };
   });
 }
-/* Le premier versement encore à venir : le seul fait qui compte cette semaine. */
-function prochainVersement(){
-  var v=DOSSIER.echeancier||[]; if(!v.length) return null;
-  var auj=new Date(); auj.setHours(0,0,0,0);
-  for(var i=0;i<v.length;i++){
-    var p=String(v[i].date||'').slice(0,10).split('-');
-    if(p.length===3 && new Date(+p[0],+p[1]-1,+p[2])>=auj) return v[i];
-  }
-  return v[v.length-1];
+/* --- Rappels de calendrier : un fichier .ics fait dans la page (rien n'est envoyé) ---
+   Un événement « journée entière » par versement, avec deux alarmes : 9 h trois jours
+   avant (le temps qu'un virement arrive) et 9 h la veille. */
+function ymd(d){return d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2);}
+function icsTexte(s){return String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');}
+function plier(l){var out=[],cur='',n=0;
+  for(var ch of l){var o=unescape(encodeURIComponent(ch)).length; if(n+o>73){out.push(cur);cur=' ';n=1;} cur+=ch;n+=o;}
+  out.push(cur);return out.join('\r\n');}
+function calTitre(x){return L.calTitre.replace('{M}',argent(x.montant)).replace('{NO}',DOSSIER.numero);}
+function calDesc(){return L.calDesc.replace(/\{NO\}/g,DOSSIER.numero).replace('{MAIL}',PAY_MAIL).replace('{REP}',PAY_REP).replace('{TEL}',TEL_ETUDE);}
+function fichierIcs(){
+  var now=new Date(), st=now.toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  var l=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//'+ETUDE+'//Entente//FR','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
+  (DOSSIER.echeancier||[]).forEach(function(x,i){
+    var d=dateDe(x.date); if(!d) return;
+    var f=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
+    l.push('BEGIN:VEVENT','UID:entente-'+(DOSSIER.numero||'x').replace(/[^\w-]/g,'')+'-'+(i+1)+'-'+ymd(d)+'@huissier.qc.ca','DTSTAMP:'+st,
+      'DTSTART;VALUE=DATE:'+ymd(d),'DTEND;VALUE=DATE:'+ymd(f),'SUMMARY:'+icsTexte(calTitre(x)),'DESCRIPTION:'+icsTexte(calDesc()),
+      'TRANSP:TRANSPARENT',
+      'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+icsTexte(calTitre(x)),'TRIGGER:-P2DT15H','END:VALARM',
+      'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+icsTexte(calTitre(x)),'TRIGGER:-PT15H','END:VALARM',
+      'END:VEVENT');
+  });
+  l.push('END:VCALENDAR');
+  return l.map(plier).join('\r\n')+'\r\n';
 }
+function lienGoogle(x){
+  var d=dateDe(x.date); if(!d) return '';
+  var f=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(calTitre(x))
+    +'&dates='+ymd(d)+'/'+ymd(f)+'&details='+encodeURIComponent(calDesc());
+}
+function initiales(n){return String(n||'').replace(/^(Me|Maître)\s+/i,'').split(/\s+/).filter(Boolean).slice(0,2).map(function(x){return x[0].toUpperCase();}).join('')||'H';}
 
-function optionsPaiement(){
-  var d=0;
-  function opt(inner){d+=70;return '<div class="opt" style="animation-delay:'+d+'ms">'+inner+'</div>';}
-
-  // 1) En personne, aux bureaux inscrits à la feuille d'entente.
-  var bureaux=esc(DOSSIER.bureaux).split(/\s{2,}ou\s{2,}|\s+ou\s+(?=\d)/)
-    .filter(function(x){return x.trim();})
+function ecranMerci(){ecranActuel='merci';
+  var v=DOSSIER.echeancier||[], pro=indexProchain(), xpro=pro>=0?v[pro]:null;
+  var quand=dateLisible(DOSSIER.transmisLe||new Date(),true);
+  var bureaux=esc(DOSSIER.bureaux).split(/\s{2,}ou\s{2,}|\s+ou\s+(?=\d)/).filter(function(x){return x.trim();})
     .map(function(x,i){return i===0?x.trim():'<span class="l2">'+x.trim()+'</span>';}).join('');
-  var o1=opt('<div class="oh"><div class="oi">'+ICO.office+'</div>'
-    +'<div><div class="ot">'+L.o1t+'</div><div class="os">'+L.o1s+'</div></div></div>'
-    +'<p class="ob" style="margin-bottom:9px">'+L.o1d+'</p>'
-    +'<div class="addr">'+bureaux+'</div>');
+  var lien=LIEN_PAIEMENT[langue]||LIEN_PAIEMENT.fr;
+  var aDates=v.some(function(x){return dateDe(x.date);});
 
-  // 2) Virement Interac (coordonnées du dossier).
-  var o2=opt('<div class="oh"><div class="oi">'+ICO.send+'</div>'
-    +'<div><div class="ot">'+L.o2t+'</div><div class="os">'+L.o2s+'</div></div>'
-    +'<span class="reco">'+L.conseilInterac+'</span></div>'
+  var cVers='<div class="fc o1"><div class="fh"><span class="ic acc">'+I('calPlus',18)+'</span><div><b>'+L.versements+'</b><small>'+L.echSous+'</small></div></div>'
+    +echeancierHtml()
+    +(aDates?'<div class="cal noprint"><button type="button" class="btn full" id="ics">'+I('cloche',17)+L.calBtn+'</button>'
+      +'<p class="calnote">'+L.calNote+'</p>'
+      +'<p class="calok" id="icsOk" hidden role="status">'+I('check',14,3)+L.calOk+'</p>'
+      +(xpro?'<a class="lnk" href="'+esc(lienGoogle(xpro))+'" target="_blank" rel="noopener noreferrer">'+L.calGoogle+I('ext',13)+'<span class="sr">'+L.nouvelleFenetre+'</span></a>':'')
+      +'</div>':'')
+    +'</div>';
+  var cHui='<div class="fc o3"><div class="hui"><span class="av" aria-hidden="true">'+esc(initiales(DOSSIER.huissier))+'</span>'
+    +'<div><b>'+esc(DOSSIER.huissier||ETUDE)+'</b><small>'+L.huissierResp+'</small></div>'
+    +'<a class="telb" href="'+telHref()+'">'+I('tel',14)+TEL_ETUDE+'</a></div></div>';
+  var cTips='<div class="fc o5"><div class="fh"><span class="ic">'+I('ampoule',18)+'</span><div><b>'+L.conseilsT+'</b></div></div>'
+    +'<div class="tips">'+L.conseils.map(function(t){return '<div>'+I('check',16,2.6)+'<span>'+t.replace('{NO}',esc(DOSSIER.numero))+'</span></div>';}).join('')+'</div></div>';
+  var cInterac='<div class="fc o2"><div class="fh"><span class="ic acc">'+I('mail',18)+'</span><div><b>'+L.o2t+'</b><small>'+L.o2s+'</small></div><span class="reco">'+L.conseilInterac+'</span></div>'
     +'<div class="rows">'
     +row(L.payee,(DOSSIER.huissier?esc(DOSSIER.huissier)+', ':'')+L.titreHuissier)
     +row(L.courrielInterac,PAY_MAIL,true,PAY_MAIL)
@@ -1230,55 +1822,40 @@ function optionsPaiement(){
     +row(L.reference,esc(DOSSIER.numero),true,DOSSIER.numero)
     +row(L.reponse,PAY_REP+' <span class="hint">('+L.enMinuscules+')</span>',false,PAY_REP)
     +'</div>'
-    +'<p class="ob" style="margin-top:10px">'+L.payeeRassure+'</p>'
-    +'<div class="delay">'+ICO.clock+'<p>'+L.o3delai+'</p></div>');
+    +'<div class="delai">'+I('clock',15)+'<span>'+L.interacDelai+' '+L.payeeRassure+'</span></div></div>';
+  var cAutres='<div class="fc o4"><div class="fh"><span class="ic">'+I('card',18)+'</span><div><b>'+L.autresPay+'</b></div></div>'
+    +'<div class="autre"><b>'+I('card',16)+L.o3t+'</b><p>'+L.o3d+(langue==='es'?' '+L.o3fr:'')+'</p>'
+    +'<a class="btn ghost noprint" href="'+lien+'" target="_blank" rel="noopener noreferrer">'+L.o3btn+I('ext',14)+'<span class="sr">'+L.nouvelleFenetre+'</span></a></div>'
+    +'<div class="autre"><b>'+I('office',16)+L.o1t+'</b><p>'+(/class="l2"/.test(bureaux)?L.o1d:L.o1d1)+'</p><div class="addr">'+bureaux+'</div></div></div>';
 
-  // 3) Paiement en ligne : transfert de fonds, 48 à 72 h de traitement.
-  var lien=LIEN_PAIEMENT[langue]||LIEN_PAIEMENT.fr;
-  var o3=opt('<div class="oh"><div class="oi">'+ICO.card+'</div>'
-    +'<div><div class="ot">'+L.o3t+'</div><div class="os">'+L.o3s+'</div></div></div>'
-    +'<p class="ob">'+L.o3d+(langue==='es'?' '+L.o3fr:'')+'</p>'
-    +'<a class="paybtn" href="'+lien+'" target="_blank" rel="noopener">'+L.o3btn+ICO.ext+'</a>'
-    +'<div class="delay">'+ICO.clock+'<p>'+L.o3delai+'</p></div>');
-
-  return '<div class="payhead"><h3>'+L.payT+'</h3><p>'+L.payD+'</p></div>'+o1+o2+o3;}
-
-function ecranMerci(){ecranActuel='merci';
-  var pv=prochainVersement();
-  var blocPv = pv
-    ? '<div class="prochain"><div class="k">'+L.prochainT+'</div><div class="v">'
-      +'<span class="d">'+dateLisible(pv.date)+'</span>'
-      +'<span class="m">'+argent(pv.montant)+'</span></div></div>'
-    : '';
-  root.innerHTML='<div class="done"><div class="ico">'+ICO.check+'</div>'
-    +'<h2>'+L.bravo+'</h2><p class="sub">'+L.merci+'</p></div>'
-    // Ce qui compte cette semaine passe AVANT le tableau : la date et le montant du prochain versement.
-    +blocPv
-    +'<div class="note"><div class="nt">'+L.apresT+'</div><div class="nd">'+L.apresD+'</div></div>'
-    // Le lien est à usage unique : l'échéancier et les coordonnées ne se retrouveront pas.
-    +'<div class="payhead"><h3>'+L.echT+'</h3><p>'+L.echSous+'</p></div>'
-    +'<div class="opt">'+echeancierHtml()+'</div>'
-    +optionsPaiement()
-    +'<button type="button" class="btn-sec" id="imprimer" style="margin-top:var(--esp-groupe)">'+ICO.imprimante+'<span>'+L.imprimer+'</span></button>'
-    +'<p class="repris" style="text-align:center;margin-top:10px">'+L.imprimerNote+'</p>'
-    +'<p class="fielderr" id="avisImpr" hidden style="justify-content:center"></p>'
-    +'<div class="foot"><div class="etude">'+esc(ETUDE)+'</div><div class="sub">'+L.huissiers+'</div>'
-    +'<div class="conf" style="margin-top:9px">'+L.dossierEtiq+' '+esc(DOSSIER.numero)+' &nbsp;·&nbsp; '+telLien()+'</div>'
-    +'<div class="conf">'+L.conf+'</div></div>';
+  root.innerHTML=enteteHtml()
+    +'<div class="okb" role="status"><span class="rond">'+I('check',24,3)+'</span><div><b>'+L.bravo+'</b><small>'+L.transmiseLe.replace('{D}',quand)+'</small></div>'
+    +'<button type="button" class="btn ghost noprint" id="imprimer">'+I('pdf',16)+'<span>'+L.pdf+'</span></button></div>'
+    +'<div class="fgrid"><div class="fcol">'+cVers+cHui+cTips+'</div><div class="fcol">'+cInterac+cAutres+'</div></div>'
+    +'<p class="fielderr" id="avisImpr" hidden style="justify-content:center;margin-top:12px"></p>'
+    +'<div class="foot"><div class="etude">'+esc(ETUDE)+' · '+L.huissiers+'</div>'
+    +'<div>'+L.dossierEtiq+' '+esc(DOSSIER.numero)+' · '+telLien()+'</div><div>'+L.conf+'</div></div>';
   brancherCopie();
+  var ics=document.getElementById('ics');
+  if(ics) ics.onclick=function(){
+    try{
+      var blob=new Blob([fichierIcs()],{type:'text/calendar;charset=utf-8'});
+      var u=URL.createObjectURL(blob), a=document.createElement('a');
+      a.href=u; a.download='versements-'+(DOSSIER.numero||'entente').replace(/[^\w-]/g,'')+'.ics';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(u); },60000);
+      document.getElementById('icsOk').hidden=false;
+    }catch(e){}
+  };
   var pr=document.getElementById('imprimer');
   if(pr) pr.onclick=function(){
     try{ window.print(); }catch(e){}
-    // Encadrée, la page n'a pas le droit d'ouvrir la boîte d'impression :
-    // on le dit plutôt que de laisser croire à un bouton cassé.
-    if(window.self!==window.top){
-      var av=document.getElementById('avisImpr');
-      if(av){ av.textContent=L.imprimerCadre; av.hidden=false; }
-    }
+    // Encadrée, la page n'a pas le droit d'ouvrir la boîte d'impression : on le dit.
+    if(window.self!==window.top){ var av=document.getElementById('avisImpr'); if(av){ av.textContent=L.imprimerCadre; av.hidden=false; } }
   };
   window.scrollTo(0,0);}
-window.ecranMerci=ecranMerci;
 
+window.ecranIntro=ecranIntro;window.ecranMerci=ecranMerci;window.afficher=afficher;
 ecranIntro();
 })();
 </script></body></html>
