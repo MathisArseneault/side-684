@@ -396,15 +396,53 @@ input.mono{font-variant-numeric:tabular-nums;letter-spacing:.12em}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
 
 /* ---------- impression / PDF ---------- */
+.docpdf{display:none}
+@page{size:letter;margin:16mm 16mm 14mm}
 @media print{
-  :root{--page:#fff;--surf:#fff;--field:#F4F5F7;--line:#DADDE2;--tx:#000;--tx2:#222;--tx3:#444;--ombre:none}
-  body{background:#fff;font-size:12px}
-  .top{border:0}
-  .langbar,.lock,.noprint,.cp,.cal,.telb{display:none!important}
-  .wrap{max-width:none;padding:0}
-  .fgrid{grid-template-columns:1fr 1fr}
-  .fc,.okb{break-inside:avoid}
-  a{color:#000;text-decoration:none}
+  html,body{background:#fff!important}
+  body>*:not(.wrap){display:none!important}
+  #root>*:not(.docpdf){display:none!important}
+  .wrap,main{max-width:none!important;padding:0!important;margin:0!important}
+  .docpdf{display:block;color:#1a1d21;font-size:10.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .docpdf *{box-sizing:border-box}
+  .dp-tete{display:flex;align-items:center;gap:12px;padding-bottom:10px;border-bottom:1.5pt solid #1a1d21}
+  .dp-tete img{width:34px;height:34px}
+  .dp-tete .e b{display:block;font-size:12.5pt;letter-spacing:.01em}
+  .dp-tete .e small{font-size:9pt;color:#555}
+  .dp-tete .no{margin-left:auto;text-align:right;font-size:9pt;color:#555}
+  .dp-tete .no b{display:block;font-size:13pt;color:#1a1d21;font-variant-numeric:tabular-nums}
+  .dp-titre{margin:14px 0 2px;font-size:19pt;font-weight:750;letter-spacing:-.01em}
+  .dp-sous{margin:0 0 14px;color:#555;font-size:10.5pt}
+  .dp-infos{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;padding:10px 0;border-top:.6pt solid #cfd3d8;border-bottom:.6pt solid #cfd3d8;margin-bottom:14px}
+  .dp-infos div{display:flex;justify-content:space-between;gap:10px;padding:3px 0;font-size:9.5pt}
+  .dp-infos span{color:#666}
+  .dp-infos b{text-align:right}
+  .dp-h{margin:0 0 8px;font-size:9pt;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:#B3202A}
+  .dp-tab{width:100%;border-collapse:collapse;margin-bottom:18px;font-variant-numeric:tabular-nums;break-inside:avoid}
+  .dp-tab th{font-size:8.5pt;font-weight:650;color:#666;text-align:left;padding:5px 8px;border-bottom:.8pt solid #1a1d21}
+  .dp-tab td{padding:4px 8px;border-bottom:.5pt solid #e1e4e8}
+  .dp-tab .r{text-align:right}
+  .dp-tab .n{width:34px;color:#777}
+  .dp-tab .case{width:120px}
+  .dp-tab .case i{display:inline-block;width:11px;height:11px;border:.8pt solid #888;border-radius:2px;vertical-align:-1px;margin-right:6px}
+  .dp-tab .case u{display:inline-block;width:72px;border-bottom:.6pt solid #aaa;text-decoration:none}
+  .dp-tab tfoot td{border-bottom:0;border-top:1pt solid #1a1d21;font-weight:750;padding-top:7px}
+  .dp-pay{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;break-inside:avoid;margin-bottom:14px}
+  .dp-bloc{border:.7pt solid #cfd3d8;border-radius:6px;padding:10px 12px}
+  .dp-bloc+.dp-bloc{margin-top:10px}
+  .dp-bloc h4{margin:0 0 6px;font-size:10.5pt;display:flex;align-items:center;gap:8px}
+  .dp-bloc h4 em{font-style:normal;font-size:7.5pt;font-weight:650;color:#1d6b3a;background:#e5f3ea;border-radius:99px;padding:1px 7px}
+  .dp-bloc p{margin:0;font-size:9.5pt;color:#333}
+  .dp-kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:9.5pt}
+  .dp-kv span{color:#666}
+  .dp-kv b{word-break:break-word}
+  .dp-delai{display:flex;gap:18px;flex-wrap:wrap;padding:8px 12px;background:#f3f4f6;border-radius:6px;font-size:9.5pt;margin-bottom:14px;break-inside:avoid}
+  .dp-delai b{margin-right:4px}
+  .dp-tips{margin:0 0 14px;padding:0;list-style:none;break-inside:avoid}
+  .dp-tips li{font-size:9.5pt;padding:3px 0 3px 16px;position:relative}
+  .dp-tips li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:#B3202A}
+  .dp-pied{margin-top:6px;padding-top:8px;border-top:.6pt solid #cfd3d8;font-size:8.5pt;color:#666;}
+  .dp-pied span{display:block}
 }
 </style></head>
 <body>
@@ -966,6 +1004,141 @@ es:{
  nouvelleFenetre:"(nueva ventana)"
 }};
 Object.keys(PLUS).forEach(function(k){ Object.keys(PLUS[k]).forEach(function(c){ DICTS[k][c]=PLUS[k][c]; }); });
+// Textes de la boîte « revenus » et de l'écran employeur selon la situation choisie.
+var SITTXT={
+fr:{
+ retraiteT:"Vos revenus de retraite",
+ retraiteP:"Indiquez chaque rente ou pension et, si possible, le montant reçu par mois.",
+ retraitePh:"Ex. : RRQ 850 $/mois, Sécurité de la vieillesse 700 $/mois, régime de retraite de l'employeur (nom), FERR…",
+ aideDerniereT:"Votre aide de dernier recours",
+ aideDerniereP:"Indiquez le programme et le montant reçu chaque mois. Ajoutez tout autre revenu, même petit.",
+ aideDernierePh:"Ex. : Aide sociale (Objectif emploi, Solidarité sociale…) 770 $/mois. Pension alimentaire reçue 200 $/mois…",
+ etudiantT:"Vos revenus d'étudiant",
+ etudiantP:"Indiquez votre école et d'où vient votre argent : prêts et bourses, emploi à temps partiel, aide de vos parents.",
+ etudiantPh:"Ex. : Cégep du Vieux Montréal. Prêts et bourses 1 200 $/session, emploi à temps partiel chez…",
+ invaliditeT:"Votre indemnité ou rente d'invalidité",
+ invaliditeP:"Indiquez qui vous verse l'argent (CNESST, SAAQ, assureur, RRQ…), votre numéro de dossier si vous l'avez, et le montant.",
+ invaliditePh:"Ex. : CNESST, indemnité de remplacement du revenu, dossier 123456789, 1 400 $ aux 2 semaines. Ou : assurance invalidité de l'employeur (nom de l'assureur)…",
+ sansEmploiT:"Comment vous subvenez à vos besoins",
+ sansEmploiP:"Indiquez si vous recevez de l'assurance-emploi ou une autre aide, et le montant. Si vous n'avez aucun revenu, dites-le simplement.",
+ sansEmploiPh:"Ex. : Assurance-emploi 550 $/semaine depuis le 1er octobre. Ou : aucun revenu, hébergé chez un proche…",
+ autreT:"Précisez votre situation",
+ autreP:"Décrivez votre situation et d'où vient votre argent chaque mois, avec le montant si possible.",
+ autrePh:"Ex. : congé parental (RQAP) 600 $/semaine, pension alimentaire, revenus de location…",
+ qEmpA:"Quel est le nom de votre entreprise ?",
+ qEmpAP:"Le nom est obligatoire. Ajoutez le téléphone et l'adresse de l'entreprise si vous les avez.",
+ qEmpNA:"Une autre entreprise ou un autre employeur",
+ nomEmpA:"Nom de l'entreprise",
+ empPhA:"Ex. : Rénovations Lavoie enr."
+},
+en:{
+ retraiteT:"Your retirement income",
+ retraiteP:"List each pension and, if possible, the amount you receive each month.",
+ retraitePh:"E.g.: QPP $850/month, Old Age Security $700/month, employer pension plan (name), RRIF…",
+ aideDerniereT:"Your last-resort financial assistance",
+ aideDerniereP:"Give the program and the amount you receive each month. Add any other income, even small.",
+ aideDernierePh:"E.g.: Social assistance (Objectif emploi, Social Solidarity…) $770/month. Child support received $200/month…",
+ etudiantT:"Your student income",
+ etudiantP:"Give your school and where your money comes from: loans and bursaries, part-time job, help from your parents.",
+ etudiantPh:"E.g.: Dawson College. Loans and bursaries $1,200/term, part-time job at…",
+ invaliditeT:"Your disability benefits",
+ invaliditeP:"Say who pays you (CNESST, SAAQ, insurer, QPP…), your file number if you have it, and the amount.",
+ invaliditePh:"E.g.: CNESST, income replacement indemnity, file 123456789, $1,400 every 2 weeks. Or: employer disability insurance (insurer's name)…",
+ sansEmploiT:"How you support yourself",
+ sansEmploiP:"Say whether you receive employment insurance or other assistance, and the amount. If you have no income, just say so.",
+ sansEmploiPh:"E.g.: Employment insurance $550/week since October 1. Or: no income, living with a relative…",
+ autreT:"Describe your situation",
+ autreP:"Describe your situation and where your money comes from each month, with the amount if possible.",
+ autrePh:"E.g.: parental leave (QPIP) $600/week, child support, rental income…",
+ qEmpA:"What is the name of your business?",
+ qEmpAP:"The name is required. Add the business phone and address if you have them.",
+ qEmpNA:"Another business or employer",
+ nomEmpA:"Business name",
+ empPhA:"E.g.: Lavoie Renovations"
+},
+es:{
+ retraiteT:"Sus ingresos de jubilación",
+ retraiteP:"Indique cada pensión y, si es posible, el monto que recibe al mes.",
+ retraitePh:"Ej.: RRQ 850 $/mes, Seguridad de la Vejez 700 $/mes, plan de jubilación del empleador (nombre), FERR…",
+ aideDerniereT:"Su ayuda de último recurso",
+ aideDerniereP:"Indique el programa y el monto que recibe cada mes. Añada cualquier otro ingreso, aunque sea pequeño.",
+ aideDernierePh:"Ej.: Ayuda social (Objectif emploi, Solidaridad social…) 770 $/mes. Pensión alimenticia recibida 200 $/mes…",
+ etudiantT:"Sus ingresos de estudiante",
+ etudiantP:"Indique su escuela y de dónde proviene su dinero: préstamos y becas, empleo a tiempo parcial, ayuda de sus padres.",
+ etudiantPh:"Ej.: Cégep du Vieux Montréal. Préstamos y becas 1 200 $/sesión, empleo a tiempo parcial en…",
+ invaliditeT:"Su indemnización o pensión por invalidez",
+ invaliditeP:"Indique quién le paga (CNESST, SAAQ, aseguradora, RRQ…), su número de expediente si lo tiene, y el monto.",
+ invaliditePh:"Ej.: CNESST, indemnización de reemplazo de ingresos, expediente 123456789, 1 400 $ cada 2 semanas. O: seguro de invalidez del empleador (nombre de la aseguradora)…",
+ sansEmploiT:"Cómo cubre sus necesidades",
+ sansEmploiP:"Indique si recibe seguro de empleo u otra ayuda, y el monto. Si no tiene ningún ingreso, dígalo simplemente.",
+ sansEmploiPh:"Ej.: Seguro de empleo 550 $/semana desde el 1 de octubre. O: sin ingresos, vivo con un familiar…",
+ autreT:"Precise su situación",
+ autreP:"Describa su situación y de dónde proviene su dinero cada mes, con el monto si es posible.",
+ autrePh:"Ej.: permiso parental (RQAP) 600 $/semana, pensión alimenticia, ingresos de alquiler…",
+ qEmpA:"¿Cómo se llama su empresa?",
+ qEmpAP:"El nombre es obligatorio. Añada el teléfono y la dirección de la empresa si los tiene.",
+ qEmpNA:"Otra empresa u otro empleador",
+ nomEmpA:"Nombre de la empresa",
+ empPhA:"Ej.: Renovaciones Lavoie"
+}};
+Object.keys(SITTXT).forEach(function(k){ Object.keys(SITTXT[k]).forEach(function(c){ DICTS[k]['s_'+c]=SITTXT[k][c]; }); });
+// Textes du document PDF (« Enregistrer en PDF »).
+var DOCTXT={
+fr:{
+ titre:"Entente de paiement",
+ sous:"Aide-mémoire de vos versements",
+ nom:"Nom",
+ huissier:"Huissier responsable",
+ transmis:"Déclaration transmise le",
+ tel:"Téléphone de l'étude",
+ cal:"Calendrier des versements",
+ colNo:"No",colDate:"Date",colMontant:"Montant",colPaye:"Payé le",
+ comment:"Comment payer",
+ recommande:"Recommandé",
+ delaiT:"Prévoir le bon délai :",
+ delaiI:"Interac : environ 1 h",
+ delaiE:"Paiement en ligne (TEF) : 48 à 72 h, payez 3 jours avant la date",
+ site:"Site",
+ garder:"Conservez ce document. Il a été produit à partir de votre déclaration du {D}.",
+ page:"Dossier {NO}"
+},
+en:{
+ titre:"Payment agreement",
+ sous:"Reminder of your payments",
+ nom:"Name",
+ huissier:"Bailiff in charge",
+ transmis:"Statement sent on",
+ tel:"Office phone",
+ cal:"Payment schedule",
+ colNo:"No.",colDate:"Date",colMontant:"Amount",colPaye:"Paid on",
+ comment:"How to pay",
+ recommande:"Recommended",
+ delaiT:"Allow enough time:",
+ delaiI:"Interac: about 1 hour",
+ delaiE:"Online payment (EFT): 48 to 72 hours, pay 3 days before the date",
+ site:"Website",
+ garder:"Keep this document. It was produced from your statement of {D}.",
+ page:"File {NO}"
+},
+es:{
+ titre:"Acuerdo de pago",
+ sous:"Recordatorio de sus pagos",
+ nom:"Nombre",
+ huissier:"Agente judicial a cargo",
+ transmis:"Declaración enviada el",
+ tel:"Teléfono de la oficina",
+ cal:"Calendario de pagos",
+ colNo:"N.º",colDate:"Fecha",colMontant:"Monto",colPaye:"Pagado el",
+ comment:"Cómo pagar",
+ recommande:"Recomendado",
+ delaiT:"Prevea el plazo correcto:",
+ delaiI:"Interac: aprox. 1 h",
+ delaiE:"Pago en línea (TEF): de 48 a 72 h, pague 3 días antes de la fecha",
+ site:"Sitio",
+ garder:"Conserve este documento. Se produjo a partir de su declaración del {D}.",
+ page:"Expediente {NO}"
+}};
+Object.keys(DOCTXT).forEach(function(k){ Object.keys(DOCTXT[k]).forEach(function(c){ DICTS[k]['d_'+c]=DOCTXT[k][c]; }); });
 
 var token=location.hash.replace(/^#/,'').split('&')[0].replace(/^t=/,'');
 var root=document.getElementById('root');
@@ -1496,9 +1669,10 @@ function afficher(){
       tuiles(SIT_CLES,SIT_L10N,sitIco,R.sit,'sit')+errHtml('sit')};
   else if(q==='emp'){
     var e=R.emps[R.ei], nEmp=R.ei+1, autres=R.emps.filter(function(x,i){return i!==R.ei && !vide(x.n);}).length;
-    o={ic:'immeuble',t:(R.ei===0&&!autres)?L.qEmp1:L.qEmpN,p:(R.ei===0&&!autres)?L.qEmp1P:L.qEmpNP,
+    var auto=R.sit==='Travailleur autonome', prem=(R.ei===0&&!autres);
+    o={ic:'immeuble',t:prem?(auto?L.s_qEmpA:L.qEmp1):(auto?L.s_qEmpNA:L.qEmpN),p:prem?(auto?L.s_qEmpAP:L.qEmp1P):L.qEmpNP,
       eye:autres?'#'+nEmp:'',bouton:L.ajEmpCe,corps:'<div class="champs">'
-      +champ({k:'emps.'+R.ei+'.n',id:'empn',lab:L.nomEmp,req:true,ph:L.empPh,cls:'big',err:L.employeurRequis,ac:'organization'})
+      +champ({k:'emps.'+R.ei+'.n',id:'empn',lab:auto?L.s_nomEmpA:L.nomEmp,req:true,ph:auto?L.s_empPhA:L.empPh,cls:'big',err:L.employeurRequis,ac:'organization'})
       +'<div class="duo egal">'
       +champ({k:'emps.'+R.ei+'.t',id:'empt',lab:L.tel,ph:'514-555-0000',cls:'telfmt',im:'tel'})
       +champ({k:'emps.'+R.ei+'.p',id:'empp',lab:L.poste,im:'numeric'})+'</div>'
@@ -1511,11 +1685,8 @@ function afficher(){
       +(R.emps.length<LISTE_MAX?oupas():'')};
   }
   else if(q==='revenu'){
-    var t,ph;
-    if(R.sit==='Retraité'){ t=L.revenuRetraiteT; ph=L.revenuRetraitePh; }
-    else if(R.sit==='Autre'){ t=L.precisezT; ph=L.precisezPh; }
-    else { t=L.revenuT; ph=L.revenuPh; }
-    o={ic:'coins',t:esc(t),p:L.revenuP,corps:champ({k:'emploinotes',id:'emploinotes',req:true,area:true,cls:'long',ph:ph,err:L.emploiNotesRequis})
+    var cle=SIT_L10N[SIT_CLES.indexOf(R.sit)], t=L['s_'+cle+'T']||L.revenuT, ph=L['s_'+cle+'Ph']||L.revenuPh, pp=L['s_'+cle+'P']||L.revenuP;
+    o={ic:'coins',t:esc(t),p:esc(pp),corps:champ({k:'emploinotes',id:'emploinotes',req:true,area:true,cls:'long',ph:ph,err:L.emploiNotesRequis})
       .replace('<div class="f">','<div class="f"><label class="sr" for="emploinotes">'+esc(t)+'</label>')};
   }
   else if(q==='res') o={ic:'maison',t:L.qRes,p:L.qResP,dis:!R.res,corps:
@@ -1797,6 +1968,40 @@ function lienGoogle(x){
 }
 function initiales(n){return String(n||'').replace(/^(Me|Maître)\s+/i,'').split(/\s+/).filter(Boolean).slice(0,2).map(function(x){return x[0].toUpperCase();}).join('')||'H';}
 
+/* --- Document PDF : une vraie feuille, faite pour l'impression (cachée à l'écran) --- */
+function docPdfHtml(quand){
+  var v=DOSSIER.echeancier||[], total=0, D=function(k){return L['d_'+k];};
+  var lignes=v.map(function(x,i){ total+=Number(x.montant)||0;
+    return '<tr><td class="n">'+(i+1)+'</td><td>'+dateLisible(x.date)+'</td><td class="r">'+argent(x.montant)+'</td><td class="case"><i></i><u></u></td></tr>'; }).join('');
+  var bureaux=String(DOSSIER.bureaux||'').split(/\s{2,}ou\s{2,}|\s+ou\s+(?=\d)/).filter(function(x){return x.trim();})
+    .map(function(x){return '<p>'+esc(x.trim())+'</p>';}).join('');
+  var lien=LIEN_PAIEMENT[langue]||LIEN_PAIEMENT.fr;
+  var info=function(a,b){return b?'<div><span>'+a+'</span><b>'+b+'</b></div>':'';};
+  return '<section class="docpdf" aria-hidden="true">'
+    +'<div class="dp-tete"><img src="marque-cbl.png" alt=""><div class="e"><b>'+esc(ETUDE)+'</b><small>'+L.huissiers+'</small></div>'
+    +'<div class="no">'+L.dossierEtiq+'<b>'+esc(DOSSIER.numero)+'</b></div></div>'
+    +'<h1 class="dp-titre">'+D('titre')+'</h1><p class="dp-sous">'+D('sous')+'</p>'
+    +'<div class="dp-infos">'+info(D('nom'),esc(R&&R.nom||DOSSIER.debiteur))+info(D('huissier'),esc(DOSSIER.huissier))
+      +info(D('transmis'),quand)+info(D('tel'),TEL_ETUDE)+'</div>'
+    +(v.length?'<h2 class="dp-h">'+D('cal')+'</h2><table class="dp-tab"><thead><tr><th class="n">'+D('colNo')+'</th><th>'+D('colDate')+'</th><th class="r">'+D('colMontant')+'</th><th class="case">'+D('colPaye')+'</th></tr></thead>'
+      +'<tbody>'+lignes+'</tbody><tfoot><tr><td></td><td>'+L.echTotal+'</td><td class="r">'+argent(total)+'</td><td></td></tr></tfoot></table>':'')
+    +'<h2 class="dp-h">'+D('comment')+'</h2>'
+    +'<div class="dp-pay"><div class="dp-bloc"><h4>'+L.o2t+'<em>'+D('recommande')+'</em></h4><div class="dp-kv">'
+      +'<span>'+L.payee+'</span><b>'+(DOSSIER.huissier?esc(DOSSIER.huissier)+', ':'')+L.titreHuissier+'</b>'
+      +'<span>'+L.courrielInterac+'</span><b>'+PAY_MAIL+'</b>'
+      +'<span>'+L.message+'</span><b>ENTENTE DE PAIEMENT - '+esc(DOSSIER.numero)+'</b>'
+      +'<span>'+L.reference+'</span><b>'+esc(DOSSIER.numero)+'</b>'
+      +'<span>'+L.reponse+'</span><b>'+PAY_REP+' <small>('+L.enMinuscules+')</small></b></div></div>'
+    +'<div><div class="dp-bloc"><h4>'+L.o3t+'</h4><p>'+L.o3d+'</p><p><b>'+esc(lien.replace(/^https?:\/\//,'').replace(/\/$/,''))+'</b></p></div>'
+      +(bureaux?'<div class="dp-bloc"><h4>'+L.o1t+'</h4>'+bureaux+'</div>':'')+'</div></div>'
+    +'<div class="dp-delai"><span><b>'+D('delaiT')+'</b></span><span>'+D('delaiI')+'</span><span>'+D('delaiE')+'</span></div>'
+    +'<h2 class="dp-h">'+L.conseilsT+'</h2><ul class="dp-tips">'
+      +L.conseils.slice(1).map(function(t){return '<li>'+t.replace('{NO}',esc(DOSSIER.numero))+'</li>';}).join('')+'</ul>'
+    +'<div class="dp-pied"><span>'+esc(ETUDE)+' · '+L.huissiers+' · '+TEL_ETUDE+'</span><span>'+D('garder').replace('{D}',quand)+'</span></div>'
+    +'<div class="dp-pied" style="border:0;margin-top:2px;padding-top:0"><span>'+L.conf+'</span></div>'
+    +'</section>';
+}
+
 function ecranMerci(){ecranActuel='merci';
   var v=DOSSIER.echeancier||[], pro=indexProchain(), xpro=pro>=0?v[pro]:null;
   var quand=dateLisible(DOSSIER.transmisLe||new Date(),true);
@@ -1838,7 +2043,8 @@ function ecranMerci(){ecranActuel='merci';
     +'<div class="fgrid"><div class="fcol">'+cVers+cHui+cTips+'</div><div class="fcol">'+cInterac+cAutres+'</div></div>'
     +'<p class="fielderr" id="avisImpr" hidden style="justify-content:center;margin-top:12px"></p>'
     +'<div class="foot"><div class="etude">'+esc(ETUDE)+' · '+L.huissiers+'</div>'
-    +'<div>'+L.dossierEtiq+' '+esc(DOSSIER.numero)+' · '+telLien()+'</div><div>'+L.conf+'</div></div>';
+    +'<div>'+L.dossierEtiq+' '+esc(DOSSIER.numero)+' · '+telLien()+'</div><div>'+L.conf+'</div></div>'
+    +docPdfHtml(quand);
   brancherCopie();
   var ics=document.getElementById('ics');
   if(ics) ics.onclick=function(){
