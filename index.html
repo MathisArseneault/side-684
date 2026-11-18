@@ -1,5 +1,5 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-xbHGeUGB9JXe2b8IfhpKtjM/9Njx8t1NYdtmsieLLpc='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://mcoryyirdrtzpogiqkbm.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-cOSkxK51mktNoUsR65F1z/Vj+K4A3k1jVsql+hQvaM0='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://mcoryyirdrtzpogiqkbm.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -1273,15 +1273,11 @@ var BANQUES={'001':'BMO Banque de Montréal','002':'Banque Scotia','003':'RBC Ba
   '006':'Banque Nationale','010':'CIBC','016':'HSBC','030':'Banque canadienne de l\'Ouest','039':'Banque Laurentienne',
   '219':'ATB Financial','320':'Banque le Choix du Président (PC Financial)','540':'Banque Manuvie','614':'Tangerine',
   '621':'Peoples Trust (KOHO)','623':'EQ Bank (Banque Équitable)','809':'Central 1 (caisses de la C.-B.)',
-  '815':'Desjardins','828':'Central 1 (caisses de l\'Ontario)','829':'Desjardins Ontario','837':'Meridian'};
-/* Liste offerte pendant la frappe. Le défendeur peut toujours écrire un autre nom. */
-var BANQUES_NOMS=[['Desjardins','815'],['Banque Nationale','006'],['RBC Banque Royale','003'],['Banque TD','004'],
-  ['BMO Banque de Montréal','001'],['Banque Scotia','002'],['CIBC','010'],['Simplii Financial','010'],['Banque Laurentienne','039'],
-  ['Tangerine','614'],['Banque le Choix du Président (PC Financial)','320'],['EQ Bank (Banque Équitable)','623'],
-  ['KOHO','621'],['Peoples Trust','621'],['Banque Manuvie','540'],['HSBC','016'],['Banque canadienne de l\'Ouest','030'],
-  ['ATB Financial','219'],['Desjardins Ontario','829'],['Meridian','837'],['Wealthsimple',''],['Neo Financial',''],
-  ['Alterna',''],['Vancity',''],['Coast Capital',''],['UNI Coopération financière',''],['Motusbank',''],['Caisse populaire',''],
-  ['Autre caisse d\'épargne et de crédit','']];
+  '815':'Desjardins','828':'Central 1 (caisses de l\'Ontario)','829':'Desjardins Ontario','837':'Meridian',
+  '618':'B2B Banque','303':'Banque Amex du Canada','338':'Banque Canadian Tire','308':'Banque de Chine (Canada)','340':'Banque ICICI du Canada','307':'Banque Industrielle et Commerciale de Chine (ICBC)','355':'Banque Shinhan du Canada','323':'Capital One','260':'Citibanque Canada','701':'Edward Jones','551':'Financière Sun Life','311':'MBNA','865':'UNI Coopération financière (caisses acadiennes)'};
+/* Liste offerte pendant la frappe, en ordre alphabétique (numéros : liste des institutions du RQAP).
+   Le défendeur peut toujours écrire un autre nom. */
+var BANQUES_NOMS=[['ATB Financial','219'],['B2B Banque','618'],['Banque Amex du Canada','303'],['Banque Canadian Tire','338'],['Banque canadienne de l\'Ouest','030'],['Banque de Chine (Canada)','308'],['Banque HSBC Canada','016'],['Banque ICICI du Canada','340'],['Banque Industrielle et Commerciale de Chine (ICBC)','307'],['Banque Laurentienne','039'],['Banque le Choix du Président (PC Financial)','320'],['Banque Manuvie','540'],['Banque Nationale','006'],['Banque Scotia (Banque de Nouvelle-Écosse)','002'],['Banque Shinhan du Canada','355'],['Banque TD','004'],['BMO Banque de Montréal','001'],['Capital One','323'],['CIBC','010'],['Citibanque Canada','260'],['Desjardins (caisses du Québec)','815'],['Desjardins Ontario (caisses populaires)','829'],['Edward Jones','701'],['EQ Bank (Banque Équitable)','623'],['Financière Sun Life','551'],['KOHO (Peoples Trust)','621'],['MBNA','311'],['Meridian','837'],['RBC Banque Royale','003'],['Simplii Financial','010'],['Tangerine','614'],['UNI Coopération financière (caisses acadiennes)','865']];
 function nomBanque(n){return BANQUES[String(n||'').replace(/\D/g,'')]||'';}
 function sansAccents(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
 var PROV_NOMS={fr:['Québec','Ontario','Nouveau-Brunswick','Nouvelle-Écosse','Île-du-Prince-Édouard','Terre-Neuve-et-Labrador','Manitoba','Saskatchewan','Alberta','Colombie-Britannique','Yukon','Territoires du Nord-Ouest','Nunavut'],
@@ -1531,7 +1527,7 @@ function brancherMenus(){
   if(ci){
     var montrer=function(){
       var q=sansAccents(ci.value.trim());
-      var liste=BANQUES_NOMS.filter(function(b){return !q || sansAccents(b[0]).indexOf(q)>=0 || (b[1]&&b[1].indexOf(q)===0);}).slice(0,7);
+      var liste=BANQUES_NOMS.filter(function(b){return !q || sansAccents(b[0]).indexOf(q)>=0 || (b[1]&&b[1].indexOf(q)===0);});
       if(!liste.length || (liste.length===1 && sansAccents(liste[0][0])===q)){ fermerPanneau(false); ci.setAttribute('aria-expanded','false'); return; }
       var items=liste.map(function(b){
         var i=sansAccents(b[0]).indexOf(q), html=(q&&i>=0)?esc(b[0].slice(0,i))+'<mark>'+esc(b[0].slice(i,i+q.length))+'</mark>'+esc(b[0].slice(i+q.length)):esc(b[0]);
