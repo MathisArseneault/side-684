@@ -1,5 +1,5 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-vtWIY5+2iTYah/dcfbIsd+lnCoUQhWH+uPVVasxGinM='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://mcoryyirdrtzpogiqkbm.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-xbHGeUGB9JXe2b8IfhpKtjM/9Njx8t1NYdtmsieLLpc='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://mcoryyirdrtzpogiqkbm.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -272,6 +272,21 @@ input.mono{font-variant-numeric:tabular-nums;letter-spacing:.12em}
 .note{padding:12px 14px;border-radius:12px;background:var(--ok-soft);color:var(--tx2);font-size:13.5px;line-height:1.5}
 .note b{color:var(--tx)}
 .checks{display:grid;gap:8px}
+/* Signature au doigt (2026-11-18) : imprimée sur la déclaration 684 et sur la feuille d'entente. */
+.sig{display:grid;gap:8px}
+.sig-h{display:flex;align-items:center;gap:8px}
+.sig-h h3{margin:0;font-size:15px}
+.sig-h .grow{flex:1}
+.sig-eff{display:inline-flex;align-items:center;gap:5px;border:0;background:none;padding:6px 4px;color:var(--acc-ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.sig-eff[hidden]{display:none}
+.sig-pad{position:relative;height:170px;border-radius:14px;background:#fff;border:1.5px solid var(--line2);touch-action:none;overflow:hidden}
+.sig-pad.err{border-color:var(--acc)}
+.sig-pad canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.sig-ph{position:absolute;left:16px;right:16px;top:44%;transform:translateY(-50%);text-align:center;color:#6b7079;font-size:14px;pointer-events:none;transition:opacity .2s}
+.sig-pad.ink .sig-ph{opacity:0}
+.sig-x{position:absolute;left:16px;bottom:30px;color:#6b7079;font-size:16px;line-height:1;pointer-events:none}
+.sig-base{position:absolute;left:36px;right:18px;bottom:32px;border-bottom:1.5px dashed #c4c9d0;pointer-events:none}
+.sig-m{margin:0;color:var(--tx3);font-size:12.5px;line-height:1.45}
 .chk{position:relative;display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border-radius:12px;background:var(--field);border:1.5px solid transparent;font-size:14px;line-height:1.45;cursor:pointer;transition:border-color .2s,background .2s}
 .chk input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
 .chk .box{flex:none;display:grid;place-items:center;width:22px;height:22px;margin-top:1px;border-radius:6px;border:1.5px solid var(--line2);background:var(--surf);color:transparent;transition:all .2s}
@@ -487,6 +502,8 @@ var LISTE_MAX=25;   // la fonction serveur refuse au-delà
 function svg(t,s,w){return '<svg aria-hidden="true" width="'+(s||18)+'" height="'+(s||18)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(w||2)+'" stroke-linecap="round" stroke-linejoin="round">'+t+'</svg>';}
 var P={
  check:'<path d="M20 6 9 17l-5-5"/>',
+ pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+ undo:'<path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-15-6.7L3 13"/>',
  alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
  office:'<path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M16 9h3a2 2 0 0 1 2 2v10"/><path d="M9 7h3M9 11h3M9 15h3"/>',
@@ -866,6 +883,7 @@ fr:{
  votreEntente:"Votre entente",
  vrai:"Je déclare que mes réponses sont vraies et complètes.",
  cochez:"Cochez les deux cases pour transmettre votre déclaration.",
+ sigT:"Votre signature",sigP:"Signez ici avec votre doigt ou la souris",sigEff:"Effacer",sigErr:"Signez dans le cadre pour transmettre votre déclaration.",sigM:"Cette signature sera apposée sur votre déclaration et sur votre entente de paiement.",
  verif:"Vérification",
  transmiseLe:"Transmise le {D}. Gardez cette page : le lien ne se rouvrira pas.",
  huissierResp:"Huissier responsable de votre dossier",
@@ -927,6 +945,7 @@ en:{
  votreEntente:"Your agreement",
  vrai:"I declare that my answers are true and complete.",
  cochez:"Check both boxes to submit your declaration.",
+ sigT:"Your signature",sigP:"Sign here with your finger or mouse",sigEff:"Clear",sigErr:"Sign in the box to submit your declaration.",sigM:"This signature will be placed on your declaration and on your payment agreement.",
  verif:"Review",
  transmiseLe:"Submitted on {D}. Keep this page: the link will not open again.",
  huissierResp:"Bailiff in charge of your file",
@@ -988,6 +1007,7 @@ es:{
  votreEntente:"Su acuerdo",
  vrai:"Declaro que mis respuestas son verdaderas y completas.",
  cochez:"Marque las dos casillas para enviar su declaración.",
+ sigT:"Su firma",sigP:"Firme aquí con el dedo o el ratón",sigEff:"Borrar",sigErr:"Firme en el recuadro para enviar su declaración.",sigM:"Esta firma figurará en su declaración y en su acuerdo de pago.",
  verif:"Verificación",
  transmiseLe:"Enviada el {D}. Conserve esta página: el enlace no se volverá a abrir.",
  huissierResp:"Agente judicial a cargo de su expediente",
@@ -1208,13 +1228,14 @@ document.title=L.titre;majEntete();
    l'ancienne page : un brouillon commencé avant la mise à jour se reprend. */
 var CLE_BROUILLON='d684:'+token;
 function etatVide(){return {nom:'',naiss:'',adr:'',adrNo:'',adrRue:'',adrApp:'',adrVille:'',adrProv:'QC',adrCp:'',tels:[{ti:0,n:''}],mails:[{mi:0,v:''}],sit:'',
-  emps:[],emploinotes:'',res:'',cpts:[],aucunCpt:false,notes:'',vrai:false,accepte:false,
+  emps:[],emploinotes:'',res:'',cpts:[],aucunCpt:false,notes:'',vrai:false,accepte:false,sig:'',
   q:'',ei:-1,ci:-1,recap:false};}
 function normaliser(b){
   var e=etatVide();
   if(!b||typeof b!=='object') return e;
   ['nom','naiss','adr','adrNo','adrRue','adrApp','adrVille','adrProv','adrCp','sit','emploinotes','res','notes'].forEach(function(k){ if(typeof b[k]==='string') e[k]=b[k]; });
   e.vrai=!!b.vrai; e.accepte=!!b.accepte; e.aucunCpt=!!b.aucunCpt; e.recap=!!b.recap;
+  if(typeof b.sig==='string' && sigValide(b.sig)) e.sig=b.sig;
   if(Array.isArray(b.tels)&&b.tels.length) e.tels=b.tels.slice(0,LISTE_MAX).map(function(t){return {ti:+t.ti||0,n:String(t.n||'')};});
   if(Array.isArray(b.mails)&&b.mails.length) e.mails=b.mails.slice(0,LISTE_MAX).map(function(m){return {mi:+m.mi||0,v:String(m.v||'')};});
   if(Array.isArray(b.emps)) e.emps=b.emps.slice(0,LISTE_MAX).map(function(x){return {n:String(x.n||''),a:String(x.a||''),t:String(x.t||''),p:String(x.p||'')};});
@@ -1763,7 +1784,7 @@ function recapEcran(){
     return '<label class="chk'+(R[k]?' on':'')+'" for="c-'+k+'"><input type="checkbox" id="c-'+k+'" data-k="'+k+'"'+(R[k]?' checked':'')+'>'
       +'<span class="box">'+I('check',14,3.4)+'</span><span>'+txt+'</span></label>';
   };
-  return {ic:'bouclier',t:L.qRecap,p:L.qRecapP,eye:L.verif,bouton:L.envoyer,attente:!(R.vrai&&R.accepte),corps:
+  return {ic:'bouclier',t:L.qRecap,p:L.qRecapP,eye:L.verif,bouton:L.envoyer,attente:!pretEnvoi(),corps:
     '<div class="recap">'
     +rs('user',L.identite,[R.nom,R.naiss?dateLisible(R.naiss):''].filter(nonVide).map(function(x,i){return i?x:esc(x);}).join(' · '),'nom')
     +rs('maison',L.etAdresse,[adresseComplete(),resTxt].filter(nonVide).map(esc).join(' · '),'adresse')
@@ -1777,15 +1798,23 @@ function recapEcran(){
     +avertHtml
     +'<div class="note"><b>'+L.avertRassure+'</b><br>'+L.difficulteT+' '+L.difficulteD+' '+telLien()+'</div>'
     +'<div class="checks">'+chk('vrai',L.vrai)+chk('accepte',L.accepte)+'</div>'
-    +'<p class="fielderr" id="err-checks" hidden>'+I('alert',15)+'<span>'+L.cochez+'</span></p>'};
+    +'<p class="fielderr" id="err-checks" hidden>'+I('alert',15)+'<span>'+L.cochez+'</span></p>'
+    +'<div class="sig"><div class="sig-h">'+I('pen',17)+'<h3>'+L.sigT+'</h3><span class="grow"></span>'
+    +'<button type="button" class="sig-eff" id="sig-eff"'+(R.sig?'':' hidden')+'>'+I('undo',14)+L.sigEff+'</button></div>'
+    +'<div class="sig-pad'+(R.sig?' ink':'')+'" id="sig-pad"><canvas id="sig-c" aria-label="'+esc(L.sigT)+'"></canvas>'
+    +'<span class="sig-ph">'+L.sigP+'</span><i class="sig-x" aria-hidden="true">×</i><i class="sig-base" aria-hidden="true"></i></div>'
+    +'<p class="sig-m">'+esc(R.nom||'')+(R.nom?' · ':'')+L.sigM+'</p>'
+    +'<p class="fielderr" id="err-sig" hidden>'+I('alert',15)+'<span>'+L.sigErr+'</span></p></div>'};
 }
-function majEnvoi(){var b=document.getElementById('suiv'); if(b&&R.q==='recap') b.classList.toggle('attente',!(R.vrai&&R.accepte));
+function pretEnvoi(){ return R.vrai && R.accepte && !!R.sig; }
+function majEnvoi(){var b=document.getElementById('suiv'); if(b&&R.q==='recap') b.classList.toggle('attente',!pretEnvoi());
   var e=document.getElementById('err-checks'); if(e&&R.vrai&&R.accepte) e.hidden=true;}
 
 /* ============================ Branchements =============================== */
 function brancher(){
   var q=R.q;
   brancherMenus();
+  if(q==='recap') brancherSignature();
   var p=document.getElementById('prec'); if(p) p.onclick=precedent;
   var s=document.getElementById('suiv'); if(s) s.onclick=function(){ if(q==='recap') return envoyer(s); if(valider()) suivant(); };
   // Tuiles : le choix fait avancer tout seul, après un court instant pour voir la sélection.
@@ -1872,10 +1901,49 @@ function separerNumero(){
     var a=document.getElementById('adrno'), b=document.getElementById('adrrue'); if(a) a.value=m[1]; if(b) b.value=m[2]; majApercu(); sauver(); }
 }
 
+/* ============================ Signature au doigt ======================== */
+/* Trait au doigt, au stylet ou à la souris (événements « pointer »). À chaque lever, l'encre est
+   recadrée et exportée en PNG transparent (≤ 600 px de large) : c'est ce qui part avec la
+   déclaration et s'imprime sur la 684 et l'entente. Rien n'est chargé ni envoyé ailleurs. */
+var SIG_MAX=120000;
+function sigValide(v){ return typeof v==='string' && v.length<=SIG_MAX && /^data:image\/png;base64,[A-Za-z0-9+\/]+={0,2}$/.test(v); }
+function brancherSignature(){
+  var pad=document.getElementById('sig-pad'), c=document.getElementById('sig-c'), eff=document.getElementById('sig-eff');
+  if(!pad||!c||!c.getContext) return;
+  var dpr=Math.max(1,window.devicePixelRatio||1), ctx=c.getContext('2d'), trace=false, der=null, aEncre=!!R.sig;
+  function dimension(){
+    var r=pad.getBoundingClientRect(); c.width=Math.round(r.width*dpr); c.height=Math.round(r.height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0); ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle='#16335c'; ctx.lineWidth=2.4;
+    if(R.sig){ var im=new Image(); im.onload=function(){ var h=Math.min(r.height-50, im.height*(r.width-60)/im.width), w=im.width*h/im.height; ctx.drawImage(im,(r.width-w)/2,(r.height-38-h),w,h); }; im.src=R.sig; }
+  }
+  function pt(e){ var r=c.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top}; }
+  function exporter(){
+    var w=c.width,h=c.height,d=ctx.getImageData(0,0,w,h).data,x0=w,x1=-1,y0=h,y1=-1;
+    for(var y=0;y<h;y+=2) for(var x=0;x<w;x+=2){ if(d[(y*w+x)*4+3]>16){ if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y; } }
+    if(x1<0) return '';
+    var m=6*dpr; x0=Math.max(0,x0-m); y0=Math.max(0,y0-m); x1=Math.min(w-1,x1+m); y1=Math.min(h-1,y1+m);
+    var cw=x1-x0+1, ch=y1-y0+1, k=Math.min(1,600/cw,200/ch), o=document.createElement('canvas');
+    o.width=Math.max(1,Math.round(cw*k)); o.height=Math.max(1,Math.round(ch*k));
+    o.getContext('2d').drawImage(c,x0,y0,cw,ch,0,0,o.width,o.height);
+    var u=o.toDataURL('image/png'); return sigValide(u)?u:'';
+  }
+  function fin(){ if(!trace) return; trace=false; der=null;
+    if(aEncre){ R.sig=exporter(); sauver(); if(eff) eff.hidden=!R.sig; var er=document.getElementById('err-sig'); if(er&&R.sig) er.hidden=true; pad.classList.remove('err'); majEnvoi(); } }
+  c.addEventListener('pointerdown',function(e){ e.preventDefault(); trace=true; der=pt(e); try{c.setPointerCapture(e.pointerId);}catch(_){}
+    ctx.beginPath(); ctx.arc(der.x,der.y,1.1,0,Math.PI*2); ctx.fillStyle='#16335c'; ctx.fill(); aEncre=true; pad.classList.add('ink'); });
+  c.addEventListener('pointermove',function(e){ if(!trace) return; e.preventDefault(); var p=pt(e);
+    ctx.beginPath(); ctx.moveTo(der.x,der.y); var mx=(der.x+p.x)/2, my=(der.y+p.y)/2; ctx.quadraticCurveTo(der.x,der.y,mx,my); ctx.lineTo(p.x,p.y); ctx.stroke(); der=p; });
+  c.addEventListener('pointerup',fin); c.addEventListener('pointercancel',fin); c.addEventListener('pointerleave',fin);
+  if(eff) eff.onclick=function(){ ctx.clearRect(0,0,c.width,c.height); R.sig=''; aEncre=false; pad.classList.remove('ink'); eff.hidden=true; sauver(); majEnvoi(); };
+  dimension();
+}
+
 /* ============================ Envoi ===================================== */
 function envoyer(sb){
   if(!(R.vrai&&R.accepte)){ document.getElementById('err-checks').hidden=false;
     root.querySelectorAll('.chk').forEach(function(l){ if(!l.querySelector('input').checked) l.classList.add('err'); }); return; }
+  if(!R.sig){ var es=document.getElementById('err-sig'), pd=document.getElementById('sig-pad');
+    if(es) es.hidden=false; if(pd){ pd.classList.add('err'); pd.scrollIntoView({block:'center',behavior:'smooth'}); } return; }
   // Garde-fou : une section obligatoire laissée vide renvoie à sa question.
   if(vide(R.nom)||vide(R.naiss)) return aller('nom',-1);
   if(vide(R.adrRue)||vide(R.adrVille)) return aller('adresse',-1);
@@ -1895,7 +1963,7 @@ function envoyer(sb){
   var data={token:token,nom_prenom:R.nom.trim(),date_naissance:R.naiss,adresse_complete:adresseComplete(),
     situation_emploi:R.sit||"",employeurs:emps.slice(0,LISTE_MAX),emploi_notes:(st?'':R.emploinotes),
     residence_principale:R.res||"",notes:R.notes,telephones:tels.slice(0,LISTE_MAX),courriels:mails.slice(0,LISTE_MAX),
-    comptes:cpts.slice(0,LISTE_MAX),modalites_acceptees:true};
+    comptes:cpts.slice(0,LISTE_MAX),modalites_acceptees:true,signature:(sigValide(R.sig)?R.sig:'')};
   /* Un envoi qui échoue ne détruit RIEN : la saisie reste, avec un bandeau clair. */
   function echecEnvoi(detail){
     sb.disabled=false; sb.textContent=L.envoyer;
