@@ -1,5 +1,5 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-cOSkxK51mktNoUsR65F1z/Vj+K4A3k1jVsql+hQvaM0='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://mcoryyirdrtzpogiqkbm.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ggwHSTRLm0s8WWUdDpmRmtGmEFyz67wyFmK0ntEOr0w='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://mcoryyirdrtzpogiqkbm.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -409,6 +409,50 @@ input.mono{font-variant-numeric:tabular-nums;letter-spacing:.12em}
   .okb .btn{flex-basis:100%;background:var(--surf)}
 }
 
+
+/* ---------- modalités en bref (règles en tuiles, conséquences sans boîte jaune, texte complet repliable) ---------- */
+.regles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.regle{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;border-radius:12px;background:var(--field);min-width:0}
+.regle .ic{width:32px;height:32px;border-radius:9px;background:var(--surf);color:var(--tx2)}
+.regle b{display:block;font-size:13.5px;font-weight:650;color:var(--tx);line-height:1.3}
+.regle small{display:block;margin-top:2px;font-size:12.5px;color:var(--tx3);line-height:1.4}
+.regle code{font:inherit;font-weight:650;color:var(--tx)}
+.conseq{display:grid;gap:12px;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--surf)}
+.conseq-h{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--tx)}
+.conseq-h svg{color:var(--acc)}
+.conseq-l{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.conseq-l>div{display:flex;gap:9px;align-items:center;padding:10px 11px;border-radius:10px;background:var(--field);font-size:12.5px;font-weight:600;color:var(--tx2);line-height:1.3;min-width:0}
+.conseq-l svg{flex:none;color:var(--tx3)}
+.conseq-f{margin:0;font-size:12.5px;color:var(--tx3)}
+.conseq-t{margin:0;font-size:13px;color:var(--tx2);line-height:1.5}
+.appel{display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--tx2);line-height:1.4}
+.appel .ic{width:30px;height:30px;border-radius:50%;background:var(--ok-soft);color:var(--ok)}
+.appel a{font-weight:700;color:var(--tx);white-space:nowrap}
+.plein{border-radius:12px;background:var(--field)}
+.plein>summary{display:flex;align-items:center;gap:8px;padding:11px 14px;cursor:pointer;list-style:none;font-size:13px;font-weight:600;color:var(--tx2)}
+.plein>summary::-webkit-details-marker{display:none}
+.plein>summary svg{transition:transform .2s;color:var(--tx3)}
+.plein[open]>summary svg{transform:rotate(180deg)}
+.plein .plein-c{display:grid;gap:12px;padding:0 14px 14px}
+.plein .plein-c p{margin:0;font-size:13px;color:var(--tx3);line-height:1.5}
+.plein .wd{font-size:13px;color:var(--tx2);line-height:1.5}
+.plein .wt{font-size:13px;font-weight:650;color:var(--tx)}
+@media (max-width:640px){.regles{grid-template-columns:minmax(0,1fr)}.conseq-l{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- ordinateur : formulaire plus large (option A, 2026-11-18) ---------- */
+@media (min-width:1100px){
+.top-in,.wrap{max-width:1112px}
+.qb{padding:32px 36px;gap:22px}
+.qf{padding:14px 36px}
+.champs{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:22px}
+.champs>*{grid-column:1/-1}
+.champs>.f{grid-column:auto}
+.champs:has(>.duo)>.f{grid-column:1/-1}
+.champs:has(>.cheque){grid-auto-flow:row dense}
+.champs:has(>.cheque)>*,.champs:has(>.cheque)>.f{grid-column:1}
+.champs:has(>.cheque)>.cheque{grid-column:2;grid-row:1/span 7;align-self:start}
+.recap{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
 
 /* ---------- impression / PDF ---------- */
@@ -626,6 +670,13 @@ fr:{
  precisezT:"Précisez votre situation",
  precisezPh:"Décrivez d'où proviennent vos revenus.",
  /* --- Engagement, réassurance --- */
+ regT:"Les 4 règles de votre entente",
+ reg:[["calPlus","Payer à la date prévue","Le montant exact, au plus tard ce jour-là."],["diese","Inscrire votre dossier","Le numéro {NO} sur chaque paiement."],["clock","Prévoir 48 à 72 h","C'est la date de réception qui compte."],["tel","Appeler avant l'échéance","Aucun report n'est accordé après coup."]],
+ consT:"Si un versement est manqué",
+ cons:[["slash","L'entente est suspendue"],["coins","Tout le solde devient exigible"],["hammer","Saisies possibles : salaire, compte, véhicule"]],
+ consFin:"Sans autre préavis, et aucune nouvelle entente ne sera possible.",
+ appelT:"Vous pensez manquer un versement ? Appelez l'étude avant la date prévue :",
+ lireTout:"Lire le texte complet des modalités",
  avertRassure:"Tant que vous respectez l'échéancier ci-dessus, aucune de ces mesures ne s'applique.",
  difficulteT:"Vous croyez ne pas pouvoir payer un versement ?",
  difficulteD:"Appelez l'étude avant la date prévue. Un arrangement se discute toujours mieux avant un défaut qu'après.",
@@ -722,6 +773,13 @@ en:{
  revenuRetraitePh:"QPP, Old Age Security, employer plan, RRSP…",
  precisezT:"Describe your situation",
  precisezPh:"Tell us where your income comes from.",
+ regT:"The 4 rules of your agreement",
+ reg:[["calPlus","Pay on the scheduled date","The exact amount, no later than that day."],["diese","Include your file number","Number {NO} on every payment."],["clock","Allow 48 to 72 hours","The date we receive it is what counts."],["tel","Call before the due date","No extension is granted afterwards."]],
+ consT:"If a payment is missed",
+ cons:[["slash","The agreement is suspended"],["coins","The full balance becomes due"],["hammer","Possible seizure: wages, account, vehicle"]],
+ consFin:"Without further notice, and no new agreement will be possible.",
+ appelT:"Think you may miss a payment? Call our office before the due date:",
+ lireTout:"Read the full terms",
  avertRassure:"As long as you keep to the schedule above, none of these measures applies.",
  difficulteT:"Think you may not be able to make a payment?",
  difficulteD:"Call our office before the scheduled date. An arrangement is always easier to discuss before a default than after one.",
@@ -816,6 +874,13 @@ es:{
  revenuRetraitePh:"RRQ, Seguridad de la Vejez, plan del empleador, REER…",
  precisezT:"Describa su situación",
  precisezPh:"Indique de dónde provienen sus ingresos.",
+ regT:"Las 4 reglas de su acuerdo",
+ reg:[["calPlus","Pagar en la fecha prevista","El monto exacto, a más tardar ese día."],["diese","Indicar su expediente","El número {NO} en cada pago."],["clock","Prever de 48 a 72 h","Cuenta la fecha de recepción."],["tel","Llamar antes del vencimiento","No se concede ningún aplazamiento después."]],
+ consT:"Si no se efectúa un pago",
+ cons:[["slash","El acuerdo se suspende"],["coins","Todo el saldo es exigible"],["hammer","Embargos posibles: salario, cuenta, vehículo"]],
+ consFin:"Sin otro aviso, y no será posible ningún nuevo acuerdo.",
+ appelT:"¿Cree que no podrá efectuar un pago? Llame a la oficina antes de la fecha prevista:",
+ lireTout:"Leer el texto completo de las condiciones",
  avertRassure:"Mientras respete el calendario anterior, ninguna de estas medidas se aplica.",
  difficulteT:"¿Cree que no podrá efectuar un pago?",
  difficulteD:"Llame a la oficina antes de la fecha prevista. Un arreglo siempre se negocia mejor antes de un incumplimiento que después.",
@@ -1544,6 +1609,28 @@ function brancherMenus(){
   }
 }
 
+
+/* Modalités en bref : 4 règles en tuiles, conséquences en 3 points (sans boîte jaune), rappel d'appeler,
+   et le texte complet (celui des paramètres s'il existe) dans un repli. */
+function premierePhrase(t){ t=String(t||'').trim(); var i=t.search(/[.!?](\s|$)/); return i>0? t.slice(0,i+1) : t; }
+function modalitesEnBref(mItems,mAvert,mIntro,modLi,avertHtml){
+  var perso=!!(DOSSIER.modalites&&Array.isArray(DOSSIER.modalites.modalites)&&DOSSIER.modalites.modalites.length);
+  var icones=['calPlus','diese','clock','tel'];
+  var tuiles=perso
+    ? mItems.map(function(m,i){ return [icones[i%4], nonVide(m.titre)?m.titre:premierePhrase(m.corps), nonVide(m.titre)?premierePhrase(m.corps):'']; })
+    : L.reg;
+  var regles='<div class="regles">'+tuiles.map(function(r){
+    return '<div class="regle"><span class="ic">'+I(r[0],16)+'</span><div><b>'+texteBloc(r[1])+'</b>'+(r[2]?'<small>'+texteBloc(r[2])+'</small>':'')+'</div></div>';}).join('')+'</div>';
+  var consPerso=!!(DOSSIER.modalites&&Array.isArray(DOSSIER.modalites.consequences)&&DOSSIER.modalites.consequences.length);
+  var cons='<div class="conseq"><div class="conseq-h">'+I('alert',17)+'<span>'+L.consT+'</span></div>'
+    +(consPerso
+      ? mAvert.map(function(a){ return '<p class="conseq-t">'+texteBloc(premierePhrase(a.corps))+'</p>'; }).join('')
+      : '<div class="conseq-l">'+L.cons.map(function(c){ return '<div>'+I(c[0],16)+'<span>'+c[1]+'</span></div>'; }).join('')+'</div><p class="conseq-f">'+L.consFin+'</p>')
+    +'<div class="appel"><span class="ic">'+I('tel',15)+'</span><span>'+L.appelT+' '+telLien()+'</span></div></div>';
+  var plein='<details class="plein"><summary>'+I('doc',16)+'<span>'+L.lireTout+'</span><span class="grow"></span>'+I('chev',16)+'</summary>'
+    +'<div class="plein-c"><p>'+mIntro+'</p><ol class="mod">'+modLi+'</ol>'+avertHtml+'</div></details>';
+  return '<div class="bloc"><h3>'+L.regT.replace('4',String(tuiles.length))+'</h3>'+regles+'</div>'+cons+plein;
+}
 /* ============================ ACCUEIL ==================================== */
 function ecranIntro(){ecranActuel='intro';
   var li=L.introLi.map(function(x){return '<div>'+I('check',16,2.6)+'<span>'+x+'</span></div>';}).join('');
@@ -1774,8 +1861,8 @@ function recapEcran(){
   var modLi=mItems.map(function(m){
     return '<li>'+(nonVide(m.titre)?'<div class="mt">'+texteBloc(m.titre)+'</div>':'')+'<div class="md">'+texteBloc(m.corps)+'</div></li>';}).join('');
   var avertHtml=mAvert.map(function(a){
-    return '<div class="warn">'+I('alert',18)+'<div>'+(nonVide(a.titre)?'<div class="wt">'+texteBloc(a.titre)+'</div>':'')
-      +'<div class="wd">'+texteBloc(a.corps)+'</div></div></div>';}).join('');
+    return '<div>'+(nonVide(a.titre)?'<div class="wt">'+texteBloc(a.titre)+'</div>':'')
+      +'<div class="wd">'+texteBloc(a.corps)+'</div></div>';}).join('');
   var chk=function(k,txt){
     return '<label class="chk'+(R[k]?' on':'')+'" for="c-'+k+'"><input type="checkbox" id="c-'+k+'" data-k="'+k+'"'+(R[k]?' checked':'')+'>'
       +'<span class="box">'+I('check',14,3.4)+'</span><span>'+txt+'</span></label>';
@@ -1790,9 +1877,7 @@ function recapEcran(){
     +rs('doc',L.notes,esc(R.notes)||esc(L.aucune),'notes')
     +'</div>'
     +'<div class="bloc"><h3>'+L.votreEntente+'</h3><p>'+L.echSous+'</p>'+echeancierHtml()+'</div>'
-    +'<div class="bloc"><h3>'+L.modT+'</h3><p>'+mIntro+'</p><ol class="mod">'+modLi+'</ol></div>'
-    +avertHtml
-    +'<div class="note"><b>'+L.avertRassure+'</b><br>'+L.difficulteT+' '+L.difficulteD+' '+telLien()+'</div>'
+    +modalitesEnBref(mItems,mAvert,mIntro,modLi,avertHtml)
     +'<div class="checks">'+chk('vrai',L.vrai)+chk('accepte',L.accepte)+'</div>'
     +'<p class="fielderr" id="err-checks" hidden>'+I('alert',15)+'<span>'+L.cochez+'</span></p>'
     +'<div class="sig"><div class="sig-h">'+I('pen',17)+'<h3>'+L.sigT+'</h3><span class="grow"></span>'
