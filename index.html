@@ -1,5 +1,5 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ggwHSTRLm0s8WWUdDpmRmtGmEFyz67wyFmK0ntEOr0w='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://mcoryyirdrtzpogiqkbm.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dy5qjzfQ+yCesbk6BTn+p58QXmjLiIr2sZoPM0RXS70='; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://mcoryyirdrtzpogiqkbm.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
@@ -201,8 +201,8 @@ input[type=date]::-webkit-date-and-time-value{text-align:left}
 .pan.feuille h4{margin:0 6px 6px;font-size:13px;font-weight:650;color:var(--tx3)}
 .pan.feuille .opt{min-height:50px;font-size:16px}
 /* ---------- adresse : chaque case à sa place ---------- */
-.adr-grille{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;grid-template-areas:"no rue rue rue rue app" "ville ville ville prov cp cp"}
-.a-no{grid-area:no}.a-rue{grid-area:rue}.a-app{grid-area:app}.a-ville{grid-area:ville}.a-prov{grid-area:prov}.a-cp{grid-area:cp}
+.adr-grille{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;grid-template-areas:"no art rue rue rue app" "ville ville ville prov cp cp"}
+.a-no{grid-area:no}.a-art{grid-area:art}.a-rue{grid-area:rue}.a-app{grid-area:app}.a-ville{grid-area:ville}.a-prov{grid-area:prov}.a-cp{grid-area:cp}
 #adrcp{text-transform:uppercase;letter-spacing:.06em}
 /* ---------- adresse en champs séparés ---------- */
 .duo.adr1{grid-template-columns:minmax(0,1fr) minmax(0,2.4fr)}
@@ -393,7 +393,7 @@ input.mono{font-variant-numeric:tabular-nums;letter-spacing:.12em}
   .tiles.deux{grid-template-columns:minmax(0,1fr)}
   .tiles.deux .tile{min-height:54px}
   .duo,.duo.egal{grid-template-columns:minmax(0,1fr)}
-  .adr-grille{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;grid-template-areas:"no no app app" "rue rue rue rue" "ville ville ville ville" "prov prov cp cp"}
+  .adr-grille{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;grid-template-areas:"no no art art" "rue rue rue app" "ville ville ville ville" "prov prov cp cp";align-items:end}
   .ligne{grid-template-columns:minmax(0,8.6rem) minmax(0,1fr) auto}
   .ligne.lmail{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"type x" "mail mail";row-gap:6px;padding-bottom:4px}
   .ligne.lmail .dd{grid-area:type;justify-self:start;width:auto;min-width:9.5rem}
@@ -908,7 +908,7 @@ fr:{
  interacDelai:"Un virement Interac arrive habituellement en environ 1 heure.",o1d1:"Présentez-vous à notre bureau, tel qu'indiqué à votre feuille d'entente :",
  etAdresse:"Adresse et logement",etComptes:"Comptes et biens",
  qAdr:"Où habitez-vous ?",qAdrP:"Votre adresse actuelle. Chaque partie dans sa case, c'est plus simple.",
- adrNo:"N° civique",adrRue:"Rue",adrRuePh:"Ex. : rue Rachel Est",adrApp:"App. ou bureau",adrAppPh:"Ex. : 3",
+ adrNo:"N° civique",adrArt:"Artère",adrArtPh:"Ex. : rue",adrRue:"Rue",adrRuePh:"Ex. : Rachel Est",adrApp:"App. ou bureau",adrAppPh:"Ex. : 3",
  adrVille:"Ville",adrVillePh:"Ex. : Montréal",adrProv:"Province",adrCp:"Code postal",adrCpErr:"Code postal à vérifier (ex. : H2J 2J1).",
  instRequis:"Indiquez le nom de votre banque ou caisse.",
  transit:"Numéro de transit",transitAide:"5 chiffres · votre succursale",transitErr:"Le numéro de transit compte 5 chiffres.",
@@ -970,7 +970,7 @@ en:{
  interacDelai:"An Interac transfer usually arrives in about 1 hour.",o1d1:"Come to our office, as shown on your agreement sheet:",
  etAdresse:"Address and housing",etComptes:"Accounts and assets",
  qAdr:"Where do you live?",qAdrP:"Your current address. One part per box, it's simpler.",
- adrNo:"Civic no.",adrRue:"Street",adrRuePh:"E.g.: Rachel Street East",adrApp:"Apt. or suite",adrAppPh:"E.g.: 3",
+ adrNo:"Civic no.",adrArt:"Street type",adrArtPh:"E.g.: street",adrRue:"Street name",adrRuePh:"E.g.: Rachel East",adrApp:"Apt. or suite",adrAppPh:"E.g.: 3",
  adrVille:"City",adrVillePh:"E.g.: Montréal",adrProv:"Province",adrCp:"Postal code",adrCpErr:"Please check the postal code (e.g.: H2J 2J1).",
  instRequis:"Enter the name of your bank or credit union.",
  transit:"Transit number",transitAide:"5 digits · your branch",transitErr:"The transit number has 5 digits.",
@@ -1032,7 +1032,7 @@ es:{
  interacDelai:"Una transferencia Interac suele llegar en aproximadamente 1 hora.",o1d1:"Preséntese en nuestra oficina, según lo indicado en su hoja de acuerdo:",
  etAdresse:"Dirección y vivienda",etComptes:"Cuentas y bienes",
  qAdr:"¿Dónde vive?",qAdrP:"Su dirección actual. Cada parte en su casilla, es más sencillo.",
- adrNo:"Número",adrRue:"Calle",adrRuePh:"Ej.: rue Rachel Est",adrApp:"Apto. u oficina",adrAppPh:"Ej.: 3",
+ adrNo:"Número",adrArt:"Tipo de vía",adrArtPh:"Ej.: rue",adrRue:"Calle",adrRuePh:"Ej.: Rachel Est",adrApp:"Apto. u oficina",adrAppPh:"Ej.: 3",
  adrVille:"Ciudad",adrVillePh:"Ej.: Montréal",adrProv:"Provincia",adrCp:"Código postal",adrCpErr:"Verifique el código postal (ej.: H2J 2J1).",
  instRequis:"Indique el nombre de su banco o caja.",
  transit:"Número de tránsito",transitAide:"5 cifras · su sucursal",transitErr:"El número de tránsito tiene 5 cifras.",
@@ -1292,13 +1292,13 @@ document.title=L.titre;majEntete();
    seulement, effacé dès la réussite de l'envoi. Les noms de champs sont ceux de
    l'ancienne page : un brouillon commencé avant la mise à jour se reprend. */
 var CLE_BROUILLON='d684:'+token;
-function etatVide(){return {nom:'',naiss:'',adr:'',adrNo:'',adrRue:'',adrApp:'',adrVille:'',adrProv:'QC',adrCp:'',tels:[{ti:0,n:''}],mails:[{mi:0,v:''}],sit:'',
+function etatVide(){return {nom:'',naiss:'',adr:'',adrNo:'',adrArt:'',adrRue:'',adrApp:'',adrVille:'',adrProv:'QC',adrCp:'',tels:[{ti:0,n:''}],mails:[{mi:0,v:''}],sit:'',
   emps:[],emploinotes:'',res:'',cpts:[],aucunCpt:false,notes:'',vrai:false,accepte:false,sig:'',
   q:'',ei:-1,ci:-1,recap:false};}
 function normaliser(b){
   var e=etatVide();
   if(!b||typeof b!=='object') return e;
-  ['nom','naiss','adr','adrNo','adrRue','adrApp','adrVille','adrProv','adrCp','sit','emploinotes','res','notes'].forEach(function(k){ if(typeof b[k]==='string') e[k]=b[k]; });
+  ['nom','naiss','adr','adrNo','adrArt','adrRue','adrApp','adrVille','adrProv','adrCp','sit','emploinotes','res','notes'].forEach(function(k){ if(typeof b[k]==='string') e[k]=b[k]; });
   e.vrai=!!b.vrai; e.accepte=!!b.accepte; e.aucunCpt=!!b.aucunCpt; e.recap=!!b.recap;
   if(typeof b.sig==='string' && sigValide(b.sig)) e.sig=b.sig;
   if(Array.isArray(b.tels)&&b.tels.length) e.tels=b.tels.slice(0,LISTE_MAX).map(function(t){return {ti:+t.ti||0,n:String(t.n||'')};});
@@ -1349,8 +1349,20 @@ var PROV_NOMS={fr:['Québec','Ontario','Nouveau-Brunswick','Nouvelle-Écosse','�
   en:['Quebec','Ontario','New Brunswick','Nova Scotia','Prince Edward Island','Newfoundland and Labrador','Manitoba','Saskatchewan','Alberta','British Columbia','Yukon','Northwest Territories','Nunavut']};
 function nomProv(c){var i=PROVINCES.indexOf(c);return i<0?c:(PROV_NOMS[langue]||PROV_NOMS.fr)[i];}
 /* L'adresse en une ligne, telle que l'étude la reçoit (une seule colonne en base). */
+/* Artère (type de voie) : sa propre case, comme dans SIDE et JURISOFT (2026-11-20). Elle se met devant
+   le nom (« rue Rachel Est »), sauf les types anglais qui vont après (« Main Street », « Lakeshore Rd »). */
+var ARTERES=[['rue'],['boulevard','boul'],['avenue','av'],['chemin','ch'],['rang'],['route','rte'],['montée'],['côte'],
+  ['place','pl'],['croissant','crois'],['impasse','imp'],['allée'],['promenade','prom'],['terrasse','tsse'],['carré'],
+  ['circuit'],['cour'],['ruelle'],['quai'],['sentier'],['autoroute','aut'],['parc'],
+  ['street','st'],['road','rd'],['drive','dr'],['crescent','cres'],['lane'],['way']];
+var ARTERES_APRES=['street','st','road','rd','drive','dr','crescent','cres','lane','way','ave','blvd','court','ct'];
+function rueAvecArtere(){
+  var a=String(R.adrArt||'').trim(), r=String(R.adrRue||'').trim();
+  if(!a) return r; if(!r) return a;
+  return ARTERES_APRES.indexOf(sansAccents(a).replace(/\.$/,''))>=0 ? r+' '+a : a+' '+r;
+}
 function adresseComplete(){
-  var l1=(R.adrNo.trim()+' '+R.adrRue.trim()).trim();
+  var l1=(R.adrNo.trim()+' '+rueAvecArtere()).trim();
   var p=[l1];
   if(!vide(R.adrApp)) p.push((/^\d/.test(R.adrApp.trim())?'app. ':'')+R.adrApp.trim());
   var v=R.adrVille.trim(); if(v) p.push(v+(R.adrProv?' ('+R.adrProv+')':'')+(vide(R.adrCp)?'':' '+R.adrCp.trim()));
@@ -1607,6 +1619,20 @@ function brancherMenus(){
     ci.addEventListener('focus',montrer); ci.addEventListener('input',montrer);
     ci.addEventListener('blur',function(){ setTimeout(function(){ if(PAN&&PAN.ancre===ci) fermerPanneau(false); },120); });
   }
+  // Artère : rue, boulevard, avenue… proposés pendant la frappe, texte libre toujours accepté.
+  var ar=document.getElementById('adrart');
+  if(ar){
+    var montrerArt=function(){
+      var q=sansAccents(ar.value.trim()).replace(/\.$/,'');
+      var liste=ARTERES.filter(function(x){return !q || x.some(function(m){return sansAccents(m).indexOf(q)===0;});});
+      if(!liste.length || (liste.length===1 && sansAccents(liste[0][0])===q)){ fermerPanneau(false); ar.setAttribute('aria-expanded','false'); return; }
+      ouvrirPanneau(ar,liste.map(function(x){return {v:x[0],t:x[0]};}),'',function(it){
+        R.adrArt=it.v; ar.value=it.v; majApercu(); sauver();
+      },{suggestions:true});
+    };
+    ar.addEventListener('focus',montrerArt); ar.addEventListener('input',montrerArt);
+    ar.addEventListener('blur',function(){ setTimeout(function(){ if(PAN&&PAN.ancre===ar) fermerPanneau(false); },120); });
+  }
 }
 
 
@@ -1746,6 +1772,7 @@ function afficher(){
   else if(q==='adresse') o={ic:'maison',t:L.qAdr,p:L.qAdrP,corps:'<div class="champs">'
       +'<div class="adr-grille">'
       +'<div class="a-no">'+champ({k:'adrNo',id:'adrno',lab:L.adrNo,req:true,im:'numeric',ph:'1234'})+'</div>'
+      +'<div class="a-art">'+champ({k:'adrArt',id:'adrart',lab:L.adrArt,ph:L.adrArtPh,combo:true,fac:''})+'</div>'
       +'<div class="a-rue">'+champ({k:'adrRue',id:'adrrue',lab:L.adrRue,req:true,ac:'address-line1',ph:L.adrRuePh})+'</div>'
       +'<div class="a-app">'+champ({k:'adrApp',id:'adrapp',lab:L.adrApp,ac:'address-line2',ph:L.adrAppPh,fac:''})+'</div>'
       +'<div class="a-ville">'+champ({k:'adrVille',id:'adrville',lab:L.adrVille,req:true,ac:'address-level2',ph:L.adrVillePh})+'</div>'
@@ -1948,7 +1975,7 @@ function brancher(){
 function valider(){
   var ids=[], q=R.q;
   if(q==='nom') ids=['nomp','naissp'];
-  if(q==='adresse'){ separerNumero(); ids=['adrno','adrrue','adrville','adrcp']; }
+  if(q==='adresse'){ separerNumero(); separerArtere(); ids=['adrno','adrrue','adrville','adrcp']; }
   if(q==='emp') ids=['empn'];
   if(q==='revenu') ids=['emploinotes'];
   if(q==='cpt' && R.cpts[R.ci]) ids=['cpti'];
@@ -1980,6 +2007,18 @@ function separerNumero(){
   var m=String(R.adrRue||'').trim().match(/^(\d+[A-Za-z]?(?:-\d+)?)[,\s]+(.+)$/);
   if(m){ R.adrNo=m[1]; R.adrRue=m[2];
     var a=document.getElementById('adrno'), b=document.getElementById('adrrue'); if(a) a.value=m[1]; if(b) b.value=m[2]; majApercu(); sauver(); }
+}
+/* « rue Rachel Est » tapé dans la rue : le type de voie passe dans sa case Artère. */
+function separerArtere(){
+  if(!vide(R.adrArt)) return;
+  var mots=String(R.adrRue||'').trim().split(/\s+/); if(mots.length<2) return;
+  var connu=function(m){ m=sansAccents(m).replace(/\.$/,''); return ARTERES.some(function(x){return x.indexOf(m)>=0;}); };
+  var art='';
+  if(connu(mots[0])) art=mots.shift();
+  else if(ARTERES_APRES.indexOf(sansAccents(mots[mots.length-1]).replace(/\.$/,''))>=0) art=mots.pop();
+  if(!art) return;
+  R.adrArt=art; R.adrRue=mots.join(' ');
+  var a=document.getElementById('adrart'), b=document.getElementById('adrrue'); if(a) a.value=R.adrArt; if(b) b.value=R.adrRue; majApercu(); sauver();
 }
 
 /* ============================ Signature au doigt ======================== */
